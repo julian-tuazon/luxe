@@ -20,7 +20,11 @@ export default class ProductList extends React.Component {
   }
 
   render() {
-    const products = this.state.products.map(product => <ProductListItem product={product} key={product.productId} />);
+    const products = this.state.products.map(product =>
+      <ProductListItem
+        product={product}
+        key={product.productId}
+        onClick={this.props.setView('details', { productId: product.productId })} />);
 
     return (
       <div className="w-50 mx-auto">
