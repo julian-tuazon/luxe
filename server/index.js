@@ -45,7 +45,7 @@ app.get('/api/products/:productId', (req, res, next) => {
       if (data.rows.length === 0) return next(new ClientError(`productId ${req.params.productId} does not exist`, 404));
       return res.json(data.rows[0]);
     })
-    .catch(err => res.status(500).next(err));
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
