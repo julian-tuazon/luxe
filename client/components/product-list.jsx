@@ -20,13 +20,13 @@ export default class ProductList extends React.Component {
   }
 
   render() {
-    const products = this.state.products.map(product =>
-      <ProductListItem product={product} key={product.productId}/>
-    );
+    const products = this.state.products.map(product => <ProductListItem product={product} key={product.productId} />);
 
     return (
-      <div className="row row-cols-1 row-cols-md-2">
-        {products}
+      <div className="w-50 mx-auto">
+        <div className="row row-cols-1 row-cols-md-3">
+          {products}
+        </div>
       </div>
     );
   }
