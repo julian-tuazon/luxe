@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './header';
+import ProductList from './product-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -8,6 +9,11 @@ export default class App extends React.Component {
   }
 
   render() {
-    return <Header />;
+    return (
+      <React.Fragment>
+        <Header />
+        <ProductList />
+      </React.Fragment>
+    );
   }
 }
