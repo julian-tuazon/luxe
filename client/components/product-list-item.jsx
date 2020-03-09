@@ -4,10 +4,11 @@ export default function ProductListItem(props) {
   return (
     <div className="col mb-4">
       <div className="card">
-        <img src="..." className="card-img-top" alt="..."></img>
+        <img src={props.image} className="card-img-top" alt={props.name}></img>
         <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <h5 className="card-title">{props.name}</h5>
+          <p className="card-text">${props.price}</p>
+          <p className="card-text">{props.shortDescription}</p>
         </div>
       </div>
     </div>
