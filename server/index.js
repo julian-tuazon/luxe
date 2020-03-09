@@ -34,6 +34,7 @@ app.get('/api/products', (req, res, next) => {
 });
 
 app.get('/api/products/:productId', (req, res, next) => {
+  if (!(/(?!^0)(^\d+$)/.test(req.params.productId))) return res.status(400).json({ error: 'please enter a positive integer productId' });
   const text = `
     SELECT *
       FROM "products"
