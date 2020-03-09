@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
@@ -13,10 +14,15 @@ export default class App extends React.Component {
       }
     };
     this.setView = this.setView.bind(this);
+    this.checkView = this.checkView.bind(this);
+  }
+
+  checkView() {
+    console.log(this.state);
   }
 
   setView(name, params) {
-    this.setState({ view: { name, params } });
+    this.setState({ view: { name, params } }, this.checkView);
   }
 
   render() {

@@ -4,9 +4,14 @@ export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = { product: null };
+    this.getProductData = this.getProductData.bind(this);
   }
 
   componentDidMount() {
+    this.getProductData();
+  }
+
+  getProductData() {
     fetch(`/api/products/${this.props.details.productId}`)
       .then(res => res.json())
       .then(data => this.setState({ product: data }))
@@ -25,7 +30,7 @@ export default class ProductDetails extends React.Component {
               </button>
             </div>
             <div className="modal-body">
-              ...
+              Hi
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
