@@ -50,11 +50,20 @@ app.get('/api/products/:productId', (req, res, next) => {
 });
 
 app.get('/api/cart/', (req, res, next) => {
+  if (!('cartId' in req.session)) return [];
   const text = `
-    SELECT *
-      FROM "cartItems"
-  `;
-  db.query(text)
+    SELECT "c"."cartItemId",
+           "c"."price",
+           "p"."productId",
+           "p"."image",
+           "p"."name",
+           "p"."shortDescription"
+      FROM "cartItems" AS "c"
+      JOIN "products" AS "p" USING ("productId")
+     WHERE "c"."cartId" = $1
+    `;
+  const values = [req.session.cartId];
+  db.query(text, values)
     .then(data => res.json(data.rows))
     .catch(err => next(err));
 });
