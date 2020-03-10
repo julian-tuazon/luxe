@@ -14,6 +14,7 @@ export default class App extends React.Component {
       cart: []
     };
     this.setView = this.setView.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +48,7 @@ export default class App extends React.Component {
       <React.Fragment>
         <Header cartItemCount={this.state.cart.length}/>
         {this.state.view.name === 'catalog'
-          ? <ProductList setView={this.setView} />
+          ? <ProductList setView={this.setView} addToCart={this.addToCart}/>
           : <ProductDetails details={this.state.view.params} setView={this.setView} />}
       </React.Fragment>
     );
