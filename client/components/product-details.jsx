@@ -21,7 +21,6 @@ export default class ProductDetails extends React.Component {
 
   handleClick() {
     this.props.setView('catalog', {});
-    this.setState({ product: null });
   }
 
   render() {
