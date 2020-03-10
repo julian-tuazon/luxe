@@ -43,7 +43,7 @@ app.get('/api/products/:productId', (req, res, next) => {
   const values = [req.params.productId];
   db.query(text, values)
     .then(data => {
-      if (data.rows.length === 0) return next(new ClientError(`productId ${req.params.productId} does not exist`, 404));
+      if (data.rows.length === 0) throw new ClientError(`productId ${req.params.productId} does not exist`, 404);
       return res.json(data.rows[0]);
     })
     .catch(err => next(err));
@@ -79,7 +79,7 @@ app.post('/api/cart', (req, res, next) => {
   const values = [productId];
   db.query(text, values)
     .then(priceData => {
-      if (priceData.rows.length === 0) return next(new ClientError(`productId ${productId} does not exist`, 400));
+      if (priceData.rows.length === 0) throw new ClientError(`productId ${productId} does not exist`, 400);
       if ('cartId' in req.session) return { price: priceData.rows[0].price, cartId: req.session.cartId };
       text = `
         INSERT INTO "carts" ("cartId", "createdAt")
