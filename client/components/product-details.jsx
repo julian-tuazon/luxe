@@ -18,8 +18,8 @@ export default class ProductDetails extends React.Component {
       .catch(err => console.error(err));
   }
 
-  handleClick() {
-    this.props.setView('catalog', {});
+  handleClick(e) {
+    e.target.id === 'catalog' ? this.props.setView('catalog', {}) : this.props.addToCart(this.state.product);
   }
 
   render() {
@@ -27,7 +27,7 @@ export default class ProductDetails extends React.Component {
     return (
       <div className="row mt-5 mx-0">
         <div className="card col-7 mx-auto">
-          <div className="text-muted my-3 px-0 btn d-flex justify-content-start" onClick={this.handleClick}>Back to catalog</div>
+          <div id="catalog" className="text-muted my-3 px-0 btn d-flex justify-content-start" onClick={this.handleClick}>Back to catalog</div>
           <div className="row">
             <img
               src={this.state.product.image}
@@ -39,7 +39,7 @@ export default class ProductDetails extends React.Component {
               <h5 className="text-muted">${this.state.product.price}</h5>
               <p>{this.state.product.shortDescription}</p>
               <div>
-                <button type="button" className="btn btn-primary">Add to Cart</button>
+                <button type="button" id="addToCart" className="btn btn-primary" onClick={this.handleClick}>Add to Cart</button>
               </div>
             </div>
           </div>

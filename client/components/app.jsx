@@ -48,8 +48,8 @@ export default class App extends React.Component {
       <React.Fragment>
         <Header cartItemCount={this.state.cart.length}/>
         {this.state.view.name === 'catalog'
-          ? <ProductList setView={this.setView} addToCart={this.addToCart}/>
-          : <ProductDetails details={this.state.view.params} setView={this.setView} />}
+          ? <ProductList setView={this.setView} />
+          : <ProductDetails details={this.state.view.params} setView={this.setView} addToCart={this.addToCart} />}
       </React.Fragment>
     );
   }
