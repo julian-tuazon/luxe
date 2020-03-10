@@ -8,7 +8,7 @@ export default function Header(props) {
           <i className="fas fa-dollar-sign fa-sm mr-3"></i>
           Wicked Sales
         </h5>
-        <h6>
+        <h6 className="btn text-light" onClick={() => props.setView('cart', {})}>
           {props.cartItemCount}{ props.cartItemCount === 1 ? ' Item' : ' Items' }
           <i className="fas fa-shopping-cart ml-3"></i>
         </h6>

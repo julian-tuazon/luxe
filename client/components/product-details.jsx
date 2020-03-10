@@ -23,7 +23,7 @@ export default class ProductDetails extends React.Component {
   }
 
   render() {
-    if (!this.state.product) return <h1>Loading...</h1>;
+    if (!this.state.product) return null;
     return (
       <div className="row mt-5 mx-0">
         <div className="card col-7 mx-auto">
