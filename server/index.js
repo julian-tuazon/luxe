@@ -52,7 +52,7 @@ app.get('/api/products/:productId', (req, res, next) => {
 app.get('/api/cart/', (req, res, next) => {
   const text = `
     SELECT *
-      FROM "products"
+      FROM "cartItems"
   `;
   db.query(text)
     .then(data => res.json(data.rows))
