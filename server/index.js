@@ -43,8 +43,75 @@ app.get('/api/products/:productId', (req, res, next) => {
   const values = [req.params.productId];
   db.query(text, values)
     .then(data => {
-      if (data.rows.length === 0) return next(new ClientError(`productId ${req.params.productId} does not exist`, 404));
+      if (data.rows.length === 0) throw new ClientError(`productId ${req.params.productId} does not exist`, 404);
       return res.json(data.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/cart/', (req, res, next) => {
+  if (!('cartId' in req.session)) return [];
+  const text = `
+    SELECT "c"."cartItemId",
+           "c"."price",
+           "p"."productId",
+           "p"."image",
+           "p"."name",
+           "p"."shortDescription"
+      FROM "cartItems" AS "c"
+      JOIN "products" AS "p" USING ("productId")
+     WHERE "c"."cartId" = $1
+    `;
+  const values = [req.session.cartId];
+  db.query(text, values)
+    .then(data => res.json(data.rows))
+    .catch(err => next(err));
+});
+
+app.post('/api/cart', (req, res, next) => {
+  const { productId } = req.body;
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'please enter a positive integer for the productId' });
+  let text = `
+    SELECT "price"
+      FROM "products"
+     WHERE "productId" = $1
+  `;
+  const values = [productId];
+  db.query(text, values)
+    .then(priceData => {
+      if (priceData.rows.length === 0) throw new ClientError(`productId ${productId} does not exist`, 400);
+      if ('cartId' in req.session) return { price: priceData.rows[0].price, cartId: req.session.cartId };
+      text = `
+        INSERT INTO "carts" ("cartId", "createdAt")
+        VALUES      (default, default)
+        RETURNING   "cartId"
+      `;
+      return db.query(text).then(cartIdData => ({ price: priceData.rows[0].price, cartId: cartIdData.rows[0].cartId }));
+    })
+    .then(data => {
+      req.session.cartId = data.cartId;
+      const text = `
+        INSERT INTO "cartItems"("cartId", "productId", "price")
+        VALUES      ($1, $2, $3)
+        RETURNING   "cartItemId"
+      `;
+      const values = [data.cartId, productId, data.price];
+      return db.query(text, values).then(cartItemIdData => cartItemIdData.rows[0]);
+    })
+    .then(cartItemIdData => {
+      const text = `
+      SELECT "c"."cartItemId",
+             "c"."price",
+             "p"."productId",
+             "p"."image",
+             "p"."name",
+             "p"."shortDescription"
+        FROM "cartItems" AS "c"
+        JOIN "products" AS "p" USING ("productId")
+       WHERE "c"."cartItemId" = $1
+      `;
+      const values = [cartItemIdData.cartItemId];
+      return db.query(text, values).then(data => res.status(201).json(data.rows[0]));
     })
     .catch(err => next(err));
 });
