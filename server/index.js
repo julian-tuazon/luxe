@@ -59,6 +59,53 @@ app.get('/api/cart/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/cart', (req, res, next) => {
+  const { productId } = req.body;
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'please enter a positive integer for the productId' });
+  let text = `
+    SELECT "price"
+      FROM "products"
+     WHERE "productId" = $1
+  `;
+  const values = [productId];
+  db.query(text, values)
+    .then(priceData => {
+      if (priceData.rows.length === 0) return next(new ClientError(`productId ${productId} does not exist`, 400));
+      text = `
+        INSERT INTO "carts" ("cartId", "createdAt")
+        VALUES      (default, default)
+        RETURNING   "cartId"
+      `;
+      return db.query(text).then(cartIdData => ({ price: priceData.rows[0].price, cartId: cartIdData.rows[0].cartId }));
+    })
+    .then(data => {
+      req.session.cartId = data.cartId;
+      const text = `
+        INSERT INTO "cartItems"("cartId", "productId", "price")
+        VALUES      ($1, $2, $3)
+        RETURNING   "cartItemId"
+      `;
+      const values = [data.cartId, productId, data.price];
+      return db.query(text, values).then(cartItemIdData => cartItemIdData.rows[0]);
+    })
+    .then(cartItemIdData => {
+      const text = `
+      SELECT "c"."cartItemId",
+             "c"."price",
+             "p"."productId",
+             "p"."image",
+             "p"."name",
+             "p"."shortDescription"
+        FROM "cartItems" AS "c"
+        JOIN "products" AS "p" USING ("productId")
+       WHERE "c"."cartItemId" = $1
+      `;
+      const values = [cartItemIdData.cartItemId];
+      return db.query(text, values).then(data => res.status(201).json(data.rows[0]));
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
