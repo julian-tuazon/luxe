@@ -31,6 +31,17 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  addToCart(product) {
+    fetch('/api/cart/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(product)
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ cart: [...this.state.cart, data] }))
+      .catch(err => console.error(err));
+  }
+
   render() {
     return (
       <React.Fragment>
