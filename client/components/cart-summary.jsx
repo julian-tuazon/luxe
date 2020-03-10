@@ -11,6 +11,10 @@ export default function CartSummary(props) {
 
   return (
     <div className="row mx-0">
+      <div className="text-muted my-3 px-0 btn d-flex justify-content-start"
+        onClick={() => props.setView('catalog', {})}>
+           Back to catalog
+      </div>
       <div className="d-flex flex-column col-7 mx-auto">
         <h2>My Cart</h2>
         {cartItems}
