@@ -3,7 +3,7 @@ import React from 'react';
 export default function CartSummaryItem(props) {
   return (
     <div className="row mb-3 mx-0">
-      <div className="card col-7 mx-auto">
+      <div className="card mx-auto">
         <div className="row">
           <img
             src={props.item.image}
