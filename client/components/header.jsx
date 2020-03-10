@@ -8,10 +8,10 @@ export default function Header(props) {
           <i className="fas fa-dollar-sign fa-sm mr-3"></i>
           Wicked Sales
         </h5>
-        <h7>
+        <h6>
           {props.cartItemCount}{ props.cartItemCount === 1 ? ' Item' : ' Items' }
           <i className="fas fa-shopping-cart ml-3"></i>
-        </h7>
+        </h6>
       </div>
     </div>
   );
