@@ -5,7 +5,7 @@ export default class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { products: [] };
-    this.getProducts = this.getProducts.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -19,8 +19,16 @@ export default class ProductList extends React.Component {
       .catch(err => console.error(err));
   }
 
+  handleClick(e) {
+    this.props.setView('details', { productId: e.currentTarget.id });
+  }
+
   render() {
-    const products = this.state.products.map(product => <ProductListItem product={product} key={product.productId} />);
+    const products = this.state.products.map(product =>
+      <ProductListItem
+        product={product}
+        key={product.productId}
+        handleClick={this.handleClick} />);
 
     return (
       <div className="w-50 mx-auto">
