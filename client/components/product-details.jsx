@@ -25,7 +25,7 @@ export default class ProductDetails extends React.Component {
   render() {
     if (!this.state.product) return <h1>Loading...</h1>;
     return (
-      <div className="row mt-5">
+      <div className="row mt-5 mx-0">
         <div className="card col-7 mx-auto">
           <div className="text-muted my-3 px-0 btn d-flex justify-content-start" onClick={this.handleClick}>Back to catalog</div>
           <div className="row">
