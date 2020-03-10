@@ -19,23 +19,25 @@ export default class ProductDetails extends React.Component {
   }
 
   render() {
+    if (!this.state.product) return <h1>Loading...</h1>;
     return (
-      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+      <div className="row mt-5">
+        <div className="card col-7 mx-auto">
+          <div className="text-muted my-3">Back to catalog</div>
+          <div className="row">
+            <img
+              src={this.state.product.image}
+              className="card-img-top col-4"
+              alt={this.state.product.name}
+              style={{ objectFit: 'contain', height: '50%' }} />
+            <div className="d-flex flex-column">
+              <h3 className="card-title">{this.state.product.name}</h3>
+              <h5 className="text-muted">${this.state.product.price}</h5>
+              <p>{this.state.product.shortDescription}</p>
             </div>
-            <div className="modal-body">
-              Hi
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
-            </div>
+          </div>
+          <div className="card-body px-0">
+            <p>{this.state.product.longDescription}</p>
           </div>
         </div>
       </div>
