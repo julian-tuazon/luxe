@@ -2,12 +2,12 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 export default function CartSummary(props) {
-  if (props.cartItems.length === 0) return <h1>Cart is empty</h1>;
+  if (props.cart.length === 0) return <h1>Cart is empty</h1>;
 
-  const cartItems = props.cartItems.map(item =>
+  const cartItems = props.cart.map(item =>
     <CartSummaryItem item={item} key={item.productId} />
   );
-  const totalPrice = props.cartItems.reduce((acc, cur) => acc + cur, 0);
+  const totalPrice = props.cart.reduce((acc, cur) => acc + cur, 0);
 
   return (
     <React.Fragment>

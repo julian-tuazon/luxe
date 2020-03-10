@@ -6,14 +6,14 @@ export default function CartSummaryItem(props) {
       <div className="card col-7 mx-auto">
         <div className="row">
           <img
-            src={props.product.image}
+            src={props.item.image}
             className="card-img-top col-4"
-            alt={props.product.name}
+            alt={props.item.name}
             style={{ objectFit: 'contain', maxHeight: '300px' }} />
           <div className="d-flex flex-column justify-content-center col-7">
-            <h3 className="card-title">{props.product.name}</h3>
-            <h5 className="text-muted">${props.product.price}</h5>
-            <p>{props.product.shortDescription}</p>
+            <h3 className="card-title">{props.item.name}</h3>
+            <h5 className="text-muted">${props.item.price}</h5>
+            <p>{props.item.shortDescription}</p>
           </div>
         </div>
       </div>
