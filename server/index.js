@@ -71,6 +71,7 @@ app.post('/api/cart', (req, res, next) => {
   db.query(text, values)
     .then(priceData => {
       if (priceData.rows.length === 0) return next(new ClientError(`productId ${productId} does not exist`, 400));
+      if (req.session.cartId) return { price: priceData.rows[0].price, cartId: req.session.cartId };
       text = `
         INSERT INTO "carts" ("cartId", "createdAt")
         VALUES      (default, default)
