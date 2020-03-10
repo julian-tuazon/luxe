@@ -9,9 +9,9 @@ export default class App extends React.Component {
     this.state = {
       view: {
         name: 'catalog',
-        params: {},
-        cart: []
-      }
+        params: {}
+      },
+      cart: []
     };
     this.setView = this.setView.bind(this);
   }
@@ -27,14 +27,14 @@ export default class App extends React.Component {
   getCartItems() {
     fetch('/api/cart/')
       .then(res => res.json())
-      .then(data => this.setState({ cart: data }))
+      .then(data => this.setState({ cart: [data] }))
       .catch(err => console.error(err));
   }
 
   render() {
     return (
       <React.Fragment>
-        <Header />
+        <Header cartItemCount={this.state.cart.length}/>
         {this.state.view.name === 'catalog'
           ? <ProductList setView={this.setView} />
           : <ProductDetails details={this.state.view.params} setView={this.setView} />}
