@@ -49,6 +49,22 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/cart/', (req, res, next) => {
+  if (!(/(?!^0)(^\d+$)/.test(req.params.productId))) return res.status(400).json({ error: 'please enter a positive integer productId' });
+  const text = `
+    SELECT *
+      FROM "products"
+     WHERE "productId" = $1
+  `;
+  const values = [req.params.productId];
+  db.query(text, values)
+    .then(data => {
+      if (data.rows.length === 0) return next(new ClientError(`productId ${req.params.productId} does not exist`, 404));
+      return res.json(data.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
