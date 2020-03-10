@@ -3,7 +3,7 @@ import React from 'react';
 export default function ProductListItem(props) {
   return (
     <div className="col mb-4">
-      <div className="card h-100" id={props.product.productId} onClick={props.handleClick}>
+      <div className="card h-100 btn" id={props.product.productId} onClick={props.handleClick}>
         <img src={props.product.image}
           className="card-img-top"
           alt={props.product.name}
