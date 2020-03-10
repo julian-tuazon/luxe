@@ -20,6 +20,13 @@ export default class App extends React.Component {
     this.setState({ view: { name, params } });
   }
 
+  getCartItems() {
+    fetch('/api/cart/')
+      .then(res => res.json())
+      .then(data => this.setState({ cart: data }))
+      .catch(err => console.error(err));
+  }
+
   render() {
     return (
       <React.Fragment>
