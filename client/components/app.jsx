@@ -14,15 +14,10 @@ export default class App extends React.Component {
       }
     };
     this.setView = this.setView.bind(this);
-    this.checkView = this.checkView.bind(this);
-  }
-
-  checkView() {
-    console.log(this.state);
   }
 
   setView(name, params) {
-    this.setState({ view: { name, params } }, this.checkView);
+    this.setState({ view: { name, params } });
   }
 
   render() {
