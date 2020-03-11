@@ -39,7 +39,7 @@ export default class CheckoutForm extends React.Component {
         <div className="col-7 mx-auto d-flex flex-column">
           <h2 className="mb-4">My Cart</h2>
           <h5 className="d-flex align-items-center text-muted mb-4">Total Price: ${this.getTotalPrice()}</h5>
-          <form className="d-flex flex-column" onSubmit={this.handleSubmit}>
+          <form className="d-flex flex-column needs-validation" noValidate onSubmit={this.handleSubmit}>
             <label htmlFor="name">Name</label>
             <input type="text" id="name" className="mb-4 form-control" value={this.state.name} onChange={this.handleChange} minLength={7} maxLength={67} required />
             <label htmlFor="card">Credit Card</label>
