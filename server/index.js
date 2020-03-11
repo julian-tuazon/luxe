@@ -118,7 +118,7 @@ app.post('/api/cart', (req, res, next) => {
 
 app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
-  if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'please enter a positive integer for the cartId' });
+  if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'your session has expired' });
 
   const { name, creditCard, shippingAddress } = req.body;
   if (!name || /[^a-zA-Z ]/.test(name)) return res.status(400).json({ error: 'please enter a valid name' });
