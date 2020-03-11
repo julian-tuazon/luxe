@@ -116,6 +116,33 @@ app.post('/api/cart', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/orders', (req, res, next) => {
+  const { cartId } = req.session;
+  if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'your session has expired' });
+
+  const { name, creditCard, shippingAddress } = req.body;
+  if (!name || /[^a-zA-Z ]/.test(name)) return res.status(400).json({ error: 'please enter a valid name' });
+  if (!creditCard || /[^\d ]/.test(creditCard)) return res.status(400).json({ error: 'please enter a valid credit card number' });
+  if (!shippingAddress || /[^a-zA-Z\d ]/.test(shippingAddress)) return res.status(400).json({ error: 'please enter a valid shipping address' });
+
+  const text = `
+    INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress")
+    VALUES      ($1, $2, $3, $4)
+    RETURNING   "orderId",
+                "createdAt",
+                "name",
+                "creditCard",
+                "shippingAddress"
+  `;
+  const values = [cartId, name, creditCard, shippingAddress];
+  db.query(text, values)
+    .then(data => {
+      delete req.session.cartId;
+      res.status(201).json(data.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
