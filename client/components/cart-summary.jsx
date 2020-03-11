@@ -2,7 +2,18 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 export default function CartSummary(props) {
-  if (props.cart.length === 0) return <h1 className="text-center">Cart is empty</h1>;
+  if (props.cart.length === 0) {
+    return (
+      <div>
+        <h1 className="text-center mb-5">Cart is empty</h1>
+        <div
+          className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-center"
+          onClick={() => props.setView('catalog', {})}>
+          Back to catalog
+        </div>
+      </div>
+    );
+  }
 
   const cartItems = props.cart.map(item =>
     <CartSummaryItem item={item} key={item.productId} />
