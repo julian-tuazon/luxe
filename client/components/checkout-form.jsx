@@ -4,7 +4,7 @@ export default class CheckoutForm extends React.Component {
   render() {
     return (
       <div className="row mx-0">
-        <div className="col-9 mx-auto d-flex flex-column">
+        <div className="col-7 mx-auto d-flex flex-column">
           <h2 className="mb-4">My Cart</h2>
           <h5 className="d-flex align-items-center text-muted mb-4">Total Price: $9999</h5>
           <label htmlFor="name">Name</label>
