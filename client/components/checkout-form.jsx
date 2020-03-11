@@ -15,6 +15,10 @@ export default class CheckoutForm extends React.Component {
     e.target.id === 'catalog' ? this.props.setView('catalog', {}) : this.props.placeOrder(this.state.order);
   }
 
+  handleChange(e) {
+    this.setState({ [e.target.id]: e.target.value });
+  }
+
   render() {
     return (
       <div className="row mx-0">
