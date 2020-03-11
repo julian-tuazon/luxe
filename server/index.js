@@ -138,7 +138,7 @@ app.post('/api/orders', (req, res, next) => {
   db.query(text, values)
     .then(data => {
       delete req.session.cartId;
-      res.status(201).json(data);
+      res.status(201).json(data.rows[0]);
     })
     .catch(err => next(err));
 });
