@@ -40,12 +40,18 @@ export default class CheckoutForm extends React.Component {
           <h2 className="mb-4">My Cart</h2>
           <h5 className="d-flex align-items-center text-muted mb-4">Total Price: ${this.getTotalPrice()}</h5>
           <form className="d-flex flex-column needs-validation" noValidate onSubmit={this.handleSubmit}>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" className="mb-4 form-control" value={this.state.name} onChange={this.handleChange} minLength={7} maxLength={67} required />
-            <label htmlFor="card">Credit Card</label>
-            <input type="text" id="card" className="mb-4 form-control" value={this.state.card} onChange={this.handleChange} minLength={16} maxLength={16} required />
-            <label htmlFor="name">Shipping Address</label>
-            <textarea type="textarea" id="address" className="mb-4 form-control" value={this.state.address} rows="4" onChange={this.handleChange} minLength={23} maxLength={156} required />
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input type="text" id="name" className="mb-4 form-control" value={this.state.name} onChange={this.handleChange} minLength={7} maxLength={67} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="card">Credit Card</label>
+              <input type="text" id="card" className="mb-4 form-control" value={this.state.card} onChange={this.handleChange} minLength={16} maxLength={16} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="name">Shipping Address</label>
+              <textarea type="textarea" id="address" className="mb-4 form-control" value={this.state.address} rows="4" onChange={this.handleChange} minLength={23} maxLength={156} required />
+            </div>
             <div className="d-flex justify-content-between">
               <div className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-start" id="catalog" onClick={this.handleClick}>
                 Back to catalog
