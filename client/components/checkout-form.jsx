@@ -19,9 +19,9 @@ export default class CheckoutForm extends React.Component {
 
   handleChange(e) {
     const validationTests = {
-      name: /^(?!.* {2,})[a-zA-Z ]{0,65}$/,
-      card: /^[\d]{0,16}$/,
-      address: /^(?!.* {2,})[a-zA-Z\d.,# ]{0,156}$/
+      name: /^(?!.* {2,})[a-zA-Z ]*$/,
+      card: /^[\d]*$/,
+      address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/
     };
 
     if (validationTests[e.target.id].test(e.target.value)) this.setState({ [e.target.id]: e.target.value });
@@ -41,11 +41,11 @@ export default class CheckoutForm extends React.Component {
           <h5 className="d-flex align-items-center text-muted mb-4">Total Price: ${this.getTotalPrice()}</h5>
           <form className="d-flex flex-column" onSubmit={this.handleSubmit}>
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" className="mb-4 form-control" value={this.state.name} onChange={this.handleChange} required />
+            <input type="text" id="name" className="mb-4 form-control" value={this.state.name} onChange={this.handleChange} minLength={7} maxLength={67} required />
             <label htmlFor="card">Credit Card</label>
-            <input type="text" id="card" className="mb-4 form-control" value={this.state.card} onChange={this.handleChange} required />
+            <input type="text" id="card" className="mb-4 form-control" value={this.state.card} onChange={this.handleChange} minLength={16} maxLength={16} required />
             <label htmlFor="name">Shipping Address</label>
-            <textarea type="textarea" id="address" className="mb-4 form-control" value={this.state.address} rows="4" onChange={this.handleChange} required />
+            <textarea type="textarea" id="address" className="mb-4 form-control" value={this.state.address} rows="4" onChange={this.handleChange} minLength={23} maxLength={156} required />
             <div className="d-flex justify-content-between">
               <div className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-start" id="catalog" onClick={this.handleClick}>
                 Back to catalog
