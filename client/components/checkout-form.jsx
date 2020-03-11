@@ -6,6 +6,7 @@ export default class CheckoutForm extends React.Component {
     this.state = { name: '', card: '', address: '' };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   getTotalPrice() {
