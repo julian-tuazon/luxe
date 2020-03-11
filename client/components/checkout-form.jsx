@@ -18,7 +18,12 @@ export default class CheckoutForm extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ [e.target.id]: e.target.value });
+    const validationTests = {
+      name: /[^a-zA-Z ]/,
+      card: /[^\d ]/,
+      address: /[^a-zA-Z\d ]/
+    };
+    if (!validationTests[e.target.id].test(e.target.value)) this.setState({ [e.target.id]: e.target.value });
   }
 
   handleSubmit(e) {
