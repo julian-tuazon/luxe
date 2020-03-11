@@ -3,6 +3,7 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { order: {} };
     this.handleClick = this.handleClick.bind(this);
   }
 
