@@ -41,11 +41,11 @@ export default class CheckoutForm extends React.Component {
           <h5 className="d-flex align-items-center text-muted mb-4">Total Price: ${this.getTotalPrice()}</h5>
           <form className="d-flex flex-column">
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" className="mb-4" value={this.state.name} onChange={this.handleChange} required />
+            <input type="text" id="name" className="mb-4 form-control" value={this.state.name} onChange={this.handleChange} required />
             <label htmlFor="card">Credit Card</label>
-            <input type="text" id="card" className="mb-4" value={this.state.card} onChange={this.handleChange} required />
+            <input type="text" id="card" className="mb-4 form-control" value={this.state.card} onChange={this.handleChange} required />
             <label htmlFor="name">Shipping Address</label>
-            <textarea type="textarea" id="address" className="mb-4" value={this.state.address} rows="4" onChange={this.handleChange} required />
+            <textarea type="textarea" id="address" className="mb-4 form-control" value={this.state.address} rows="4" onChange={this.handleChange} required />
             <div className="d-flex justify-content-between">
               <div className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-start" id="catalog" onClick={this.handleClick}>
                 Back to catalog
