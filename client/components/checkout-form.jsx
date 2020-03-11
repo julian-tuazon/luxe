@@ -43,14 +43,20 @@ export default class CheckoutForm extends React.Component {
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input type="text" id="name" className="mb-4 form-control" value={this.state.name} onChange={this.handleChange} minLength={7} maxLength={67} required />
+              <div className="valid-feedback">Valid.</div>
+              <div className="invalid-feedback">Please fill out this field.</div>
             </div>
             <div className="form-group">
               <label htmlFor="card">Credit Card</label>
               <input type="text" id="card" className="mb-4 form-control" value={this.state.card} onChange={this.handleChange} minLength={16} maxLength={16} required />
+              <div className="valid-feedback">Valid.</div>
+              <div className="invalid-feedback">Please fill out this field.</div>
             </div>
             <div className="form-group">
               <label htmlFor="name">Shipping Address</label>
               <textarea type="textarea" id="address" className="mb-4 form-control" value={this.state.address} rows="4" onChange={this.handleChange} minLength={23} maxLength={156} required />
+              <div className="valid-feedback">Valid.</div>
+              <div className="invalid-feedback">Please fill out this field.</div>
             </div>
             <div className="d-flex justify-content-between">
               <div className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-start" id="catalog" onClick={this.handleClick}>
