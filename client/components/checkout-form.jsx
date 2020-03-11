@@ -59,8 +59,8 @@ export default class CheckoutForm extends React.Component {
               <div className="invalid-feedback">Please fill out this field.</div>
             </div>
             <div className="d-flex justify-content-between">
-              <div className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-start" id="catalog" onClick={this.handleClick}>
-                Back to catalog
+              <div>
+                <button type="button" className="btn btn-outline-info" id="catalog" onClick={this.handleClick}>Back to catalog</button>
               </div>
               <div>
                 <button type="submit" className="btn btn-primary" id="order">Place Order</button>

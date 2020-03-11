@@ -27,7 +27,9 @@ export default class ProductDetails extends React.Component {
     return (
       <div className="row mt-5 mx-0">
         <div className="card col-7 mx-auto">
-          <div id="catalog" className="text-muted my-3 px-0 btn d-flex justify-content-start" onClick={this.handleClick}>Back to catalog</div>
+          <div className="my-3">
+            <button type="button" id="catalog" className="btn btn-outline-info" onClick={this.handleClick}>Back to catalog</button>
+          </div>
           <div className="row">
             <img
               src={this.state.product.image}

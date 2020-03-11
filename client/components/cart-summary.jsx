@@ -23,9 +23,8 @@ export default function CartSummary(props) {
   return (
     <div className="row mx-0">
       <div className="d-flex flex-column col-7 mx-auto">
-        <div className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-start"
-          onClick={() => props.setView('catalog', {})}>
-          Back to catalog
+        <div className="mb-3">
+          <button type="button" className="btn btn-outline-info" onClick={() => props.setView('catalog', {})}>Back to catalog</button>
         </div>
         <h2 className="mb-4">My Cart</h2>
         {cartItems}
