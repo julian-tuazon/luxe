@@ -50,7 +50,11 @@ export default class App extends React.Component {
     fetch('/api/orders/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(order)
+      body: JSON.stringify({
+        name: order.name,
+        creditCard: order.card,
+        shippingAddress: order.address
+      })
     })
       .then(res => res.json())
       .then(data => {
