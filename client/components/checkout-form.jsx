@@ -12,12 +12,18 @@ export default class CheckoutForm extends React.Component {
     return this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
 
-  handleClick(e) {
-    e.target.id === 'catalog' ? this.props.setView('catalog', {}) : this.props.placeOrder(this.state.order);
+  handleClick() {
+    this.props.setView('catalog', {});
   }
 
   handleChange(e) {
     this.setState({ [e.target.id]: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.placeOrder(this.state);
+    this.setState({ name: '', card: '', address: '' });
   }
 
   render() {
@@ -37,7 +43,7 @@ export default class CheckoutForm extends React.Component {
               Back to catalog
             </div>
             <div>
-              <button type="button" className="btn btn-primary" id="order" onClick={this.handleClick}>Place Order</button>
+              <button type="button" className="btn btn-primary" id="order" onClick={this.handleSubmit}>Place Order</button>
             </div>
           </div>
         </div>
