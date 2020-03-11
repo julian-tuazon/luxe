@@ -65,7 +65,7 @@ export default class App extends React.Component {
     if (this.state.view.name === 'catalog') currentView = <ProductList setView={this.setView} />;
     else if (this.state.view.name === 'details') currentView = <ProductDetails details={this.state.view.params} setView={this.setView} addToCart={this.addToCart} />;
     else if (this.state.view.name === 'cart') currentView = <CartSummary cart={this.state.cart} setView={this.setView} />;
-    else if (this.state.view.name === 'checkout') currentView = <CheckoutForm setView={this.setView} placeOrder={this.placeOrder} />;
+    else if (this.state.view.name === 'checkout') currentView = <CheckoutForm cart={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
 
     return (
       <React.Fragment>
