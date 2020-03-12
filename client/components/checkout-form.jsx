@@ -16,7 +16,8 @@ export default class CheckoutForm extends React.Component {
     return this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
 
-  handleClick() {
+  handleClick(e) {
+    if (e.target.id === 'order') return this.setState({ showValidation: Array.from(this.fields) });
     this.props.setView('catalog', {});
   }
 
@@ -83,7 +84,7 @@ export default class CheckoutForm extends React.Component {
                 <button type="button" className="btn btn-outline-info" id="catalog" onClick={this.handleClick}>Back to catalog</button>
               </div>
               <div>
-                <button type="submit" className={this.setButtonClassName()} id="order">{this.state.invalid.length ? 'Incomplete Info' : 'Place Order'}</button>
+                <button type="submit" className={this.setButtonClassName()} id="order" onClick={this.handleClick}>{this.state.invalid.length ? 'Incomplete Info' : 'Place Order'}</button>
               </div>
             </div>
           </form>
