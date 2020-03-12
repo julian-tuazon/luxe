@@ -4,7 +4,7 @@ export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.fields = ['name', 'card', 'address'];
-    this.state = { name: '', card: '', address: '', invalid: this.fields, showValidation: [], isFormValid: false };
+    this.state = { name: '', card: '', address: '', invalid: Array.from(this.fields), showValidation: [], isFormValid: false };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -84,7 +84,7 @@ export default class CheckoutForm extends React.Component {
                 <button type="button" className="btn btn-outline-info" id="catalog" onClick={this.handleClick}>Back to catalog</button>
               </div>
               <div>
-                <button type="submit" className="btn btn-primary" id="order" disabled={!this.state.isFormValid}>{this.state.isFormValid ? 'Place Order' : 'Incomplete Info'}</button>
+                <button type="submit" className="btn btn-primary" id="order" disabled={!!this.state.invalid.length}>{this.state.invalid.length ? 'Incomplete Info' : 'Place Order'}</button>
               </div>
             </div>
           </form>
