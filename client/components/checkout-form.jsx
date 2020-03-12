@@ -3,10 +3,13 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', card: '', address: '', wasValidated: false };
+    this.state = { name: '', card: '', address: '', invalid: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.isValid = this.isValid.bind(this);
+    this.validateInput = this.validateInput.bind(this);
   }
 
   getTotalPrice() {
@@ -27,52 +30,55 @@ export default class CheckoutForm extends React.Component {
     if (validationTests[e.target.id].test(e.target.value)) this.setState({ [e.target.id]: e.target.value });
   }
 
-  checkValidity(form) {
-    if (form.checkValidity() === true) {
-      this.props.placeOrder(this.state);
-      this.setState({ name: '', card: '', address: '', wasValidated: false });
-    }
+  validateInput(input) {
+    if (this.state[input.id].trim().length >= input.minLength) this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
+    else this.setState({ invalid: [...this.state.invalid, input.id] });
+  }
+
+  isValid(input) {
+    if (input === 'form') return this.state.invalid.length === 0 && this.state.name && this.state.card && this.state.address;
+    return this.state.invalid.includes(input) ? ' is-invalid' : '';
+  }
+
+  handleBlur(e) {
+    this.setState({ [e.currentTarget.id]: this.state[e.currentTarget.id].trim() }, this.validateInput(e.currentTarget));
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({ name: this.state.name.trim(), address: this.state.address.trim(), wasValidated: true }, this.checkValidity(e.currentTarget));
   }
 
   render() {
-    let wasValidated = '';
-    if (this.state.wasValidated) wasValidated = ' was-validated';
-
     return (
       <div className="row mx-0">
         <div className="col-7 mx-auto d-flex flex-column">
           <h2 className="mb-4">My Cart</h2>
           <h5 className="d-flex align-items-center text-muted mb-4">Total Price: ${this.getTotalPrice()}</h5>
-          <form className={'d-flex flex-column needs-validation' + wasValidated} noValidate onSubmit={this.handleSubmit}>
+          <form className="d-flex flex-column needs-validation" noValidate onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" id="name" className="form-control" value={this.state.name} onChange={this.handleChange} minLength={5} maxLength={67} required />
+              <input type="text" id="name" className={'form-control' + this.isValid('name')} value={this.state.name} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={67} required />
               <div className="valid-feedback">Valid.</div>
-              <div className="invalid-feedback">Please fill out this field.</div>
+              <small className="invalid-feedback">Please fill out this field.</small>
             </div>
             <div className="form-group">
               <label htmlFor="card">Credit Card</label>
-              <input type="text" id="card" className="form-control" value={this.state.card} onChange={this.handleChange} minLength={16} maxLength={16} required />
+              <input type="text" id="card" className={'form-control' + this.isValid('card')} value={this.state.card} onChange={this.handleChange} onBlur={this.handleBlur} minLength={16} maxLength={16} required />
               <div className="valid-feedback">Valid.</div>
-              <div className="invalid-feedback">Please fill out this field.</div>
+              <small className="invalid-feedback">Please fill out this field.</small>
             </div>
             <div className="form-group">
               <label htmlFor="name">Shipping Address</label>
-              <textarea type="textarea" id="address" className="form-control" value={this.state.address} rows="4" onChange={this.handleChange} minLength={21} maxLength={156} required />
+              <textarea type="textarea" id="address" className={'form-control' + this.isValid('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
               <div className="valid-feedback">Valid.</div>
-              <div className="invalid-feedback">Please fill out this field.</div>
+              <small className="invalid-feedback">Please fill out this field.</small>
             </div>
             <div className="d-flex justify-content-between">
               <div>
                 <button type="button" className="btn btn-outline-info" id="catalog" onClick={this.handleClick}>Back to catalog</button>
               </div>
               <div>
-                <button type="submit" className="btn btn-primary" id="order">Place Order</button>
+                <button type="submit" className="btn btn-primary" id="order" disabled={!this.isValid('form')}>Place Order</button>
               </div>
             </div>
           </form>
