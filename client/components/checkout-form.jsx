@@ -3,7 +3,7 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', card: '', address: '' };
+    this.state = { name: '', card: '', address: '', wasValidated: false };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,22 +27,31 @@ export default class CheckoutForm extends React.Component {
     if (validationTests[e.target.id].test(e.target.value)) this.setState({ [e.target.id]: e.target.value });
   }
 
+  checkValidity(form) {
+    if (form.checkValidity() === true) {
+      this.props.placeOrder(this.state);
+      this.setState({ name: '', card: '', address: '', wasValidated: false });
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    this.props.placeOrder(this.state);
-    this.setState({ name: '', card: '', address: '' });
+    this.setState({ name: this.state.name.trim(), address: this.state.address.trim(), wasValidated: true }, this.checkValidity(e.currentTarget));
   }
 
   render() {
+    let wasValidated = '';
+    if (this.state.wasValidated) wasValidated = ' was-validated';
+
     return (
       <div className="row mx-0">
         <div className="col-7 mx-auto d-flex flex-column">
           <h2 className="mb-4">My Cart</h2>
           <h5 className="d-flex align-items-center text-muted mb-4">Total Price: ${this.getTotalPrice()}</h5>
-          <form className="d-flex flex-column needs-validation" noValidate onSubmit={this.handleSubmit}>
+          <form className={'d-flex flex-column needs-validation' + wasValidated} noValidate onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" id="name" className="form-control" value={this.state.name} onChange={this.handleChange} minLength={7} maxLength={67} required />
+              <input type="text" id="name" className="form-control" value={this.state.name} onChange={this.handleChange} minLength={5} maxLength={67} required />
               <div className="valid-feedback">Valid.</div>
               <div className="invalid-feedback">Please fill out this field.</div>
             </div>
@@ -54,7 +63,7 @@ export default class CheckoutForm extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="name">Shipping Address</label>
-              <textarea type="textarea" id="address" className="form-control" value={this.state.address} rows="4" onChange={this.handleChange} minLength={23} maxLength={156} required />
+              <textarea type="textarea" id="address" className="form-control" value={this.state.address} rows="4" onChange={this.handleChange} minLength={21} maxLength={156} required />
               <div className="valid-feedback">Valid.</div>
               <div className="invalid-feedback">Please fill out this field.</div>
             </div>
