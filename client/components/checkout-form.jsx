@@ -9,11 +9,6 @@ export default class CheckoutForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.validateInput = this.validateInput.bind(this);
-  }
-
-  getTotalPrice() {
-    return this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
 
   handleClick(e) {
@@ -32,19 +27,6 @@ export default class CheckoutForm extends React.Component {
     if (validationTests[input.id].test(input.value)) this.setState({ [input.id]: input.value }, () => this.validateInput(input));
   }
 
-  validateInput(input) {
-    if (this.state[input.id].trim().length >= input.minLength) return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
-    this.state.invalid.includes(input.id) ? this.setState({ invalid: this.state.invalid }) : this.setState({ invalid: [...this.state.invalid, input.id] });
-  }
-
-  setInputClassName(input) {
-    return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-control is-invalid' : 'form-control';
-  }
-
-  setButtonClassName() {
-    return this.state.invalid.length ? 'btn btn-danger' : 'btn btn-primary';
-  }
-
   handleBlur(e) {
     this.setState({ showValidation: [...this.state.showValidation, e.currentTarget.id] });
     this.setState({ [e.currentTarget.id]: this.state[e.currentTarget.id].trim() }, this.validateInput(e.currentTarget));
@@ -55,8 +37,24 @@ export default class CheckoutForm extends React.Component {
     if (!this.state.invalid.length) {
       const { name, card, address } = this.state;
       this.props.placeOrder({ name, card, address });
-      this.setState({ name: '', card: '', address: '', invalid: Array.from(this.fields), showValidation: [] });
     }
+  }
+
+  validateInput(input) {
+    if (this.state[input.id].trim().length >= input.minLength) return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
+    if (!this.state.invalid.includes(input.id)) this.setState({ invalid: [...this.state.invalid, input.id] });
+  }
+
+  setInputClassName(input) {
+    return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-control is-invalid' : 'form-control';
+  }
+
+  setButtonClassName() {
+    return this.state.invalid.length ? 'btn btn-danger' : 'btn btn-primary';
+  }
+
+  getTotalPrice() {
+    return this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
 
   render() {
