@@ -3,13 +3,12 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', card: '', address: '', invalid: [] };
+    this.state = { name: '', card: '', address: '', invalid: [], showValidation: [], isFormValid: false };
     this.fields = ['name', 'card', 'address'];
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.isValid = this.isValid.bind(this);
     this.validateInput = this.validateInput.bind(this);
   }
 
@@ -27,8 +26,10 @@ export default class CheckoutForm extends React.Component {
       card: /^[\d]*$/,
       address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/
     };
-
+    this.setState({ showValidation: this.state.showValidation.filter(elem => elem !== e.target.id) });
     if (validationTests[e.target.id].test(e.target.value)) this.setState({ [e.target.id]: e.target.value });
+    this.validateInput(e.target);
+    this.validateForm(e.target.parentElement.parentElement);
   }
 
   validateInput(input) {
@@ -36,12 +37,16 @@ export default class CheckoutForm extends React.Component {
     else this.setState({ invalid: [...this.state.invalid, input.id] });
   }
 
-  isValid(input) {
-    if (input === 'form') return this.state.invalid.length === 0 && !this.fields.some(field => this.state[field] === '');
-    return this.state.invalid.includes(input) ? ' is-invalid' : '';
+  validateForm(form) {
+    this.setState({ isFormValid: form.checkValidity() });
+  }
+
+  showValidation(input) {
+    return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-control is-invalid' : 'form-control';
   }
 
   handleBlur(e) {
+    this.setState({ showValidation: [...this.state.showValidation, e.currentTarget.id] });
     this.setState({ [e.currentTarget.id]: this.state[e.currentTarget.id].trim() }, this.validateInput(e.currentTarget));
   }
 
@@ -58,19 +63,19 @@ export default class CheckoutForm extends React.Component {
           <form className="d-flex flex-column needs-validation" noValidate onSubmit={this.handleSubmit}>
             <div className="form-group mb-5">
               <label htmlFor="name">Name</label>
-              <input type="text" id="name" className={'form-control' + this.isValid('name')} value={this.state.name} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={67} required />
+              <input type="text" id="name" className={this.showValidation('name')} value={this.state.name} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={67} required />
               <div className="valid-feedback">Valid.</div>
               <small className="invalid-feedback position-absolute">Minimum of 5 characters required.</small>
             </div>
             <div className="form-group mb-5">
               <label htmlFor="card">Credit Card</label>
-              <input type="text" id="card" className={'form-control' + this.isValid('card')} value={this.state.card} onChange={this.handleChange} onBlur={this.handleBlur} minLength={16} maxLength={16} required />
+              <input type="text" id="card" className={this.showValidation('card')} value={this.state.card} onChange={this.handleChange} onBlur={this.handleBlur} minLength={16} maxLength={16} required />
               <div className="valid-feedback">Valid.</div>
               <small className="invalid-feedback position-absolute">Please enter a valid 16 digit card number.</small>
             </div>
             <div className="form-group mb-5">
               <label htmlFor="name">Shipping Address</label>
-              <textarea type="textarea" id="address" className={'form-control' + this.isValid('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
+              <textarea type="textarea" id="address" className={this.showValidation('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
               <div className="valid-feedback">Valid.</div>
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
@@ -79,7 +84,7 @@ export default class CheckoutForm extends React.Component {
                 <button type="button" className="btn btn-outline-info" id="catalog" onClick={this.handleClick}>Back to catalog</button>
               </div>
               <div>
-                <button type="submit" className="btn btn-primary" id="order" disabled={!this.isValid('form')}>Place Order</button>
+                <button type="submit" className="btn btn-primary" id="order" disabled={!this.state.isFormValid}>{this.state.isFormValid ? 'Place Order' : 'Info Pending'}</button>
               </div>
             </div>
           </form>
