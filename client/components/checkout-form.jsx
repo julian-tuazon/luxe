@@ -4,13 +4,12 @@ export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.fields = ['name', 'card', 'address'];
-    this.state = { name: '', card: '', address: '', invalid: Array.from(this.fields), showValidation: [], isFormValid: false };
+    this.state = { name: '', card: '', address: '', invalid: Array.from(this.fields), showValidation: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.validateInput = this.validateInput.bind(this);
-    this.validateForm = this.validateForm.bind(this);
   }
 
   getTotalPrice() {
@@ -33,12 +32,8 @@ export default class CheckoutForm extends React.Component {
   }
 
   validateInput(input) {
-    if (this.state[input.id].trim().length >= input.minLength) return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) }, () => this.validateForm(input.parentElement.parentElement));
-    this.setState({ invalid: [...this.state.invalid, input.id] }, () => this.validateForm(input.parentElement.parentElement));
-  }
-
-  validateForm(form) {
-    this.setState({ isFormValid: this.state.invalid.length === 0 });
+    if (this.state[input.id].trim().length >= input.minLength) return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
+    this.setState({ invalid: [...this.state.invalid, input.id] });
   }
 
   setInputClassName(input) {
