@@ -4,6 +4,7 @@ export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { name: '', card: '', address: '', invalid: [] };
+    this.fields = ['name', 'card', 'address'];
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
