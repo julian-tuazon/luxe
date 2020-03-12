@@ -37,7 +37,7 @@ export default class CheckoutForm extends React.Component {
   }
 
   isValid(input) {
-    if (input === 'form') return this.state.invalid.length === 0 && this.state.name && this.state.card && this.state.address;
+    if (input === 'form') return this.state.invalid.length === 0 && !this.fields.some(field => this.state[field] === '');
     return this.state.invalid.includes(input) ? ' is-invalid' : '';
   }
 
