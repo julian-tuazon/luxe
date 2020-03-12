@@ -33,11 +33,15 @@ export default class CheckoutForm extends React.Component {
 
   validateInput(input) {
     if (this.state[input.id].trim().length >= input.minLength) return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
-    this.setState({ invalid: [...this.state.invalid, input.id] });
+    this.state.invalid.includes(input.id) ? this.setState({ invalid: this.state.invalid }) : this.setState({ invalid: [...this.state.invalid, input.id] });
   }
 
   setInputClassName(input) {
     return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-control is-invalid' : 'form-control';
+  }
+
+  setButtonClassName() {
+    return this.state.invalid.length ? 'btn btn-danger' : 'btn btn-primary';
   }
 
   handleBlur(e) {
@@ -79,7 +83,7 @@ export default class CheckoutForm extends React.Component {
                 <button type="button" className="btn btn-outline-info" id="catalog" onClick={this.handleClick}>Back to catalog</button>
               </div>
               <div>
-                <button type="submit" className="btn btn-primary" id="order" disabled={!!this.state.invalid.length}>{this.state.invalid.length ? 'Incomplete Info' : 'Place Order'}</button>
+                <button type="submit" className={this.setButtonClassName()} id="order">{this.state.invalid.length ? 'Incomplete Info' : 'Place Order'}</button>
               </div>
             </div>
           </form>
