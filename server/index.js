@@ -121,9 +121,9 @@ app.post('/api/orders', (req, res, next) => {
   if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'your session has expired' });
 
   const { name, creditCard, shippingAddress } = req.body;
-  if (!name || /[^a-zA-Z ]/.test(name)) return res.status(400).json({ error: 'please enter a valid name' });
-  if (!creditCard || /[^\d ]/.test(creditCard)) return res.status(400).json({ error: 'please enter a valid credit card number' });
-  if (!shippingAddress || /[^a-zA-Z\d ]/.test(shippingAddress)) return res.status(400).json({ error: 'please enter a valid shipping address' });
+  if (!name || !(/^(?!.* {2,})[a-zA-Z ]{5,67}$/.test(name))) return res.status(400).json({ error: 'please enter a valid name' });
+  if (!creditCard || !(/^[\d]{16}$/.test(creditCard))) return res.status(400).json({ error: 'please enter a valid credit card number' });
+  if (!shippingAddress || !(/^(?!.* {2,})[a-zA-Z\d.,# ]{21,156}$/.test(shippingAddress))) return res.status(400).json({ error: 'please enter a valid shipping address' });
 
   const text = `
     INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress")
