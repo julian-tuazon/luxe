@@ -38,7 +38,7 @@ export default class ProductDetails extends React.Component {
             <div className="d-flex flex-column justify-content-center col-md-7 px-0">
               <h4 className="card-title">{this.state.product.name}</h4>
               <div>
-                <p className="btn btn-outline-success">${this.state.product.price}</p>
+                <p className="d-inline-block text-success border border-success rounded p-2">${this.state.product.price}</p>
               </div>
               <p>{this.state.product.shortDescription}</p>
               <div>

@@ -10,7 +10,7 @@ export default function CartSummaryItem(props) {
       <div className="d-flex flex-column justify-content-center col-md-7 px-0">
         <h4 className="card-title">{props.item.name}</h4>
         <div>
-          <p className="btn btn-outline-success">${props.item.price}</p>
+          <p className="d-inline-block text-success border border-success rounded p-2">${props.item.price}</p>
         </div>
         <p>{props.item.shortDescription}</p>
       </div>
