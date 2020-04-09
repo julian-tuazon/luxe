@@ -20,6 +20,7 @@ https://luxe.juliantuazon.com/
 - User can view product details
 - User can add products to the cart
 - User can view a cart summary
+- User can receive visual feedback if the information entered at checkout is valid/invalid
 - User can place an order
 
 ## Preview
