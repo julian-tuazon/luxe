@@ -2,14 +2,12 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 export default function CartSummary(props) {
-  if (props.cart.length === 0) {
+  if (!props.cart.length) {
     return (
       <div>
         <h1 className="text-center mb-5">Cart is empty</h1>
-        <div
-          className="text-muted mb-4 pt-0 px-0 btn d-flex justify-content-center"
-          onClick={() => props.setView('catalog', {})}>
-          Back to catalog
+        <div className="text-center">
+          <button type="button" id="catalog" className="btn btn-outline-info" onClick={() => props.setView('catalog', {})}>Back to catalog</button>
         </div>
       </div>
     );

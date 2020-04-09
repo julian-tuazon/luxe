@@ -37,7 +37,9 @@ export default class ProductDetails extends React.Component {
               alt={this.state.product.name} />
             <div className="d-flex flex-column">
               <h3 className="card-title">{this.state.product.name}</h3>
-              <h5 className="text-muted">${this.state.product.price}</h5>
+              <div>
+                <p className="btn btn-outline-success">${this.state.product.price}</p>
+              </div>
               <p>{this.state.product.shortDescription}</p>
               <div>
                 <button type="button" id="addToCart" className="btn btn-primary" onClick={this.handleClick}>Add to Cart</button>

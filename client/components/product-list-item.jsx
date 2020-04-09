@@ -7,7 +7,7 @@ export default function ProductListItem(props) {
         <img src={props.product.image} className="card-img-top product-list-item-img" alt={props.product.name} />
         <div className="card-body">
           <h5 className="card-title">{props.product.name}</h5>
-          <p>${props.product.price}</p>
+          <p className="btn btn-outline-success">${props.product.price}</p>
           <p className="card-text">{props.product.shortDescription}</p>
         </div>
       </div>
