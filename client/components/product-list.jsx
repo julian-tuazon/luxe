@@ -31,7 +31,7 @@ export default class ProductList extends React.Component {
         handleClick={this.handleClick} />);
 
     return (
-      <div className="container">
+      <div className="container mb-4">
         <div className="row row-cols-1 row-cols-md-3">
           {products}
         </div>

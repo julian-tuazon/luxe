@@ -25,28 +25,28 @@ export default class ProductDetails extends React.Component {
   render() {
     if (!this.state.product) return null;
     return (
-      <div className="container my-5 mx-auto">
-        <div className="container card">
-          <div className="my-3">
+      <div className="container mb-5">
+        <div className="card card-body">
+          <div className="mb-3">
             <button type="button" id="catalog" className="btn btn-outline-info" onClick={this.handleClick}>Back to catalog</button>
           </div>
-          <div className="d-flex flex-column flex-md-row justify-content-around">
+          <div className="d-flex flex-column flex-md-row justify-content-between mb-md-4">
             <img
               src={this.state.product.image}
-              className="details-img mb-5 mb-md-0 mr-md-4"
+              className="col-md-4 mb-4 mb-md-0 px-0 py-2"
               alt={this.state.product.name} />
-            <div className="d-flex flex-column">
-              <h3 className="card-title">{this.state.product.name}</h3>
+            <div className="d-flex flex-column justify-content-center col-md-7 px-0">
+              <h4 className="card-title">{this.state.product.name}</h4>
               <div>
                 <p className="btn btn-outline-success">${this.state.product.price}</p>
               </div>
               <p>{this.state.product.shortDescription}</p>
-              <div>
+              <div className="mb-4">
                 <button type="button" id="addToCart" className="btn btn-primary" onClick={this.handleClick}>Add to Cart</button>
               </div>
             </div>
           </div>
-          <div className="card-body px-0">
+          <div className="">
             <p>{this.state.product.longDescription}</p>
           </div>
         </div>
