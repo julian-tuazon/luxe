@@ -6,7 +6,7 @@ export default function Header(props) {
       <div className="col-11 mx-auto d-flex justify-content-between">
         <div className="btn text-light" onClick={() => props.setView('catalog', {})}>
           <i className="fas fa-dollar-sign mr-3"></i>
-          Wicked Sales
+          L U X E
         </div>
         <div className="btn text-light" onClick={() => props.setView('cart', {})}>
           {props.cartItemCount}{ props.cartItemCount === 1 ? ' Item' : ' Items' }
