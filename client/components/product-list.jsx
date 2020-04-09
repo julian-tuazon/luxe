@@ -31,11 +31,9 @@ export default class ProductList extends React.Component {
         handleClick={this.handleClick} />);
 
     return (
-      <div className="row mx-0">
-        <div className="col-7 mx-auto">
-          <div className="row row-cols-1 row-cols-md-3">
-            {products}
-          </div>
+      <div className="container mb-4">
+        <div className="row row-cols-1 row-cols-md-3">
+          {products}
         </div>
       </div>
     );
