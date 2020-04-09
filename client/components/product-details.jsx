@@ -34,8 +34,7 @@ export default class ProductDetails extends React.Component {
             <img
               src={this.state.product.image}
               className="details-img mb-5 mb-md-0 mr-md-4"
-              alt={this.state.product.name}
-            />
+              alt={this.state.product.name} />
             <div className="d-flex flex-column">
               <h3 className="card-title">{this.state.product.name}</h3>
               <h5 className="text-muted">${this.state.product.price}</h5>
