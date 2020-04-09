@@ -31,6 +31,7 @@ https://luxe.juliantuazon.com/
   - Web browser
   - Node.js 10 or higher.
   - npm 6 or higher.
+  - PostgreSQL 10 or higher.
   
 #### Getting Started
 1. Clone the repository.
