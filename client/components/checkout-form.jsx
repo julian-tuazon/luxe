@@ -63,17 +63,17 @@ export default class CheckoutForm extends React.Component {
     return this.state.invalid.length ? 'btn btn-danger' : 'btn btn-primary';
   }
 
-  getTotalPrice() {
+  getCartTotal() {
     return this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
 
   render() {
     return (
-      <div className="row mx-0">
-        <div className="col-7 mx-auto d-flex flex-column">
+      <div className="container">
+        <div className="col-md-7 mx-auto d-flex flex-column">
           <h2 className="mb-4">My Cart</h2>
-          <h5 className="d-flex align-items-center text-muted mb-4">Total Price: ${this.getTotalPrice()}</h5>
-          <form className="d-flex flex-column needs-validation" noValidate onSubmit={this.handleSubmit}>
+          <h4 className="d-flex align-items-center text-muted mb-4">Cart Total: ${this.getCartTotal()}</h4>
+          <form className="d-flex flex-column needs-validation mb-5" noValidate onSubmit={this.handleSubmit}>
             <div className="form-group mb-5">
               <label htmlFor="name">Name</label>
               <input type="text" id="name" className={this.setInputClassName('name')} value={this.state.name} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={67} required />
@@ -90,7 +90,7 @@ export default class CheckoutForm extends React.Component {
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
             <div className="d-flex justify-content-between">
-              <div>
+              <div className="mr-3">
                 <button type="button" className="btn btn-outline-info" id="catalog" onClick={this.handleClick}>Back to catalog</button>
               </div>
               <div>

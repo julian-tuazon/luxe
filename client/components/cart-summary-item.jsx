@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CartSummaryItem(props) {
   return (
-    <div className= "card card-body mb-4 d-flex flex-column flex-md-row justify-content-between">
+    <div className="card card-body d-flex flex-column flex-md-row justify-content-between mb-4">
       <img
         src={props.item.image}
         className="col-md-4 mb-4 mb-md-0 px-0 py-2"

@@ -30,7 +30,7 @@ export default class ProductDetails extends React.Component {
           <div className="mb-3">
             <button type="button" id="catalog" className="btn btn-outline-info" onClick={this.handleClick}>Back to catalog</button>
           </div>
-          <div className="d-flex flex-column flex-md-row justify-content-between mb-md-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between mb-4">
             <img
               src={this.state.product.image}
               className="col-md-4 mb-4 mb-md-0 px-0 py-2"
@@ -41,14 +41,12 @@ export default class ProductDetails extends React.Component {
                 <p className="btn btn-outline-success">${this.state.product.price}</p>
               </div>
               <p>{this.state.product.shortDescription}</p>
-              <div className="mb-4">
+              <div>
                 <button type="button" id="addToCart" className="btn btn-primary" onClick={this.handleClick}>Add to Cart</button>
               </div>
             </div>
           </div>
-          <div className="">
-            <p>{this.state.product.longDescription}</p>
-          </div>
+          <p>{this.state.product.longDescription}</p>
         </div>
       </div>
     );
