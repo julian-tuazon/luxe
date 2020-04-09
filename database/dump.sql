@@ -271,6 +271,84 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 124	32	5	9900
 125	32	4	999
 126	32	1	2999
+127	32	2	2595
+128	33	2	2595
+129	34	2	2595
+130	35	1	2999
+131	35	2	2595
+132	36	2	2595
+133	36	3	2900
+134	37	1	2999
+135	37	2	2595
+136	37	6	830
+137	38	1	2999
+138	38	2	2595
+139	39	1	2999
+140	39	2	2595
+141	40	3	2900
+142	41	2	2595
+143	41	2	2595
+144	41	2	2595
+145	41	2	2595
+146	41	2	2595
+147	41	2	2595
+148	41	2	2595
+149	41	2	2595
+150	41	2	2595
+151	41	2	2595
+152	41	2	2595
+153	41	2	2595
+154	42	3	2900
+155	43	2	2595
+156	44	2	2595
+157	44	1	2999
+158	44	2	2595
+159	44	2	2595
+160	45	3	2900
+161	46	2	2595
+162	46	2	2595
+163	47	1	2999
+164	47	3	2900
+165	48	3	2900
+166	49	2	2595
+167	49	3	2900
+168	50	3	2900
+169	50	6	830
+170	51	3	2900
+171	52	2	2595
+172	53	2	2595
+173	53	3	2900
+174	54	3	2900
+175	55	2	2595
+176	55	1	2999
+177	56	2	2595
+178	56	2	2595
+179	57	1	2999
+180	58	2	2595
+181	59	2	2595
+182	60	2	2595
+183	61	1	2999
+184	62	2	2595
+185	63	2	2595
+186	64	2	2595
+187	65	3	2900
+188	65	1	2999
+189	66	2	2595
+190	67	2	2595
+191	68	1	2999
+192	69	1	2999
+193	69	1	2999
+194	69	1	2999
+195	69	1	2999
+196	69	1	2999
+197	69	3	2900
+198	70	2	2595
+199	70	3	2900
+200	70	1	2999
+201	71	1	2999
+202	71	2	2595
+203	72	1	2999
+204	72	5	9900
 \.
 
 
@@ -282,6 +360,46 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 30	2020-03-10 14:18:25.854836-07
 31	2020-03-10 15:40:03.059839-07
 32	2020-03-10 15:45:46.941766-07
+33	2020-03-10 17:58:54.386738-07
+34	2020-03-10 18:00:49.71598-07
+35	2020-03-10 18:02:14.494708-07
+36	2020-03-10 23:14:22.955368-07
+37	2020-03-11 01:22:56.3225-07
+38	2020-03-11 02:06:31.039126-07
+39	2020-03-11 10:33:40.559997-07
+40	2020-03-11 10:34:12.569082-07
+41	2020-03-11 13:20:38.267333-07
+42	2020-03-11 13:24:58.546286-07
+43	2020-03-11 13:25:16.309413-07
+44	2020-03-11 13:54:53.80629-07
+45	2020-03-11 14:07:57.376929-07
+46	2020-03-11 14:08:13.833393-07
+47	2020-03-11 14:48:57.093233-07
+48	2020-03-11 17:23:09.075298-07
+49	2020-03-11 17:28:36.986193-07
+50	2020-03-11 18:10:34.778356-07
+51	2020-03-11 18:24:25.782624-07
+52	2020-03-11 18:25:36.916117-07
+53	2020-03-11 23:22:13.39474-07
+54	2020-03-12 10:20:33.593893-07
+55	2020-03-12 16:47:24.446731-07
+56	2020-03-12 16:47:41.320774-07
+57	2020-03-12 16:50:44.345027-07
+58	2020-03-12 16:56:17.889394-07
+59	2020-03-12 16:56:30.719253-07
+60	2020-03-12 16:57:03.117845-07
+61	2020-03-12 17:00:57.97977-07
+62	2020-03-12 17:23:44.235376-07
+63	2020-03-12 17:25:24.042033-07
+64	2020-03-12 17:31:29.276106-07
+65	2020-03-12 21:33:00.354281-07
+66	2020-04-08 16:53:55.897532-07
+67	2020-04-08 16:56:49.915596-07
+68	2020-04-08 17:20:05.068877-07
+69	2020-04-08 17:34:18.921235-07
+70	2020-04-08 18:13:13.599029-07
+71	2020-04-08 23:54:59.77074-07
+72	2020-04-09 04:41:09.701506-07
 \.
 
 
@@ -290,6 +408,42 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 --
 
 COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
+1	33	Mikey Chacn	234234234	123 LearningLane	2020-03-10 17:59:01.790608-07
+2	34	Mikey Chacn	234234234	123 LearningLane	2020-03-10 18:01:08.071971-07
+3	35	Mikey Chacn	234234234	LearningLane	2020-03-10 18:05:55.050885-07
+4	36	Hey	283482	1234 Front Lane	2020-03-11 01:07:31.578648-07
+5	37	Lannister	34343434	1234 Kings landing	2020-03-11 02:06:18.019131-07
+6	38	Lannister boi	1232312312	123 Kings Landing	2020-03-11 02:06:52.674815-07
+7	39	fasdfasdfasdf	234234323423	1232131 doo doo lane	2020-03-11 10:34:01.236633-07
+8	40	Frank Dudeo	2383488384838483	12345 Shipping Lane	2020-03-11 13:20:34.574466-07
+9	41	sdfsdf	32343	asdfasdfa	2020-03-11 13:24:49.909459-07
+10	42	sdfsdf	23	23234f sta	2020-03-11 13:25:08.34569-07
+11	43	her dfsdf	234234	asdf 23423 	2020-03-11 13:45:53.689296-07
+12	44	afsdasfdsafasd	2343434	sdfsdfsd	2020-03-11 14:07:50.521622-07
+13	45	adsfssdfadsfsa	234234234234234	asdfsdfasdfasdfasdfadfasz	2020-03-11 14:08:09.271827-07
+14	46	sdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdffffffffffffff	2222222222222222	sdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdfffffffffffffffsdf	2020-03-11 14:48:53.479776-07
+15	47	 sdddddddddd	2222222222222222	ds 	2020-03-11 17:23:01.102725-07
+16	48	 	3333333333333333	fd	2020-03-11 17:23:20.460108-07
+17	49	lawrence 	1234567812345678	343434343 lawrence lane	2020-03-11 18:10:28.877591-07
+18	50	sdfsdfsd	3333333333	 	2020-03-11 18:24:21.453198-07
+19	51	Danny The beast	3423423423423423	Torrance Mansion where we party evernight	2020-03-11 18:25:02.620847-07
+20	54	adsfasdfasdfsfasfsfsdffsdfs	2333333333333333	adsfasdfasdfsfasfsfsdffsdfsadsfasdfasdfsfasfsfsdffsdfsadsfasdfasdfsfasfsfsdffsdfsadsfasdfasdfsfasfsfsdffsdfs	2020-03-12 16:46:39.068602-07
+21	55	sdfdsfsdf	2343243432423423	23432434324234232343243432423423	2020-03-12 16:47:35.226245-07
+22	56	asdfsdf	2343243432423422	sdfsfsdfdsfdsfssdfsdfdsf	2020-03-12 16:48:37.901568-07
+23	57	asssd	3333333333333333	dddddddddddddddddddddddddddddddddddddddddddddddddddddffddddddddddddddddd	2020-03-12 16:52:51.180277-07
+24	58	asdfasdfsfsdfsdfsdfsdfsd	3333333333333333	asdfasdfsfsdfsdfsdfsdfsdasdfasdfsfsdfsdfsdfsdfsd	2020-03-12 16:56:27.637224-07
+25	59	dfsdfsdfdsfsdfds	3333333333333333	asdfasdfasdfsdfsdfsdfsdfsd	2020-03-12 16:56:55.515441-07
+26	60	sddd d	3333333333333333	333333333333333333333333333333333333333333333333	2020-03-12 17:00:38.631527-07
+27	62	yessss	2222222222222222	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfadfasdfasdfsdafsdfasdfasdfasdfasdfasdfasdfadfasdfadsfas	2020-03-12 17:24:35.06384-07
+28	63	yessss	2222222222222222	asdfasdfasdfasdfasdfasdfasdfasdfasdfa	2020-03-12 17:29:59.27232-07
+29	64	yessss	1111111111111111	asdfasdfasdfasdfasdfasdfasdfasdfasdfa	2020-03-12 17:32:27.890008-07
+30	61	asdfsadfdsf	3333333333333333	asdfasdfasdfasdfadfasdfadsfasdfasdfsf	2020-03-12 17:37:32.11092-07
+31	66	Jhond	3333333333333333	12345 Strong Lanedfddfd	2020-04-08 16:56:32.424462-07
+32	67	fsdfs	3222222222222222	2asdf asdffdsfsfdsddd	2020-04-08 16:57:29.564622-07
+33	68	fsdfdsfsfdsf	3333333333333333	asdf 342 333333333333333333333333333333333333333333333333	2020-04-08 17:20:16.479357-07
+34	69	fsfsdfsdfsdfsdf	3333333333333333	asdfasdfs 3423423423 sdfsdfsdfs	2020-04-08 17:34:33.494181-07
+35	70	aaaaaaaaaaaaaaaaaaaaaa	3333333333333333	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa	2020-04-08 23:34:13.678977-07
+36	71	ddasdasdasdasdasdsadasdsadasdasdasdsadasdasdasdasdasdasdas	3333333333333333	ddasdasdasdasdasdsadasdsadasdasdasdsadasdasdasdasdasdasdas	2020-04-09 04:40:29.514554-07
 \.
 
 
@@ -298,12 +452,12 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 --
 
 COPY public.products ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
-1	Shake Weight	2999	/images/shake-weight.jpg	Dynamic Inertia technology ignites muscles in arms, shoulders, and chest.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-2	ShamWow	2595	/images/shamwow.jpg	It's like a chamois, towel, and sponge, all in one! Soaks up to 10x it's weight in any liquid!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-3	Snuggie	2900	/images/snuggie.jpg	Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-4	Wax Vac	999	/images/wax-vac.jpg	Gentle way to remove ear wax. Safe and hygienic. Reduces the risk of painful infections.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-5	Ostrich Pillow	9900	/images/ostrich-pillow.jpg	Create your own snugly space in the world and feel-good anywhere with the ultimate cocoon pillow.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-6	Tater Mitts	830	/images/tater-mitts.jpg	8 Seconds is all you need with Tater Mitts. Quickly and easily prepare all your favorite potato dishes with Tater Mitts.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+4	Table Top Fireplace	999	/images/fireplace.jpg	Gentle way to remove ear wax. Safe and hygienic. Reduces the risk of painful infections.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+2	Exquisite Blanket	2595	/images/blanket.jpg	It's like a chamois, towel, and sponge, all in one! Soaks up to 10x it's weight in any liquid!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+3	New York Skyline Chess Set	2900	/images/chess.jpg	Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+1	Stag Horn Whiskey Flight	2999	/images/flight.jpg	Dynamic Inertia technology ignites muscles in arms, shoulders, and chest.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+6	Smart Family Set	830	/images/smart.jpg	8 Seconds is all you need with Tater Mitts. Quickly and easily prepare all your favorite potato dishes with Tater Mitts.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+5	KAWS Small Lie 3 Set	9900	/images/kaws.jpg	Create your own snugly space in the world and feel-good anywhere with the ultimate cocoon pillow.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
 \.
 
 
@@ -311,21 +465,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 126, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 204, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 32, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 72, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 1, false);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 36, true);
 
 
 --
