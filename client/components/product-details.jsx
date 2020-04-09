@@ -25,18 +25,18 @@ export default class ProductDetails extends React.Component {
   render() {
     if (!this.state.product) return null;
     return (
-      <div className="row mt-5 mx-0">
-        <div className="card col-7 mx-auto">
+      <div className="container my-5 mx-auto">
+        <div className="container card">
           <div className="my-3">
             <button type="button" id="catalog" className="btn btn-outline-info" onClick={this.handleClick}>Back to catalog</button>
           </div>
-          <div className="row">
+          <div className="d-flex flex-column flex-md-row justify-content-around">
             <img
               src={this.state.product.image}
-              className="card-img-top col-4"
+              className="details-img mb-5 mb-md-0 mr-md-4"
               alt={this.state.product.name}
-              style={{ objectFit: 'contain', maxHeight: '300px' }} />
-            <div className="d-flex flex-column col-7">
+            />
+            <div className="d-flex flex-column">
               <h3 className="card-title">{this.state.product.name}</h3>
               <h5 className="text-muted">${this.state.product.price}</h5>
               <p>{this.state.product.shortDescription}</p>
