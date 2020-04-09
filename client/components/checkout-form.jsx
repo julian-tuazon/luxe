@@ -12,8 +12,8 @@ export default class CheckoutForm extends React.Component {
   }
 
   handleClick(e) {
-    if (e.target.id === 'order') return this.setState({ showValidation: Array.from(this.fields) });
-    this.props.setView('catalog', {});
+    if (e.target.id === 'order') this.setState({ showValidation: Array.from(this.fields) });
+    else this.props.setView('catalog', {});
   }
 
   handleChange(e) {
@@ -49,9 +49,10 @@ export default class CheckoutForm extends React.Component {
 
   validateInput(input) {
     if (this.state[input.id].trim().length >= input.minLength) {
-      return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
+      this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
+    } else if (!this.state.invalid.includes(input.id)) {
+      this.setState({ invalid: [...this.state.invalid, input.id] });
     }
-    if (!this.state.invalid.includes(input.id)) this.setState({ invalid: [...this.state.invalid, input.id] });
   }
 
   setInputClassName(input) {
