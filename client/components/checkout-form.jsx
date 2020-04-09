@@ -24,12 +24,19 @@ export default class CheckoutForm extends React.Component {
     };
     const input = e.target;
     this.setState({ showValidation: this.state.showValidation.filter(elem => elem !== input.id) });
-    if (validationTests[input.id].test(input.value)) this.setState({ [input.id]: input.value }, () => this.validateInput(input));
+    if (validationTests[input.id].test(input.value)) {
+      this.setState({
+        [input.id]: input.value
+      }, () => this.validateInput(input));
+    }
   }
 
   handleBlur(e) {
-    this.setState({ showValidation: [...this.state.showValidation, e.currentTarget.id] });
-    this.setState({ [e.currentTarget.id]: this.state[e.currentTarget.id].trim() }, this.validateInput(e.currentTarget));
+    const input = e.currentTarget;
+    this.setState({
+      showValidation: [...this.state.showValidation, input.id],
+      [input.id]: this.state[input.id].trim()
+    }, () => this.validateInput(input));
   }
 
   handleSubmit(e) {
@@ -41,7 +48,9 @@ export default class CheckoutForm extends React.Component {
   }
 
   validateInput(input) {
-    if (this.state[input.id].trim().length >= input.minLength) return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
+    if (this.state[input.id].trim().length >= input.minLength) {
+      return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
+    }
     if (!this.state.invalid.includes(input.id)) this.setState({ invalid: [...this.state.invalid, input.id] });
   }
 
@@ -67,19 +76,19 @@ export default class CheckoutForm extends React.Component {
             <div className="form-group mb-5">
               <label htmlFor="name">Name</label>
               <input type="text" id="name" className={this.setInputClassName('name')} value={this.state.name} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={67} required />
-              <div className="valid-feedback">Valid.</div>
+              {/* <div className="valid-feedback">Valid.</div> */}
               <small className="invalid-feedback position-absolute">Minimum of 5 characters required.</small>
             </div>
             <div className="form-group mb-5">
               <label htmlFor="card">Credit Card</label>
               <input type="text" id="card" className={this.setInputClassName('card')} value={this.state.card} onChange={this.handleChange} onBlur={this.handleBlur} minLength={16} maxLength={16} required />
-              <div className="valid-feedback">Valid.</div>
+              {/* <div className="valid-feedback">Valid.</div> */}
               <small className="invalid-feedback position-absolute">Please enter a valid 16 digit card number.</small>
             </div>
             <div className="form-group mb-5">
               <label htmlFor="name">Shipping Address</label>
               <textarea type="textarea" id="address" className={this.setInputClassName('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
-              <div className="valid-feedback">Valid.</div>
+              {/* <div className="valid-feedback">Valid.</div> */}
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
             <div className="d-flex justify-content-between">
