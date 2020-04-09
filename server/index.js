@@ -34,23 +34,25 @@ app.get('/api/products', (req, res, next) => {
 });
 
 app.get('/api/products/:productId', (req, res, next) => {
-  if (!(/(?!^0)(^\d+$)/.test(req.params.productId))) return res.status(400).json({ error: 'please enter a positive integer productId' });
+  const { productId } = req.params;
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
   const text = `
     SELECT *
       FROM "products"
      WHERE "productId" = $1
   `;
-  const values = [req.params.productId];
+  const values = [productId];
   db.query(text, values)
     .then(data => {
-      if (data.rows.length === 0) throw new ClientError(`productId ${req.params.productId} does not exist`, 404);
+      if (!data.rows.length) throw new ClientError(`productId ${productId} does not exist`, 404);
       return res.json(data.rows[0]);
     })
     .catch(err => next(err));
 });
 
 app.get('/api/cart/', (req, res, next) => {
-  if (!('cartId' in req.session)) return res.json([]);
+  const { cartId } = req.session;
+  if (!cartId) return res.json([]);
   const text = `
     SELECT "c"."cartItemId",
            "c"."price",
@@ -62,7 +64,7 @@ app.get('/api/cart/', (req, res, next) => {
       JOIN "products" AS "p" USING ("productId")
      WHERE "c"."cartId" = $1
     `;
-  const values = [req.session.cartId];
+  const values = [cartId];
   db.query(text, values)
     .then(data => res.json(data.rows))
     .catch(err => next(err));
@@ -70,23 +72,24 @@ app.get('/api/cart/', (req, res, next) => {
 
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
-  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'please enter a positive integer for the productId' });
-  let text = `
+  const { cartId } = req.session;
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+  const sqlSelect = `
     SELECT "price"
       FROM "products"
      WHERE "productId" = $1
   `;
   const values = [productId];
-  db.query(text, values)
+  db.query(sqlSelect, values)
     .then(priceData => {
-      if (priceData.rows.length === 0) throw new ClientError(`productId ${productId} does not exist`, 400);
-      if ('cartId' in req.session) return { price: priceData.rows[0].price, cartId: req.session.cartId };
-      text = `
+      if (!priceData.rows.length) throw new ClientError(`productId ${productId} does not exist`, 400);
+      if (cartId) return { price: priceData.rows[0].price, cartId };
+      const sqlInsert = `
         INSERT INTO "carts" ("cartId", "createdAt")
         VALUES      (default, default)
         RETURNING   "cartId"
       `;
-      return db.query(text).then(cartIdData => ({ price: priceData.rows[0].price, cartId: cartIdData.rows[0].cartId }));
+      return db.query(sqlInsert).then(cartIdData => ({ price: priceData.rows[0].price, cartId: cartIdData.rows[0].cartId }));
     })
     .then(data => {
       req.session.cartId = data.cartId;
@@ -118,12 +121,18 @@ app.post('/api/cart', (req, res, next) => {
 
 app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
-  if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'your session has expired' });
+  if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'missing or invalid cartId' });
 
   const { name, creditCard, shippingAddress } = req.body;
-  if (!name || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{5,67}$/.test(name))) return res.status(400).json({ error: 'please enter a valid name' });
-  if (!creditCard || !(/^[\d]{16}$/.test(creditCard))) return res.status(400).json({ error: 'please enter a valid credit card number' });
-  if (!shippingAddress || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{21,156}$/.test(shippingAddress))) return res.status(400).json({ error: 'please enter a valid shipping address' });
+  if (!name || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{5,67}$/.test(name))) {
+    return res.status(400).json({ error: 'missing or invalid name' });
+  }
+  if (!creditCard || !(/^[\d]{16}$/.test(creditCard))) {
+    return res.status(400).json({ error: 'missing or invalid credit card number' });
+  }
+  if (!shippingAddress || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{21,156}$/.test(shippingAddress))) {
+    return res.status(400).json({ error: 'missing or invalid shipping address' });
+  }
 
   const text = `
     INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress")
@@ -158,7 +167,4 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(process.env.PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log('Listening on port', process.env.PORT);
-});
+app.listen(process.env.PORT);
