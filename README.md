@@ -29,7 +29,6 @@ https://luxe.juliantuazon.com/
 ## Development
 
 #### System Requirements
-  - Web browser
   - Node.js 10 or higher.
   - npm 6 or higher.
   - PostgreSQL 10 or higher.
