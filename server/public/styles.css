@@ -1,3 +1,11 @@
 img {
   object-fit: contain;
 }
+
+.product-list-item-img {
+  height: 250px;
+}
+
+.details-img {
+  height: 300px;
+}
