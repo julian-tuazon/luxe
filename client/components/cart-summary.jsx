@@ -7,7 +7,7 @@ export default function CartSummary(props) {
       <div>
         <h1 className="text-center mb-5">Cart is empty</h1>
         <div className="text-center">
-          <button type="button" id="catalog" className="btn btn-outline-info" onClick={() => props.setView('catalog', {})}>Back to catalog</button>
+          <button type="button" id="catalog" className="btn btn-outline-info" onClick={() => props.setView('catalog', {})}>Back to Catalog</button>
         </div>
       </div>
     );
@@ -22,7 +22,7 @@ export default function CartSummary(props) {
     <div className="container">
       <div className="d-flex flex-column">
         <div className="mb-3">
-          <button type="button" className="btn btn-outline-info" onClick={() => props.setView('catalog', {})}>Back to catalog</button>
+          <button type="button" className="btn btn-outline-info" onClick={() => props.setView('catalog', {})}>Back to Catalog</button>
         </div>
         <h2 className="mb-4">My Cart</h2>
         {cartItems}

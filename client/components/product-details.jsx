@@ -28,7 +28,7 @@ export default class ProductDetails extends React.Component {
       <div className="container mb-5">
         <div className="card card-body">
           <div className="mb-3">
-            <button type="button" id="catalog" className="btn btn-outline-info" onClick={this.handleClick}>Back to catalog</button>
+            <button type="button" id="catalog" className="btn btn-outline-info" onClick={this.handleClick}>Back to Catalog</button>
           </div>
           <div className="d-flex flex-column flex-md-row justify-content-between mb-4">
             <img
