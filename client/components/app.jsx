@@ -52,13 +52,10 @@ export default class App extends React.Component {
     fetch('/api/cart/', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(productId)
+      body: JSON.stringify({ productId })
     })
-      .then(res => res.json())
-      .then(data => {
-        const index = this.state.cart.findIndex(product => product.productId === productId);
-        const newCart = [...this.state.cart];
-        newCart.splice(index, 1);
+      .then(() => {
+        const newCart = this.state.cart.filter(product => product.productId !== productId);
         this.setState({ cart: newCart });
       })
       .catch(err => console.error(err));
