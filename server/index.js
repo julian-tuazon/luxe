@@ -126,7 +126,8 @@ app.delete('/api/cart/', (req, res, next) => {
   if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
   const text = `
     DELETE FROM "cartItems"
-    WHERE       "cartId", "productId" = $1, $2
+    WHERE       "cartId" = $1
+    AND         "productId" = $2
     RETURNING   *;
   `;
   const values = [cartId, productId];
