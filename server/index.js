@@ -119,6 +119,25 @@ app.post('/api/cart', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/cart/', (req, res, next) => {
+  const { cartId } = req.session;
+  const { productId } = req.body;
+  if (!cartId) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+  const text = `
+    DELETE FROM "cartItems"
+    WHERE       "cartId", "productId" = $1, $2
+    RETURNING   *;
+  `;
+  const values = [cartId, productId];
+  db.query(text, values)
+    .then(result => {
+      if (!result.rows.length) return res.status(404).json({ error: `productId ${productId} does not exist` });
+      return res.status(204).json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
   if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'missing or invalid cartId' });
