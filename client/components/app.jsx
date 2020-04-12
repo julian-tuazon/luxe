@@ -18,6 +18,7 @@ export default class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.deleteFromCart = this.deleteFromCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
 
@@ -47,6 +48,22 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  deleteFromCart(productId) {
+    fetch('/api/cart/', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(productId)
+    })
+      .then(res => res.json())
+      .then(data => {
+        const index = this.state.cart.findIndex(product => product.productId === productId);
+        const newCart = [...this.state.cart];
+        newCart.splice(index, 1);
+        this.setState({ cart: newCart });
+      })
+      .catch(err => console.error(err));
+  }
+
   placeOrder(order) {
     fetch('/api/orders/', {
       method: 'POST',
@@ -70,7 +87,7 @@ export default class App extends React.Component {
     if (this.state.view.name === 'warning') return <Warning setView={this.setView} />;
     else if (this.state.view.name === 'catalog') currentView = <ProductList setView={this.setView} />;
     else if (this.state.view.name === 'details') currentView = <ProductDetails details={this.state.view.params} setView={this.setView} addToCart={this.addToCart} />;
-    else if (this.state.view.name === 'cart') currentView = <CartSummary cart={this.state.cart} setView={this.setView} />;
+    else if (this.state.view.name === 'cart') currentView = <CartSummary cart={this.state.cart} deleteFromCart={this.deleteFromCart} setView={this.setView} />;
     else if (this.state.view.name === 'checkout') currentView = <CheckoutForm cart={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
 
     return (
