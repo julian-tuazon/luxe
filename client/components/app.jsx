@@ -44,7 +44,16 @@ export default class App extends React.Component {
       body: JSON.stringify(product)
     })
       .then(res => res.json())
-      .then(data => this.setState({ cart: [...this.state.cart, data] }))
+      .then(data => {
+        const isInCart = this.state.cart.some(cartItem => cartItem.productId === data.productId);
+        if (!isInCart) this.setState({ cart: [...this.state.cart, data] });
+        else {
+          const newCart = [...this.state.cart];
+          const index = newCart.findIndex(cartItem => cartItem.productId === data.productId);
+          newCart[index] = data;
+          this.setState({ cart: newCart });
+        }
+      })
       .catch(err => console.error(err));
   }
 
@@ -55,7 +64,7 @@ export default class App extends React.Component {
       body: JSON.stringify({ productId })
     })
       .then(() => {
-        const newCart = this.state.cart.filter(product => product.productId !== productId);
+        const newCart = this.state.cart.filter(cartItem => cartItem.productId !== productId);
         this.setState({ cart: newCart });
       })
       .catch(err => console.error(err));
