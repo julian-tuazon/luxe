@@ -93,12 +93,15 @@ app.post('/api/cart', (req, res, next) => {
     })
     .then(data => {
       req.session.cartId = data.cartId;
+
       const text = `
-        INSERT INTO "cartItems"("cartId", "productId", "price")
-        VALUES      ($1, $2, $3)
+        INSERT INTO "cartItems"("cartId", "productId", "price", "quantity")
+        VALUES      ($1, $2, $3, $4)
+        ON CONFLICT ("cartId", "productId") DO UPDATE
+        SET         "quantity" = "cartItems"."quantity" + 1
         RETURNING   "cartItemId"
       `;
-      const values = [data.cartId, productId, data.price];
+      const values = [data.cartId, productId, data.price, 1];
       return db.query(text, values).then(cartItemIdData => cartItemIdData.rows[0]);
     })
     .then(cartItemIdData => {
