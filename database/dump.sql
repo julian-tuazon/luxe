@@ -19,6 +19,7 @@ SET row_security = off;
 ALTER TABLE ONLY public.products DROP CONSTRAINT products_pkey;
 ALTER TABLE ONLY public.orders DROP CONSTRAINT orders_pkey;
 ALTER TABLE ONLY public.carts DROP CONSTRAINT carts_pkey;
+ALTER TABLE ONLY public."cartItems" DROP CONSTRAINT "cartItems_uq";
 ALTER TABLE ONLY public."cartItems" DROP CONSTRAINT "cartItems_pkey";
 ALTER TABLE public.products ALTER COLUMN "productId" DROP DEFAULT;
 ALTER TABLE public.orders ALTER COLUMN "orderId" DROP DEFAULT;
@@ -230,6 +231,9 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
+436	79	2	899	3
+439	79	6	499	3
+442	79	3	799	2
 \.
 
 
@@ -244,6 +248,7 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 76	2020-04-12 01:52:10.677893-07
 77	2020-04-12 02:54:02.710895-07
 78	2020-04-12 03:50:20.598306-07
+79	2020-04-12 22:04:04.666313-07
 \.
 
 
@@ -278,14 +283,14 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 252, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 443, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 78, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 79, true);
 
 
 --
@@ -308,6 +313,14 @@ SELECT pg_catalog.setval('public."products_productId_seq"', 1, false);
 
 ALTER TABLE ONLY public."cartItems"
     ADD CONSTRAINT "cartItems_pkey" PRIMARY KEY ("cartItemId");
+
+
+--
+-- Name: cartItems cartItems_uq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."cartItems"
+    ADD CONSTRAINT "cartItems_uq" UNIQUE ("cartId", "productId");
 
 
 --
