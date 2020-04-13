@@ -13,10 +13,16 @@ export default function CartSummaryItem(props) {
           <p className="d-inline-block text-success border border-success rounded p-2">${props.item.price}</p>
         </div>
         <p>{props.item.shortDescription}</p>
-        <div className="d-flex align-items-center">
-          <i className="far fa-times-circle text-danger mr-2"></i>
-          <button type="button" id="delete" className="btn px-0 text-danger" onClick={() => props.deleteFromCart(props.item.productId)}>Remove</button>
+        <div className="d-flex">
+          <div className="mr-4 d-flex align-items-end">Quantity: {props.item.quantity}</div>
+          <div>
+            <button type="button" id="delete" className="btn p-0 text-danger" onClick={() => props.deleteFromCart(props.item.productId)}>
+              <i className="far fa-times-circle text-danger mr-2"></i>
+              Remove
+            </button>
+          </div>
         </div>
+
       </div>
     </div>
   );
