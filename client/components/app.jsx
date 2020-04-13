@@ -14,11 +14,13 @@ export default class App extends React.Component {
         name: 'warning',
         params: {}
       },
-      cart: []
+      cart: [],
+      canClick: true
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.deleteFromCart = this.deleteFromCart.bind(this);
+    this.updateQuantity = this.updateQuantity.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
 
@@ -70,6 +72,27 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  updateQuantity(productId, quantity) {
+    this.setState({ canClick: false }, () => {
+      fetch('/api/cart/', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId, quantity })
+      })
+        .then(res => res.json())
+        .then(data => {
+          const newCart = [...this.state.cart];
+          const index = newCart.findIndex(cartItem => cartItem.productId === data.productId);
+          newCart[index].quantity = data.quantity;
+          this.setState({ cart: newCart, canClick: true });
+        })
+        .catch(err => {
+          this.setState({ canClick: true });
+          console.error(err);
+        });
+    });
+  }
+
   placeOrder(order) {
     fetch('/api/orders/', {
       method: 'POST',
@@ -93,7 +116,7 @@ export default class App extends React.Component {
     if (this.state.view.name === 'warning') return <Warning setView={this.setView} />;
     else if (this.state.view.name === 'catalog') currentView = <ProductList setView={this.setView} />;
     else if (this.state.view.name === 'details') currentView = <ProductDetails details={this.state.view.params} setView={this.setView} addToCart={this.addToCart} />;
-    else if (this.state.view.name === 'cart') currentView = <CartSummary cart={this.state.cart} deleteFromCart={this.deleteFromCart} setView={this.setView} />;
+    else if (this.state.view.name === 'cart') currentView = <CartSummary cart={this.state.cart} deleteFromCart={this.deleteFromCart} updateQuantity={this.updateQuantity} canClick={this.state.canClick} setView={this.setView} />;
     else if (this.state.view.name === 'checkout') currentView = <CheckoutForm cart={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
 
     return (
