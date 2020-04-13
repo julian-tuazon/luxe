@@ -14,9 +14,9 @@ export default function CartSummary(props) {
   }
 
   const cartItems = props.cart.map(item =>
-    <CartSummaryItem item={item} key={item.productId} />
+    <CartSummaryItem item={item} key={item.productId} deleteFromCart={props.deleteFromCart} updateQuantity={props.updateQuantity} canClick={props.canClick} />
   );
-  const cartTotal = props.cart.reduce((acc, cur) => acc + cur.price, 0);
+  const cartTotal = props.cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
 
   return (
     <div className="container">

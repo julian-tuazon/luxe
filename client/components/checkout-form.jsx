@@ -13,23 +13,25 @@ export default class CheckoutForm extends React.Component {
 
   handleClick(e) {
     if (e.target.id === 'order') this.setState({ showValidation: Array.from(this.fields) });
-    else this.props.setView('catalog', {});
+    if (e.target.id === 'catalog') this.props.setView('catalog', {});
   }
 
   handleChange(e) {
-    const validationTests = {
+    const input = e.target;
+    this.hideValidation(input.id);
+
+    if (input.id === 'agreement') {
+      return this.setState({
+        [input.id]: input.checked
+      }, () => this.validateInput(input));
+    }
+
+    const validChars = {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
       card: /^[\d]*$/,
       address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/
     };
-    const input = e.target;
-    this.setState({ showValidation: this.state.showValidation.filter(elem => elem !== input.id) });
-    if (input.id === 'agreement') {
-      return this.setState({
-        [e.currentTarget.id]: e.currentTarget.checked
-      }, () => this.validateInput(input));
-    }
-    if (validationTests[input.id].test(input.value)) {
+    if (validChars[input.id].test(input.value)) {
       this.setState({
         [input.id]: input.value
       }, () => this.validateInput(input));
@@ -38,9 +40,9 @@ export default class CheckoutForm extends React.Component {
 
   handleBlur(e) {
     const input = e.currentTarget;
-    if (input.id === 'agreement') return this.setState({ showValidation: [...this.state.showValidation, input.id] });
+    if (input.id === 'agreement') return this.setState({ showValidation: this.showValidation(input.id) });
     this.setState({
-      showValidation: [...this.state.showValidation, input.id],
+      showValidation: this.showValidation(input.id),
       [input.id]: this.state[input.id].trim()
     }, () => this.validateInput(input));
   }
@@ -53,17 +55,45 @@ export default class CheckoutForm extends React.Component {
     }
   }
 
+  // validateInput(input) {
+  //   if (input.id === 'agreement') {
+  //     if (this.state[input.id]) {
+  //       return this.removeFromInvalid(input.id);
+  //     }
+  //   } else if (this.state[input.id].trim().length >= input.minLength) {
+  //     return this.removeFromInvalid(input.id);
+  //   }
+  //   this.addToInvalid(input.id);
+  // }
+
   validateInput(input) {
-    if (input.id === 'agreement') {
-      if (this.state[input.id]) {
-        return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
-      }
-    } else if (this.state[input.id].trim().length >= input.minLength) {
-      return this.setState({ invalid: this.state.invalid.filter(elem => elem !== input.id) });
-    }
-    if (!this.state.invalid.includes(input.id)) {
-      this.setState({ invalid: [...this.state.invalid, input.id] });
-    }
+    if (this.isValidAgreement(input) || this.isValidInput(input)) return this.removeFromInvalid(input.id);
+    this.addToInvalid(input.id);
+  }
+
+  isValidAgreement(input) {
+    return input.id === 'agreement' && this.state[input.id];
+  }
+
+  isValidInput(input) {
+    return input.id !== 'agreement' && this.state[input.id].trim().length >= input.minLength;
+  }
+
+  showValidation(id) {
+    if (!this.state.showValidation.includes(id)) return [...this.state.showValidation, id];
+    return [...this.state.showValidation];
+  }
+
+  hideValidation(id) {
+    this.setState({ showValidation: this.state.showValidation.filter(elem => elem !== id) });
+  }
+
+  addToInvalid(id) {
+    if (!this.state.invalid.includes(id)) this.setState({ invalid: [...this.state.invalid, id] });
+  }
+
+  removeFromInvalid(id) {
+    this.setState({ invalid: this.state.invalid.filter(elem => elem !== id) });
   }
 
   setInputClassName(input) {

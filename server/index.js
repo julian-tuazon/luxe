@@ -56,6 +56,7 @@ app.get('/api/cart/', (req, res, next) => {
   const text = `
     SELECT "c"."cartItemId",
            "c"."price",
+           "c"."quantity",
            "p"."productId",
            "p"."image",
            "p"."name",
@@ -93,18 +94,22 @@ app.post('/api/cart', (req, res, next) => {
     })
     .then(data => {
       req.session.cartId = data.cartId;
+
       const text = `
-        INSERT INTO "cartItems"("cartId", "productId", "price")
-        VALUES      ($1, $2, $3)
+        INSERT INTO "cartItems"("cartId", "productId", "price", "quantity")
+        VALUES      ($1, $2, $3, $4)
+        ON CONFLICT ("cartId", "productId") DO UPDATE
+        SET         "quantity" = "cartItems"."quantity" + 1
         RETURNING   "cartItemId"
       `;
-      const values = [data.cartId, productId, data.price];
+      const values = [data.cartId, productId, data.price, 1];
       return db.query(text, values).then(cartItemIdData => cartItemIdData.rows[0]);
     })
     .then(cartItemIdData => {
       const text = `
       SELECT "c"."cartItemId",
              "c"."price",
+             "c"."quantity",
              "p"."productId",
              "p"."image",
              "p"."name",
@@ -115,6 +120,62 @@ app.post('/api/cart', (req, res, next) => {
       `;
       const values = [cartItemIdData.cartItemId];
       return db.query(text, values).then(data => res.status(201).json(data.rows[0]));
+    })
+    .catch(err => next(err));
+});
+
+app.patch('/api/cart', (req, res, next) => {
+  const { cartId } = req.session;
+  const { quantity, productId } = req.body;
+  if (!cartId) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!quantity) return res.status(400).json({ error: 'missing or invalid quantity' });
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+
+  let text;
+  if (quantity > 0) {
+    text = `
+      UPDATE    "cartItems"
+      SET       "quantity" = "cartItems"."quantity" + $1
+      WHERE     "cartId" = $2
+      AND       "productId" = $3
+      AND       "quantity" >= 1
+      RETURNING *;
+    `;
+  } else {
+    text = `
+      UPDATE    "cartItems"
+      SET       "quantity" = "cartItems"."quantity" + $1
+      WHERE     "cartId" = $2
+      AND       "productId" = $3
+      AND       "quantity" > 1
+      RETURNING *;
+    `;
+  }
+  const values = [quantity, cartId, productId];
+  db.query(text, values)
+    .then(data => {
+      if (!data.rows.length) throw new ClientError(`product ${productId} quantity must be a positive integer`, 400);
+      return res.json(data.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/cart', (req, res, next) => {
+  const { cartId } = req.session;
+  const { productId } = req.body;
+  if (!cartId) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+  const text = `
+    DELETE FROM "cartItems"
+    WHERE       "cartId" = $1
+    AND         "productId" = $2
+    RETURNING   *;
+  `;
+  const values = [cartId, productId];
+  db.query(text, values)
+    .then(result => {
+      if (!result.rows.length) return res.status(404).json({ error: `productId ${productId} does not exist` });
+      return res.status(204).json(result.rows[0]);
     })
     .catch(err => next(err));
 });
