@@ -76,7 +76,8 @@ CREATE TABLE public."cartItems" (
     "cartId" integer NOT NULL,
     "productId" integer NOT NULL,
     price integer NOT NULL,
-    quantity integer NOT NULL
+    quantity integer NOT NULL,
+    CONSTRAINT positive_quantity_check CHECK ((quantity > 0))
 );
 
 
@@ -231,9 +232,7 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
-436	79	2	899	3
-439	79	6	499	3
-442	79	3	799	2
+722	79	6	499	1
 \.
 
 
@@ -283,7 +282,7 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 443, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 724, true);
 
 
 --
