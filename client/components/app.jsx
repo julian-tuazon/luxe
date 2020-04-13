@@ -98,7 +98,7 @@ export default class App extends React.Component {
 
     return (
       <React.Fragment>
-        <Header cartItemCount={this.state.cart.length} setView={this.setView}/>
+        <Header cart={this.state.cart} setView={this.setView}/>
         {currentView}
       </React.Fragment>
     );
