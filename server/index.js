@@ -124,7 +124,43 @@ app.post('/api/cart', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/cart/', (req, res, next) => {
+app.patch('/api/cart', (req, res, next) => {
+  const { cartId } = req.session;
+  const { quantity, productId } = req.body;
+  if (!cartId) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!quantity) return res.status(400).json({ error: 'missing or invalid quantity' });
+  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+
+  let text;
+  if (quantity > 0) {
+    text = `
+      UPDATE    "cartItems"
+      SET       "quantity" = "cartItems"."quantity" + $1
+      WHERE     "cartId" = $2
+      AND       "productId" = $3
+      AND       "quantity" >= 1
+      RETURNING *;
+    `;
+  } else {
+    text = `
+      UPDATE    "cartItems"
+      SET       "quantity" = "cartItems"."quantity" + $1
+      WHERE     "cartId" = $2
+      AND       "productId" = $3
+      AND       "quantity" > 1
+      RETURNING *;
+    `;
+  }
+  const values = [quantity, cartId, productId];
+  db.query(text, values)
+    .then(data => {
+      if (!data.rows.length) throw new ClientError(`product ${productId} quantity must be a positive integer`, 400);
+      return res.json(data.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { productId } = req.body;
   if (!cartId) return res.status(400).json({ error: 'missing or invalid cartId' });
