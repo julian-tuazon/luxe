@@ -232,7 +232,21 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
-722	79	6	499	1
+887	89	6	499	1
+735	79	4	1499	1
+879	87	6	499	3
+880	87	4	1499	1
+869	80	2	899	4
+870	81	4	1499	1
+871	82	4	1499	2
+872	83	3	799	2
+877	87	3	799	5
+897	89	3	799	1
+874	84	3	799	1
+875	85	6	499	1
+876	86	2	899	3
+901	89	4	1499	2
+884	88	6	499	1
 \.
 
 
@@ -248,6 +262,16 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 77	2020-04-12 02:54:02.710895-07
 78	2020-04-12 03:50:20.598306-07
 79	2020-04-12 22:04:04.666313-07
+80	2020-04-14 17:13:19.741936-07
+81	2020-04-14 21:33:14.978035-07
+82	2020-04-14 21:33:57.148033-07
+83	2020-04-14 21:34:43.851026-07
+84	2020-04-14 21:35:45.725901-07
+85	2020-04-14 21:37:56.804919-07
+86	2020-04-14 21:40:33.593792-07
+87	2020-04-14 21:41:35.780585-07
+88	2020-04-14 21:57:22.872152-07
+89	2020-04-14 22:04:42.478798-07
 \.
 
 
@@ -261,6 +285,15 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 39	75	asdfd	3333333333333333	safdasdfasdfasdfasdfasdfasdfasd	2020-04-12 01:49:43.284789-07
 40	76	asdfadsfasdfasdfsfsdfdsfdsfsdfds	3333333333333333	asdfadsfasdfasdfsfsdfdsfdsfsdfds	2020-04-12 02:53:52.440511-07
 41	77	asdfasdd	3333333333333333	sfdasdfasdfasdfsdfdff	2020-04-12 03:35:01.261629-07
+42	80	fasdfasdfsadfasdf	3333333333333333	fasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdf	2020-04-14 21:32:04.131255-07
+43	81	asdfasdfasdfasdfasdfasdfasdf	3333333333333333	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:33:26.678274-07
+44	82	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd	3333333333333333	adfasdfasdfasdfasasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:34:12.097532-07
+45	83	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	3333333333333333	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:35:15.025916-07
+46	84	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd	3333333333333333	afasdfasfdasdfasdfasdfasdfasdfsdf	2020-04-14 21:36:56.206781-07
+47	85	asdfasdfasdfasdfasdfasdfasdf	3333333333333333	asfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:38:52.213187-07
+48	86	asdfasdfasdfasdfasdfasdfasdf	3333333333333333	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:40:54.936434-07
+49	87	asdfasdfasdfasdfasd	3333333333333333	asdfasdfasdfasdfasdvasdfasdfasdfasdfasdasdfasdfasdfasdfasd	2020-04-14 21:57:11.659345-07
+50	88	billy boy	3333333333333333	billy boybilly boybilly boybilly boybilly boybilly boybilly boybilly boybilly boy	2020-04-14 22:04:02.458376-07
 \.
 
 
@@ -269,12 +302,12 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 --
 
 COPY public.products ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
+4	Tabletop Fireplace	1499	/images/fireplace.jpg	A contemporary miniature fireplace that radiates warmth and light.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
 2	Exquisite Blanket	899	/images/blanket.jpg	A delightfully soft and warm blanket constructed with high-quality wool.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-4	Table Top Fireplace	1499	/images/fireplace.jpg	A contemporary miniature fireplace that radiates warmth and light.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-6	Tobacco Leather Travel Bag	499	/images/bag.jpg	A gorgeous full grain leather bag for carrying your electronic devices on the go.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-5	Winebreather Carafe	599	/images/wine.jpg	The innovative Winebreather Carafe adds 10 times more oxygen to your wine in under 2 minutes.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-1	Silo Wall Clock	1699	/images/clock.jpg	A simplistic sculptural clock that creates visual appeal through mathematical tangential relations and triangular forms.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-3	London Skyline Chess Set	799	/images/chess.jpg	An elegant chess set based on buildings in the London skyline.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+5	Winebreather Carafe	599	/images/wine.jpg	An innovative apparatus that adds 10 times more oxygen to your wine.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+6	Leather Travel Bag	499	/images/bag.jpg	A gorgeous full grain leather bag for carrying your electronic devices on the go.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+1	Silo Wall Clock	1699	/images/clock.jpg	A sculptural clock that creates visually appealing geometric shapes.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+3	London Chess Set	799	/images/chess.jpg	An elegant chess set based on buildings in the London skyline.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
 \.
 
 
@@ -282,21 +315,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 724, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 902, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 79, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 89, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 41, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 50, true);
 
 
 --
