@@ -5,7 +5,6 @@ export default class ProductDetails extends React.Component {
     super(props);
     this.state = { product: null, showModal: false, canAddToCart: true };
     this.handleClick = this.handleClick.bind(this);
-    this.isMaxQuantity = this.isMaxQuantity.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +20,7 @@ export default class ProductDetails extends React.Component {
   }
 
   handleClick(e) {
+    if (!this.props.canClick) return;
     if (e.target.id === 'catalog') return this.props.setView('catalog', {});
     if (e.target.id === 'addToCart') return this.addToCart();
   }
