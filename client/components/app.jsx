@@ -5,6 +5,7 @@ import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import Warning from './warning';
+import OrderConfirmation from './order-confirmation';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -106,7 +107,7 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ cart: [] });
-        this.setView('catalog', {});
+        this.setView('confirmation', order);
       })
       .catch(err => console.error(err));
   }
@@ -118,6 +119,7 @@ export default class App extends React.Component {
     else if (this.state.view.name === 'details') currentView = <ProductDetails details={this.state.view.params} setView={this.setView} addToCart={this.addToCart} />;
     else if (this.state.view.name === 'cart') currentView = <CartSummary cart={this.state.cart} deleteFromCart={this.deleteFromCart} updateQuantity={this.updateQuantity} canClick={this.state.canClick} setView={this.setView} />;
     else if (this.state.view.name === 'checkout') currentView = <CheckoutForm cart={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
+    else if (this.state.view.name === 'confirmation') currentView = <OrderConfirmation setView={this.setView} info={this.state.view.params}/>;
 
     return (
       <React.Fragment>
