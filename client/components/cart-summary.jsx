@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 export default function CartSummary(props) {
+  const [count] = useState(0);
+  useEffect(() => window.scrollTo(0, 0), [count]);
+
   if (!props.cart.length) {
     return (
       <div>

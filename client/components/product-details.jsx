@@ -9,6 +9,7 @@ export default class ProductDetails extends React.Component {
 
   componentDidMount() {
     this.getProductData();
+    window.scrollTo(0, 0);
   }
 
   getProductData() {

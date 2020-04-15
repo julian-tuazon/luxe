@@ -11,6 +11,10 @@ export default class CheckoutForm extends React.Component {
     this.handleBlur = this.handleBlur.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleClick(e) {
     if (e.target.id === 'order') this.setState({ showValidation: Array.from(this.fields) });
     if (e.target.id === 'catalog') this.props.setView('catalog', {});
