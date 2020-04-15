@@ -4,7 +4,7 @@ export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.fields = ['name', 'card', 'address', 'agreement'];
-    this.state = { name: '', card: '', address: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
+    this.state = { name: '', card: '', address: '', agreement: false, invalid: Array.from(this.fields), showValidation: [], showModal: true };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -109,9 +109,33 @@ export default class CheckoutForm extends React.Component {
     return this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
 
+  renderModal() {
+    const modalClassName = this.state.showModal ? 'modal overlay d-block' : 'modal overlay';
+    const hideModal = () => this.setState({ showModal: false });
+
+    return (
+      <div className={modalClassName} tabIndex="-1" role="dialog">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Agreement</h5>
+            </div>
+            <div className="modal-body">
+              <p>I understand that this website is for demonstration purposes only, that no payment processing will occur, and that personal information such as names, addresses, or real credit card numbers should not be used upon submission of this form.</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-danger" onClick={hideModal}>Accept</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="container">
+        {this.renderModal()}
         <div className="col-md-7 mx-auto d-flex flex-column">
           <h2 className="mb-4">My Cart</h2>
           <h4 className="d-flex align-items-center text-muted mb-4">Cart Total: ${this.getCartTotal()}</h4>
