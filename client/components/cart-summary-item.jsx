@@ -39,8 +39,12 @@ export default class CartSummaryItem extends React.Component {
     }
   }
 
-  setButtonStatus() {
+  setMinusButtonStatus() {
     return (this.props.item.quantity > 1) ? 'btn ml-2 text-primary' : 'btn ml-2 disabled';
+  }
+
+  setPlusButtonStatus() {
+    return (this.props.item.quantity < 99) ? 'btn text-primary' : 'btn disabled';
   }
 
   removeCartItem() {
@@ -96,11 +100,11 @@ export default class CartSummaryItem extends React.Component {
           <p>{this.props.item.shortDescription}</p>
           <div className="form-group d-flex align-items-center mb-3">
             <label htmlFor="quantity" className="mb-0">Quantity:</label>
-            <button type="button" id="minus" className={this.setButtonStatus()} onClick={this.updateQuantity}>
+            <button type="button" id="minus" className={this.setMinusButtonStatus()} onClick={this.updateQuantity}>
               <i className="fas fa-minus fa-xs"></i>
             </button>
             <input type="text" className="text-center mx-1" value={this.state.quantity} onChange={this.handleChange} onBlur={this.handleBlur} minLength={1} maxLength={2} size={2} required />
-            <button type="button" id="plus" className="btn text-primary" onClick={this.updateQuantity}>
+            <button type="button" id="plus" className={this.setPlusButtonStatus()} onClick={this.updateQuantity}>
               <i className="fas fa-plus fa-xs"></i>
             </button>
           </div>
