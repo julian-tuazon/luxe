@@ -11,6 +11,17 @@ img {
   height: 300px;
 }
 
+.header-img {
+  height: 550px;
+  background-image: linear-gradient(
+                    rgba(20, 20, 20, .4),
+                    rgba(20, 20, 20, .4)),
+                    url(../images/header.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .overlay {
   background: rgba(0, 0, 0, 0.6);
 }

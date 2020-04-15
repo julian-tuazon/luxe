@@ -32,6 +32,12 @@ export default class ProductList extends React.Component {
 
     return (
       <div className="container mb-4">
+        <div className="header-img d-flex align-items-end justify-content-end text-white mb-5">
+          <div className="d-flex flex-column flex-sm-row">
+            <h4 className="mr-3">L U X U R Y</h4>
+            <h4 className="mr-3">R E D E F I N E D</h4>
+          </div>
+        </div>
         <div className="row row-cols-1 row-cols-md-3">
           {products}
         </div>
