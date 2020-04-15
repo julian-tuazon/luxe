@@ -53,8 +53,10 @@ export default class ProductDetails extends React.Component {
               </p>
             </div>
             <div className="modal-footer">
-              <button type="button" id="shopping" className="btn btn-primary" onClick={hideModal}>Continue Shopping</button>
-              <button type="button" id="cart" className="btn btn-secondary" onClick={hideModal} data-dismiss="modal">View Cart</button>
+              <div className="btn-group w-75 mx-auto">
+                <button type="button" id="shopping" className="btn btn-primary w-25" onClick={hideModal}>Continue Shopping</button>
+                <button type="button" id="cart" className="btn btn-secondary w-25" onClick={hideModal} data-dismiss="modal">View Cart</button>
+              </div>
             </div>
           </div>
         </div>
