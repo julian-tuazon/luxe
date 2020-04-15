@@ -106,7 +106,7 @@ export default class CheckoutForm extends React.Component {
   }
 
   getCartTotal() {
-    return this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
+    return this.props.cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
   }
 
   renderModal() {
