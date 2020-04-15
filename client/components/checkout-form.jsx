@@ -55,17 +55,6 @@ export default class CheckoutForm extends React.Component {
     }
   }
 
-  // validateInput(input) {
-  //   if (input.id === 'agreement') {
-  //     if (this.state[input.id]) {
-  //       return this.removeFromInvalid(input.id);
-  //     }
-  //   } else if (this.state[input.id].trim().length >= input.minLength) {
-  //     return this.removeFromInvalid(input.id);
-  //   }
-  //   this.addToInvalid(input.id);
-  // }
-
   validateInput(input) {
     if (this.isValidAgreement(input) || this.isValidInput(input)) return this.removeFromInvalid(input.id);
     this.addToInvalid(input.id);
@@ -124,7 +113,7 @@ export default class CheckoutForm extends React.Component {
               <p>I understand that this website is for demonstration purposes only, that no payment processing will occur, and that personal information such as names, addresses, and real credit card numbers should not be used upon submission of this form.</p>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-danger" onClick={hideModal}>Accept</button>
+              <button type="button" className="btn btn-danger mx-auto" onClick={hideModal}>Accept</button>
             </div>
           </div>
         </div>
