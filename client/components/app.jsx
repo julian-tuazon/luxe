@@ -125,8 +125,8 @@ export default class App extends React.Component {
     return (
       <React.Fragment>
         <Header cart={this.state.cart} setView={this.setView}/>
-        <div className="stretch-wrapper">
-          <div className="stretch-content">{currentView}</div>
+        <div className="stretch-wrapper mt-5 pt-5">
+          <div className="stretch-content mt-4">{currentView}</div>
           <Footer></Footer>
         </div>
       </React.Fragment>
