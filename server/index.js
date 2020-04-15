@@ -131,26 +131,13 @@ app.patch('/api/cart', (req, res, next) => {
   if (!quantity) return res.status(400).json({ error: 'missing or invalid quantity' });
   if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
 
-  let text;
-  if (quantity > 0) {
-    text = `
-      UPDATE    "cartItems"
-      SET       "quantity" = "cartItems"."quantity" + $1
-      WHERE     "cartId" = $2
-      AND       "productId" = $3
-      AND       "quantity" >= 1
-      RETURNING *;
-    `;
-  } else {
-    text = `
-      UPDATE    "cartItems"
-      SET       "quantity" = "cartItems"."quantity" + $1
-      WHERE     "cartId" = $2
-      AND       "productId" = $3
-      AND       "quantity" > 1
-      RETURNING *;
-    `;
-  }
+  const text = `
+    UPDATE    "cartItems"
+    SET       "quantity" = $1
+    WHERE     "cartId" = $2
+    AND       "productId" = $3
+    RETURNING *;
+  `;
   const values = [quantity, cartId, productId];
   db.query(text, values)
     .then(data => {
