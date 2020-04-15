@@ -6,6 +6,7 @@ import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import Warning from './warning';
 import OrderConfirmation from './order-confirmation';
+import Footer from './footer';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -124,7 +125,10 @@ export default class App extends React.Component {
     return (
       <React.Fragment>
         <Header cart={this.state.cart} setView={this.setView}/>
-        {currentView}
+        <div className="stretch-wrapper">
+          <div className="stretch-content">{currentView}</div>
+          <Footer></Footer>
+        </div>
       </React.Fragment>
     );
   }
