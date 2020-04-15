@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default function OrderConfirmation(props) {
+  window.scrollTo(0, 0);
+
   return (
     <div className="container text-center col-11">
       <h1 className="mb-5">Order Confirmation</h1>
