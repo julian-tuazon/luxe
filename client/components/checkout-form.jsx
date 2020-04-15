@@ -102,7 +102,7 @@ export default class CheckoutForm extends React.Component {
   }
 
   setButtonClassName() {
-    return this.state.invalid.length ? 'btn btn-danger' : 'btn btn-primary';
+    return this.state.invalid.length ? 'btn btn-danger disabled' : 'btn btn-primary';
   }
 
   getCartTotal() {
