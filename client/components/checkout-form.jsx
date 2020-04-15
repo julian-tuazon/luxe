@@ -121,7 +121,7 @@ export default class CheckoutForm extends React.Component {
               <h5 className="modal-title">Agreement</h5>
             </div>
             <div className="modal-body">
-              <p>I understand that this website is for demonstration purposes only, that no payment processing will occur, and that personal information such as names, addresses, or real credit card numbers should not be used upon submission of this form.</p>
+              <p>I understand that this website is for demonstration purposes only, that no payment processing will occur, and that personal information such as names, addresses, and real credit card numbers should not be used upon submission of this form.</p>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-danger" onClick={hideModal}>Accept</button>
@@ -158,7 +158,7 @@ export default class CheckoutForm extends React.Component {
             <div className="form-group mb-5">
               <div className="form-check">
                 <input type="checkbox" id="agreement" className={this.setInputClassName('agreement')} checked={this.state.agreement} onChange={this.handleChange} onBlur={this.handleBlur} required />
-                <label htmlFor="agreement" className="form-check-label">I accept that this website is for demonstration purposes only, that no payment processing will occur, and that personal information such as names, addresses, or real credit card numbers should not be used upon submission of this form.</label>
+                <label htmlFor="agreement" className="form-check-label">I understand that this website is for demonstration purposes only, that no payment processing will occur, and that personal information such as names, addresses, and real credit card numbers should not be used upon submission of this form.</label>
                 <small className="invalid-feedback position-absolute">Please agree to the terms and conditions.</small>
               </div>
             </div>
