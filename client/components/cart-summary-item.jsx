@@ -20,9 +20,9 @@ export default class CartSummaryItem extends React.Component {
     if (!this.state.quantity) {
       return this.setState({
         quantity: 1
-      }, () => this.props.updateQuantity(this.props.item.productId, this.state.quantity));
+      }, () => this.props.updateQuantity(this.props.item.productId, Number(this.state.quantity)));
     }
-    this.props.updateQuantity(this.props.item.productId, this.state.quantity);
+    this.props.updateQuantity(this.props.item.productId, Number(this.state.quantity));
   }
 
   updateQuantity(e) {
