@@ -103,7 +103,7 @@ export default class CartSummaryItem extends React.Component {
             <button type="button" id="minus" className={this.setMinusButtonStatus()} onClick={this.updateQuantity}>
               <i className="fas fa-minus fa-xs"></i>
             </button>
-            <input type="text" className="text-center mx-1" value={this.state.quantity} onChange={this.handleChange} onBlur={this.handleBlur} minLength={1} maxLength={2} size={2} required />
+            <input type="text" className="text-center mx-1" value={this.state.quantity} onChange={this.handleChange} onBlur={this.handleBlur} minLength={1} maxLength={2} size={3} required />
             <button type="button" id="plus" className={this.setPlusButtonStatus()} onClick={this.updateQuantity}>
               <i className="fas fa-plus fa-xs"></i>
             </button>
