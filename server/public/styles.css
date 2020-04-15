@@ -11,6 +11,10 @@ img {
   height: 300px;
 }
 
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
 @keyframes fade-in {
   0% { opacity: 0; }
   100% { opacity: 1; }
