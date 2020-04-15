@@ -29,7 +29,7 @@ export default class CartSummaryItem extends React.Component {
 
     return (
       <div className={modalClassName} tabIndex="-1" role="dialog">
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Confirm Item Removal</h5>
