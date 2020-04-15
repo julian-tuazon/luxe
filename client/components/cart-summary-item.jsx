@@ -44,8 +44,10 @@ export default class CartSummaryItem extends React.Component {
               </p>
             </div>
             <div className="modal-footer">
-              <button type="button" id="remove" className="btn btn-danger" onClick={removeItem}>Remove</button>
-              <button type="button" id="cancel" className="btn btn-secondary" onClick={hideModal} data-dismiss="modal">Cancel</button>
+              <div className="btn-group w-75 mx-auto">
+                <button type="button" id="remove" className="btn btn-danger w-25" onClick={removeItem}>Remove</button>
+                <button type="button" id="cancel" className="btn btn-secondary w-25" onClick={hideModal} data-dismiss="modal">Cancel</button>
+              </div>
             </div>
           </div>
         </div>
@@ -81,7 +83,7 @@ export default class CartSummaryItem extends React.Component {
             <div>
               <button type="button" id="delete" className="btn text-secondary px-0" onClick={this.removeCartItem}>
                 <i className="fas fa-times text-secondary fa-sm mr-2"></i>
-              Remove
+                Remove
               </button>
             </div>
           </div>
