@@ -130,7 +130,7 @@ export default class CheckoutForm extends React.Component {
       <div className="container">
         {this.renderModal()}
         <div className="col-md-7 mx-auto d-flex flex-column">
-          <h2 className="mb-4">My Cart</h2>
+          <h2 className="mb-4">Checkout</h2>
           <h4 className="d-flex align-items-center text-muted mb-4">Cart Total: ${this.getCartTotal()}</h4>
           <form className="d-flex flex-column needs-validation mb-5" noValidate onSubmit={this.handleSubmit}>
             <div className="form-group mb-5">
