@@ -10,13 +10,10 @@ export default function Footer(props) {
           Back to Top
           <i className="fas fa-angle-double-up ml-2"></i>
         </div>
-        <div className="d-flex flex-column align-items-center">
-          <div className="d-flex align-items-center mb-4 mb-sm-2">
-            <i className="fas fa-glass-martini-alt fa-lg mr-3"></i>
-            <h5 className="mb-0 mr-3">L U X E</h5>
-            <small>Live Luxuriously &trade;</small>
-          </div>
-
+        <div className="d-flex align-items-center mb-4 mb-sm-2">
+          <i className="fas fa-glass-martini-alt fa-lg mr-3"></i>
+          <h5 className="mb-0 mr-3">L U X E</h5>
+          <small>Live Luxuriously &trade;</small>
         </div>
         <div className="d-flex flex-column text-center">
           <p className="mb-1">Follow Us</p>
