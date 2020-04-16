@@ -3,7 +3,7 @@ import React from 'react';
 export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { product: null, showModal: false };
+    this.state = { product: null, showModal: false, canAddToCart: true };
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -20,13 +20,22 @@ export default class ProductDetails extends React.Component {
   }
 
   handleClick(e) {
+    if (!this.props.canClick) return;
     if (e.target.id === 'catalog') return this.props.setView('catalog', {});
     if (e.target.id === 'addToCart') return this.addToCart();
   }
 
   addToCart() {
+    if (this.isMaxQuantity()) return this.setState({ showModal: true, canAddToCart: false });
     this.props.addToCart(this.state.product);
-    this.setState({ showModal: true });
+    this.setState({ showModal: true, canAddToCart: true });
+  }
+
+  isMaxQuantity() {
+    const index = this.props.cart.findIndex(cartItem => cartItem.productId === this.state.product.productId);
+    if (index === -1) return false;
+    if (this.props.cart[index].quantity < 99) return false;
+    return true;
   }
 
   renderModal() {
@@ -37,20 +46,28 @@ export default class ProductDetails extends React.Component {
       this.setState({ showModal: false });
     };
 
+    const statusTitle = this.state.canAddToCart ? 'Item Added to Cart' : 'Item at Maximum Quantity';
+    const statusBody = this.state.canAddToCart
+      ? `${this.state.product.name} has been added to your cart.`
+      : `${this.state.product.name} has reached the maximum quantity (99) and has not been added to your cart.`;
+    const statusSymbol = this.state.canAddToCart
+      ? <i className="far fa-check-circle text-success mr-2"></i>
+      : <i className="far fa-times-circle text-danger mr-2"></i>;
+
     return (
       <div className={modalClassName} tabIndex="-1" role="dialog">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Item Added to Cart</h5>
+              <h5 className="modal-title">{statusTitle}</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={hideModal}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
               <p>
-                <i className="far fa-check-circle text-success mr-2"></i>
-                {this.state.product.name} has been added to your cart.
+                {statusSymbol}
+                {statusBody}
               </p>
             </div>
             <div className="modal-footer">

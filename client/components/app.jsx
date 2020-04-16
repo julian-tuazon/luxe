@@ -42,23 +42,28 @@ export default class App extends React.Component {
   }
 
   addToCart(product) {
-    fetch('/api/cart/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(product)
-    })
-      .then(res => res.json())
-      .then(data => {
-        const isInCart = this.state.cart.some(cartItem => cartItem.productId === data.productId);
-        if (!isInCart) this.setState({ cart: [...this.state.cart, data] });
-        else {
-          const newCart = [...this.state.cart];
-          const index = newCart.findIndex(cartItem => cartItem.productId === data.productId);
-          newCart[index] = data;
-          this.setState({ cart: newCart });
-        }
+    this.setState({ canClick: false }, () => {
+      fetch('/api/cart/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(product)
       })
-      .catch(err => console.error(err));
+        .then(res => res.json())
+        .then(data => {
+          const isInCart = this.state.cart.some(cartItem => cartItem.productId === data.productId);
+          if (!isInCart) this.setState({ cart: [...this.state.cart, data], canClick: true });
+          else {
+            const newCart = [...this.state.cart];
+            const index = newCart.findIndex(cartItem => cartItem.productId === data.productId);
+            newCart[index] = data;
+            this.setState({ cart: newCart, canClick: true });
+          }
+        })
+        .catch(err => {
+          this.setState({ canClick: true });
+          console.error(err);
+        });
+    });
   }
 
   deleteFromCart(productId) {
@@ -117,7 +122,7 @@ export default class App extends React.Component {
     let currentView;
     if (this.state.view.name === 'warning') return <Warning setView={this.setView} />;
     else if (this.state.view.name === 'catalog') currentView = <ProductList setView={this.setView} />;
-    else if (this.state.view.name === 'details') currentView = <ProductDetails details={this.state.view.params} setView={this.setView} addToCart={this.addToCart} />;
+    else if (this.state.view.name === 'details') currentView = <ProductDetails details={this.state.view.params} setView={this.setView} addToCart={this.addToCart} cart={this.state.cart} canClick={this.state.canClick} />;
     else if (this.state.view.name === 'cart') currentView = <CartSummary cart={this.state.cart} deleteFromCart={this.deleteFromCart} updateQuantity={this.updateQuantity} canClick={this.state.canClick} setView={this.setView} />;
     else if (this.state.view.name === 'checkout') currentView = <CheckoutForm cart={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
     else if (this.state.view.name === 'confirmation') currentView = <OrderConfirmation setView={this.setView} info={this.state.view.params}/>;
