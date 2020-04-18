@@ -19,7 +19,11 @@ https://luxe.juliantuazon.com/
 - User can view products for sale
 - User can view product details
 - User can add products to the cart
+- User can click buttons to increment/decrement the item quantity by 1
+- User can directly input a number to update the item quantity
 - User can view a cart summary
+- User can receive visual feedback if the item has/has not been successfully added to the cart
+- User can receive visual feedback to confirm the deletion of a cart item
 - User can receive visual feedback if the information entered at checkout is valid/invalid
 - User can place an order
 
