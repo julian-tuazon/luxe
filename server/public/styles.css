@@ -35,7 +35,7 @@ img {
   background-image: linear-gradient(
                     rgba(20, 20, 20, .4),
                     rgba(20, 20, 20, .4)),
-                    url(../images/header.jpg);
+                    url(/images/header.JPG);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
