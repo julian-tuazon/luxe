@@ -232,21 +232,50 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
-887	89	6	499	1
+971	97	4	1499	1
+913	90	5	599	2
 735	79	4	1499	1
 879	87	6	499	3
+1020	103	4	1499	99
+956	95	3	799	1
+957	95	5	599	2
 880	87	4	1499	1
 869	80	2	899	4
 870	81	4	1499	1
 871	82	4	1499	2
+1120	102	5	599	11
+1113	102	1	1699	16
 872	83	3	799	2
 877	87	3	799	5
-897	89	3	799	1
+907	89	3	799	15
+1140	105	3	799	81
+970	99	3	799	66
+924	91	1	1699	5
 874	84	3	799	1
 875	85	6	499	1
+1022	103	2	899	99
 876	86	2	899	3
-901	89	4	1499	2
+920	91	2	899	11
+1144	106	2	899	20
+952	94	4	1499	7
+955	93	2	899	1
+1145	107	5	599	1
+1146	107	3	799	2
+953	93	5	599	8
+1148	108	5	599	1
 884	88	6	499	1
+977	100	3	799	1
+979	100	4	1499	1
+980	100	1	1699	1
+934	92	2	899	25
+962	98	5	599	1
+935	92	3	799	6
+982	96	1	1699	6
+961	98	3	799	7
+983	101	5	599	28
+1129	102	2	899	96
+1133	102	3	799	1
+1139	104	5	599	1
 \.
 
 
@@ -272,6 +301,25 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 87	2020-04-14 21:41:35.780585-07
 88	2020-04-14 21:57:22.872152-07
 89	2020-04-14 22:04:42.478798-07
+90	2020-04-14 23:17:45.73422-07
+91	2020-04-14 23:34:05.674338-07
+92	2020-04-15 00:09:05.880701-07
+93	2020-04-15 00:34:49.129917-07
+94	2020-04-15 05:13:14.080162-07
+95	2020-04-15 06:32:35.098785-07
+96	2020-04-15 06:45:57.998905-07
+97	2020-04-15 07:15:50.767912-07
+98	2020-04-15 07:23:35.892769-07
+99	2020-04-15 07:27:22.10573-07
+100	2020-04-15 08:04:51.854434-07
+101	2020-04-15 09:29:52.574973-07
+102	2020-04-15 09:33:44.169791-07
+103	2020-04-15 15:24:59.100438-07
+104	2020-04-18 23:38:00.637158-07
+105	2020-04-18 23:51:33.546019-07
+106	2020-04-20 11:54:06.263162-07
+107	2020-04-20 11:56:39.081984-07
+108	2020-04-20 16:19:04.723237-07
 \.
 
 
@@ -294,6 +342,19 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 48	86	asdfasdfasdfasdfasdfasdfasdf	3333333333333333	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:40:54.936434-07
 49	87	asdfasdfasdfasdfasd	3333333333333333	asdfasdfasdfasdfasdvasdfasdfasdfasdfasdasdfasdfasdfasdfasd	2020-04-14 21:57:11.659345-07
 50	88	billy boy	3333333333333333	billy boybilly boybilly boybilly boybilly boybilly boybilly boybilly boybilly boy	2020-04-14 22:04:02.458376-07
+51	89	A simplistic sculptural clock that creates visual appeal through ma	3333333333333333	A simplistic sculptural clock that creates visual appeal through mathematical tangential relations and triangular forms.A simplistic sculptural clock that c	2020-04-14 23:17:29.878656-07
+52	90	asdfasdfasdfasdfasdfds asdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfds	3333333333333333	asdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfds	2020-04-14 23:33:49.07909-07
+53	92	asdfasdfasdfsadfsd	3333333333333333	asdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsd	2020-04-15 00:34:16.58575-07
+54	94	Lfifej	5444544444443333	Jdjdjdjdjdnfnfnfnfnnfnffnf	2020-04-15 05:16:23.342964-07
+55	91	asdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfads	3333333333333333	asdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfads	2020-04-15 06:29:49.358013-07
+56	95	dasddfdadSDASDASD	3333333333333333	dasddfdadSDASDASDdasddfdadSDASDASDdasddfdadSDASDASDdasddfdadSDASDASD	2020-04-15 06:35:51.979074-07
+57	93	sdfasdfsadfasdfsd	3333333333333333	sdfasdfsadfasdfsdsdfasdfsadfasdfsdsdfasdfsadfasdfsdsdfasdfsadfasdfsdsdfasdfsadfasdfsd	2020-04-15 07:23:28.562206-07
+58	98	afsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfa	3333333333333333	afsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfasdfsd	2020-04-15 07:26:24.822182-07
+59	99	ffffd	3333333333333333	asdfasdfasdfasdfasfsadf asdfasdfasdfasdfasfsadfasdfasdfasdfasdfasfsadfasdfasdfasdfasdfasfsadfasdfasdfasdfasdfasfsadf	2020-04-15 08:04:15.907947-07
+60	96	asdfasd sdfsdfsdfsdf	3333333333333333	fasdfasdfasdfasdfdfdd	2020-04-15 08:24:34.572216-07
+61	101	sdafsdfs	3122333333333333	fsafsfdsfsdfsdffsafsfdsfsdfsdf	2020-04-15 09:33:17.919537-07
+62	104	afsdfadsfasdf	3333333333333333	dfdfdf dfdffsfddsfs df343	2020-04-18 23:51:03.448992-07
+63	106	fddfe	3333333333333334	fdsfsdsfsdfdsdf dfdfd	2020-04-20 11:56:27.2594-07
 \.
 
 
@@ -302,12 +363,12 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 --
 
 COPY public.products ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
-4	Tabletop Fireplace	1499	/images/fireplace.jpg	A contemporary miniature fireplace that radiates warmth and light.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-2	Exquisite Blanket	899	/images/blanket.jpg	A delightfully soft and warm blanket constructed with high-quality wool.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-5	Winebreather Carafe	599	/images/wine.jpg	An innovative apparatus that adds 10 times more oxygen to your wine.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-6	Leather Travel Bag	499	/images/bag.jpg	A gorgeous full grain leather bag for carrying your electronic devices on the go.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-1	Silo Wall Clock	1699	/images/clock.jpg	A sculptural clock that creates visually appealing geometric shapes.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-3	London Chess Set	799	/images/chess.jpg	An elegant chess set based on buildings in the London skyline.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90s. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock. Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+4	Tabletop Fireplace	1499	/images/fireplace.jpg	A contemporary miniature fireplace that radiates warmth and light.	The Tabletop Fireplace is a beautiful miniature fireplace, with both contemporary (two stainless steel logs) and natural (slate base) components. In addition to creating a beautiful focal point for your table, it also radiates warmth and light for a cozy experience. Features two 7.5" 18/10 stainless steel oil lamps and a slate base, and uses liquid paraffin lamp oil.
+2	Exquisite Blanket	899	/images/blanket.jpg	A delightfully soft and warm blanket constructed with high-quality wool.	An extraordinary, luxurious blanket made from superfine Australian Merino wool yarn, one of the softest fibers available. This product is unbelievably soft, warm, and pleasant to touch. Dry clean only. When soiled, this blanket should be taken to a professional dry cleaner to maintain its superior quality.
+6	Leather Travel Bag	499	/images/bag.jpg	A gorgeous full grain leather bag for carrying your electronic devices on the go.	This beautiful bag boasts excellent craftsmanship and is made with high-quality full grain leather, linen, and Italian waxed thread. Features a stash/concealed pocket for valuables, an optional handle, a dedicated Apple Pencil holder, seven elastic slots, hand stitched pull tabs, and metallic YKK zippers. Fits a 10.5" iPad and all Amazon Kindles.
+5	Winebreather Carafe	599	/images/wine.jpg	An innovative apparatus that adds 10 times more oxygen to your wine.	The Winebreather Carafe is the most effective aerator on the market and was the undisputed winner of a Eurofin aerating test. Simply press the decanter onto the top of an opened bottle of wine and flip it over so the wine pours into the decanter. You can serve the wine directly from the beautifully designed carafe, or flip it back over once it's done to pour the aerated wine back to serve directly from the original bottle.
+1	Kinetic Wall Clock	1699	/images/clock.jpg	A sculptural clock that creates visually appealing geometric shapes.	This minimal, sculptural clock is designed to create interesting aesthetic forms through the use of the angular hour and minute hands that play on mathematical tangential relations and triangular forms. It is not just a clock. It is a kinetic sculpture that alters its shape through time. Everything you need is included in the package and all you need to do is pick a nice spot in your house and imagine how this clock can transform your living space.
+3	London Chess Set	799	/images/chess.jpg	An elegant chess set based on buildings in the London skyline.	We have selected the highest quality materials to create beautiful and unique objects for both the chess player and design enthusiast alike. The 32-piece set is cast in injection molded acrylic. Each piece is double weighted and has a soft felt base.
 \.
 
 
@@ -315,21 +376,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 902, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 1148, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 89, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 108, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 50, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 63, true);
 
 
 --
