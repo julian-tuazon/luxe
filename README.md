@@ -5,9 +5,11 @@ A full stack Node.js and React shopping cart app.
 - React
 - Node.js
 - Express
+- JavaScript
 - PostgreSQL
 - webpack
 - npm
+- Babel
 - HTML5
 - CSS3
 - Bootstrap 4
