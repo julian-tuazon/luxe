@@ -1,5 +1,5 @@
 # LUXE
-A full stack Node.js and React shopping cart app.
+A full stack content management system and eCommerce website that lets users shop online.
 
 ## Technologies Used
 - React
