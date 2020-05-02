@@ -105,7 +105,7 @@ export default class CheckoutForm extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="col-md-7 mx-auto d-flex flex-column">
+        <div className="col-md-11 mx-auto d-flex flex-column">
           <h2 className="mb-4">Checkout</h2>
           <h4 className="d-flex align-items-center text-muted mb-4">Cart Total: ${this.getCartTotal()}</h4>
           <form className="d-flex flex-column needs-validation mb-5" noValidate onSubmit={this.handleSubmit}>
@@ -124,21 +124,21 @@ export default class CheckoutForm extends React.Component {
               <textarea type="textarea" id="address" className={this.setInputClassName('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
-            <div className="form-row">
-              <div className="form-group mb-5">
+            <div className="form-row d-flex flex-column flex-md-row">
+              <div className="form-group col-12 col-md-7 mb-5">
                 <label htmlFor="card">City</label>
                 <input type="text" id="city" className={this.setInputClassName('city')} value={this.state.city} onChange={this.handleChange} onBlur={this.handleBlur} minLength={3} maxLength={50} required />
                 <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
               </div>
-              <div className="form-group mb-5">
+              <div className="form-group col-12 col-md-2 mb-5">
                 <label htmlFor="state">State</label>
                 <select id="state" className="form-control">
-                  <option selected>--</option>
+                  <option hidden disabled>--</option>
                   <option>CA</option>
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a state.</small>
               </div>
-              <div className="form-group mb-5">
+              <div className="form-group col-13 col-md-3 mb-5">
                 <label htmlFor="card">ZIP Code</label>
                 <input type="text" id="zipcode" className={this.setInputClassName('zipcode')} value={this.state.zipCode} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={9} required />
                 <small className="invalid-feedback position-absolute">Please enter a valid 5 or 9 digit ZIP code.</small>
