@@ -152,7 +152,7 @@ export default class CheckoutForm extends React.Component {
               <textarea type="textarea" id="address" className={this.setInputClassName('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
-            <div className="form-row d-flex flex-column flex-md-row">
+            <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-7 mb-5">
                 <label htmlFor="city">City</label>
                 <input type="text" id="city" className={this.setInputClassName('city')} value={this.state.city} onChange={this.handleChange} onBlur={this.handleBlur} minLength={3} maxLength={50} required />
@@ -168,8 +168,8 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-3 mb-5">
                 <label htmlFor="zipCode">ZIP Code</label>
-                <input type="text" id="zipCode" className={this.setInputClassName('zipCode')} value={this.state.zipCode} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={9} required />
-                <small className="invalid-feedback position-absolute">Please enter a valid 5 or 9 digit ZIP code.</small>
+                <input type="text" id="zipCode" className={this.setInputClassName('zipCode')} value={this.state.zipCode} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={5} required />
+                <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
               </div>
             </div>
             <div className="form-group mb-5">
