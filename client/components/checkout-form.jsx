@@ -3,8 +3,8 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.fields = ['name', 'card', 'address', 'agreement'];
-    this.state = { name: '', card: '', address: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
+    this.fields = ['name', 'card', 'address', 'city', 'state', 'zipCode', 'agreement'];
+    this.state = { name: '', card: '', address: '', city: '', state: '--', zipCode: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +33,9 @@ export default class CheckoutForm extends React.Component {
     const validChars = {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
       card: /^[\d]*$/,
-      address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/
+      address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
+      city: /^(?!.* {2,})[a-zA-Z ]*$/,
+      zipCode: /^[\d]*$/
     };
     if (validChars[input.id].test(input.value)) {
       this.setState({
@@ -126,21 +128,21 @@ export default class CheckoutForm extends React.Component {
             </div>
             <div className="form-row d-flex flex-column flex-md-row">
               <div className="form-group col-12 col-lg-7 mb-5">
-                <label htmlFor="card">City</label>
+                <label htmlFor="city">City</label>
                 <input type="text" id="city" className={this.setInputClassName('city')} value={this.state.city} onChange={this.handleChange} onBlur={this.handleBlur} minLength={3} maxLength={50} required />
                 <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="state">State</label>
-                <select id="state" className="form-control">
+                <select id="state" className="form-control" name="state" form="checkout" value={this.state.state} onChange={this.handleChange}>
                   <option hidden disabled>--</option>
                   <option>CA</option>
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a state.</small>
               </div>
               <div className="form-group col-12 col-lg-3 mb-5">
-                <label htmlFor="card">ZIP Code</label>
-                <input type="text" id="zipcode" className={this.setInputClassName('zipcode')} value={this.state.zipCode} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={9} required />
+                <label htmlFor="zipCode">ZIP Code</label>
+                <input type="text" id="zipCode" className={this.setInputClassName('zipCode')} value={this.state.zipCode} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={9} required />
                 <small className="invalid-feedback position-absolute">Please enter a valid 5 or 9 digit ZIP code.</small>
               </div>
             </div>
