@@ -117,6 +117,15 @@ export default class CheckoutForm extends React.Component {
     return this.state.invalid.length ? 'btn btn-danger disabled' : 'btn btn-primary';
   }
 
+  getStates() {
+    const states = [
+      'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN',
+      'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI',
+      'WA', 'WV', 'WI', 'WY'
+    ];
+    return states.map(state => <option key={state} value={state}>{state}</option>);
+  }
+
   getCartTotal() {
     return this.props.cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
   }
@@ -153,7 +162,7 @@ export default class CheckoutForm extends React.Component {
                 <label htmlFor="state">State</label>
                 <select id="state" className={this.setInputClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleChange} required>
                   <option hidden disabled>--</option>
-                  <option value="CA">CA</option>
+                  {this.getStates()}
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a state.</small>
               </div>
