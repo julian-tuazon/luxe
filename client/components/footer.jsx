@@ -5,7 +5,7 @@ export default function Footer(props) {
 
   return (
     <div className="py-4 mx-0 row text-white bg-dark footer">
-      <div className="col-11 mx-auto d-flex flex-column flex-sm-row justify-content-between align-items-center">
+      <div className="col-11 mx-auto d-flex flex-column flex-md-row justify-content-between align-items-center">
         <div className="btn text-white mb-4 mb-sm-0" onClick={scrollToTop}>
           Back to Top
           <i className="fas fa-angle-double-up ml-2"></i>
