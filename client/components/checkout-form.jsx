@@ -30,6 +30,12 @@ export default class CheckoutForm extends React.Component {
       }, () => this.validateInput(input));
     }
 
+    if (input.id === 'state') {
+      return this.setState({
+        state: [input.value]
+      }, () => this.validateInput(input));
+    }
+
     const validChars = {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
       card: /^[\d]*$/,
@@ -62,12 +68,22 @@ export default class CheckoutForm extends React.Component {
   }
 
   validateInput(input) {
-    if (this.isValidAgreement(input) || this.isValidInput(input)) return this.removeFromInvalid(input.id);
+    if (
+      this.isValidAgreement(input) ||
+      this.isValidState(input) ||
+      this.isValidInput(input)
+    ) {
+      return this.removeFromInvalid(input.id);
+    }
     this.addToInvalid(input.id);
   }
 
   isValidAgreement(input) {
     return input.id === 'agreement' && this.state[input.id];
+  }
+
+  isValidState(input) {
+    return input.id === 'state' && this.state[input.id] !== '--';
   }
 
   isValidInput(input) {
@@ -93,6 +109,7 @@ export default class CheckoutForm extends React.Component {
 
   setInputClassName(input) {
     if (input === 'agreement') return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-check-input is-invalid' : 'form-check-input';
+    if (input === 'state') return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'custom-select is-invalid' : 'custom-select';
     return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-control is-invalid' : 'form-control';
   }
 
@@ -134,9 +151,9 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="state">State</label>
-                <select id="state" className="form-control" name="state" form="checkout" value={this.state.state} onChange={this.handleChange}>
+                <select id="state" className={this.setInputClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleChange} required>
                   <option hidden disabled>--</option>
-                  <option>CA</option>
+                  <option value="CA">CA</option>
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a state.</small>
               </div>
