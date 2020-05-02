@@ -124,6 +124,26 @@ export default class CheckoutForm extends React.Component {
               <textarea type="textarea" id="address" className={this.setInputClassName('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
+            <div className="form-row">
+              <div className="form-group mb-5">
+                <label htmlFor="card">City</label>
+                <input type="text" id="city" className={this.setInputClassName('city')} value={this.state.city} onChange={this.handleChange} onBlur={this.handleBlur} minLength={3} maxLength={50} required />
+                <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
+              </div>
+              <div className="form-group mb-5">
+                <label htmlFor="state">State</label>
+                <select id="state" className="form-control">
+                  <option selected>--</option>
+                  <option>CA</option>
+                </select>
+                <small className="invalid-feedback position-absolute">Please select a state.</small>
+              </div>
+              <div className="form-group mb-5">
+                <label htmlFor="card">ZIP Code</label>
+                <input type="text" id="zipcode" className={this.setInputClassName('zipcode')} value={this.state.zipCode} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={9} required />
+                <small className="invalid-feedback position-absolute">Please enter a valid 5 or 9 digit ZIP code.</small>
+              </div>
+            </div>
             <div className="form-group mb-5">
               <div className="form-check">
                 <input type="checkbox" id="agreement" className={this.setInputClassName('agreement')} checked={this.state.agreement} onChange={this.handleChange} onBlur={this.handleBlur} required />
