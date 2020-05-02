@@ -52,7 +52,7 @@ export default class CheckoutForm extends React.Component {
 
   handleBlur(e) {
     const input = e.currentTarget;
-    if (input.id === 'agreement') return this.setState({ showValidation: this.showValidation(input.id) });
+    if (input.id === 'agreement' || input.id === 'state') return this.setState({ showValidation: this.showValidation(input.id) });
     this.setState({
       showValidation: this.showValidation(input.id),
       [input.id]: this.state[input.id].trim()
@@ -160,7 +160,7 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="state">State</label>
-                <select id="state" className={this.setInputClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleChange} required>
+                <select id="state" className={this.setInputClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleChange} onBlur={this.handleBlur} required>
                   <option hidden disabled>--</option>
                   {this.getStates()}
                 </select>
