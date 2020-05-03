@@ -107,7 +107,10 @@ export default class App extends React.Component {
       body: JSON.stringify({
         name: order.name,
         creditCard: order.card,
-        shippingAddress: order.address
+        shippingAddress: order.address,
+        city: order.city,
+        state: order.state,
+        zipCode: order.zipCode
       })
     })
       .then(res => res.json())
