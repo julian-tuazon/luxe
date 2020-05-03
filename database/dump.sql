@@ -142,9 +142,9 @@ CREATE TABLE public.orders (
     "creditCard" text NOT NULL,
     "shippingAddress" text NOT NULL,
     "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL,
-    city text,
-    state text,
-    "zipCode" text
+    city text NOT NULL,
+    state text NOT NULL,
+    "zipCode" text NOT NULL
 );
 
 
@@ -281,6 +281,10 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 1150	110	6	499	36
 1151	111	6	499	1
 1139	104	5	599	1
+1152	112	6	499	5
+1153	113	6	499	1
+1154	114	2	899	5
+1155	115	6	499	1
 \.
 
 
@@ -328,6 +332,10 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 109	2020-04-20 16:57:20.95471-07
 110	2020-05-01 20:59:34.953802-07
 111	2020-05-02 22:08:54.187862-07
+112	2020-05-02 23:04:00.28677-07
+113	2020-05-02 23:04:41.399899-07
+114	2020-05-02 23:12:35.452825-07
+115	2020-05-02 23:19:40.206563-07
 \.
 
 
@@ -336,34 +344,6 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 --
 
 COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt", city, state, "zipCode") FROM stdin;
-37	73	sdfadsfjasdkfjasdklfaksdjfkkasdljfaskldjfkas	3333333333333333	sdfadsfjasdkfjasdklfaksdjfkkasdljfaskldjfkas	2020-04-12 00:50:00.390087-07	\N	\N	\N
-38	74	asdfasdf asdfasdf asdfasdf	3333333333333333	fsadfsdfdsfadsfsd f23423423423423	2020-04-12 01:48:29.678508-07	\N	\N	\N
-39	75	asdfd	3333333333333333	safdasdfasdfasdfasdfasdfasdfasd	2020-04-12 01:49:43.284789-07	\N	\N	\N
-40	76	asdfadsfasdfasdfsfsdfdsfdsfsdfds	3333333333333333	asdfadsfasdfasdfsfsdfdsfdsfsdfds	2020-04-12 02:53:52.440511-07	\N	\N	\N
-41	77	asdfasdd	3333333333333333	sfdasdfasdfasdfsdfdff	2020-04-12 03:35:01.261629-07	\N	\N	\N
-42	80	fasdfasdfsadfasdf	3333333333333333	fasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdffasdfasdfsadfasdf	2020-04-14 21:32:04.131255-07	\N	\N	\N
-43	81	asdfasdfasdfasdfasdfasdfasdf	3333333333333333	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:33:26.678274-07	\N	\N	\N
-44	82	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd	3333333333333333	adfasdfasdfasdfasasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:34:12.097532-07	\N	\N	\N
-45	83	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	3333333333333333	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:35:15.025916-07	\N	\N	\N
-46	84	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd	3333333333333333	afasdfasfdasdfasdfasdfasdfasdfsdf	2020-04-14 21:36:56.206781-07	\N	\N	\N
-47	85	asdfasdfasdfasdfasdfasdfasdf	3333333333333333	asfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:38:52.213187-07	\N	\N	\N
-48	86	asdfasdfasdfasdfasdfasdfasdf	3333333333333333	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf	2020-04-14 21:40:54.936434-07	\N	\N	\N
-49	87	asdfasdfasdfasdfasd	3333333333333333	asdfasdfasdfasdfasdvasdfasdfasdfasdfasdasdfasdfasdfasdfasd	2020-04-14 21:57:11.659345-07	\N	\N	\N
-50	88	billy boy	3333333333333333	billy boybilly boybilly boybilly boybilly boybilly boybilly boybilly boybilly boy	2020-04-14 22:04:02.458376-07	\N	\N	\N
-51	89	A simplistic sculptural clock that creates visual appeal through ma	3333333333333333	A simplistic sculptural clock that creates visual appeal through mathematical tangential relations and triangular forms.A simplistic sculptural clock that c	2020-04-14 23:17:29.878656-07	\N	\N	\N
-52	90	asdfasdfasdfasdfasdfds asdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfds	3333333333333333	asdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfdsasdfasdfasdfasdfasdfds	2020-04-14 23:33:49.07909-07	\N	\N	\N
-53	92	asdfasdfasdfsadfsd	3333333333333333	asdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsdasdfasdfasdfsadfsd	2020-04-15 00:34:16.58575-07	\N	\N	\N
-54	94	Lfifej	5444544444443333	Jdjdjdjdjdnfnfnfnfnnfnffnf	2020-04-15 05:16:23.342964-07	\N	\N	\N
-55	91	asdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfads	3333333333333333	asdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfadsasdfasdfasdfads	2020-04-15 06:29:49.358013-07	\N	\N	\N
-56	95	dasddfdadSDASDASD	3333333333333333	dasddfdadSDASDASDdasddfdadSDASDASDdasddfdadSDASDASDdasddfdadSDASDASD	2020-04-15 06:35:51.979074-07	\N	\N	\N
-57	93	sdfasdfsadfasdfsd	3333333333333333	sdfasdfsadfasdfsdsdfasdfsadfasdfsdsdfasdfsadfasdfsdsdfasdfsadfasdfsdsdfasdfsadfasdfsd	2020-04-15 07:23:28.562206-07	\N	\N	\N
-58	98	afsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfa	3333333333333333	afsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfasdfsdafsdasdfasdfasdfsd	2020-04-15 07:26:24.822182-07	\N	\N	\N
-59	99	ffffd	3333333333333333	asdfasdfasdfasdfasfsadf asdfasdfasdfasdfasfsadfasdfasdfasdfasdfasfsadfasdfasdfasdfasdfasfsadfasdfasdfasdfasdfasfsadf	2020-04-15 08:04:15.907947-07	\N	\N	\N
-60	96	asdfasd sdfsdfsdfsdf	3333333333333333	fasdfasdfasdfasdfdfdd	2020-04-15 08:24:34.572216-07	\N	\N	\N
-61	101	sdafsdfs	3122333333333333	fsafsfdsfsdfsdffsafsfdsfsdfsdf	2020-04-15 09:33:17.919537-07	\N	\N	\N
-62	104	afsdfadsfasdf	3333333333333333	dfdfdf dfdffsfddsfs df343	2020-04-18 23:51:03.448992-07	\N	\N	\N
-63	106	fddfe	3333333333333334	fdsfsdsfsdfdsdf dfdfd	2020-04-20 11:56:27.2594-07	\N	\N	\N
-64	108	asdfasdfsafasdfasdfasdasdfasdfsafasdfasdfasdasdfasdfsafasdfasdfasd	3333333333333333	asdfasdfsafasdfasdfasdasdfasdfsafasdfasdfasdasdfasdfsafasdfasdfasdasdfasdfsafasdfasdfasd	2020-04-20 16:57:07.664117-07	\N	\N	\N
 \.
 
 
@@ -385,21 +365,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 1151, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 1155, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 111, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 115, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 64, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 70, true);
 
 
 --
