@@ -32,7 +32,7 @@ export default class CheckoutForm extends React.Component {
 
     if (input.id === 'state') {
       return this.setState({
-        state: [input.value]
+        state: input.value
       }, () => this.validateInput(input));
     }
 
