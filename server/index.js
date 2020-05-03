@@ -192,8 +192,8 @@ app.post('/api/orders', (req, res, next) => {
   }
 
   const text = `
-    INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress, city, state, zipCode")
-    VALUES      ($1, $2, $3, $4)
+    INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress", "city", "state", "zipCode")
+    VALUES      ($1, $2, $3, $4, $5, $6, $7)
     RETURNING   "orderId",
                 "createdAt",
                 "name",
