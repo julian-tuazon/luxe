@@ -171,7 +171,7 @@ app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
   if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'missing or invalid cartId' });
 
-  const { name, creditCard, shippingAddress } = req.body;
+  const { name, creditCard, shippingAddress, city, state, zipCode } = req.body;
   if (!name || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{5,67}$/.test(name))) {
     return res.status(400).json({ error: 'missing or invalid name' });
   }
@@ -181,17 +181,29 @@ app.post('/api/orders', (req, res, next) => {
   if (!shippingAddress || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{21,156}$/.test(shippingAddress))) {
     return res.status(400).json({ error: 'missing or invalid shipping address' });
   }
+  if (!city || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{3,50}$/.test(city))) {
+    return res.status(400).json({ error: 'missing or invalid city' });
+  }
+  if (!state || !(/^[a-zA-Z]{2}$/.test(state))) {
+    return res.status(400).json({ error: 'missing or invalid state' });
+  }
+  if (!zipCode || !(/^[\d]{5}$/.test(zipCode))) {
+    return res.status(400).json({ error: 'missing or invalid zip code' });
+  }
 
   const text = `
-    INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress")
-    VALUES      ($1, $2, $3, $4)
+    INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress", "city", "state", "zipCode")
+    VALUES      ($1, $2, $3, $4, $5, $6, $7)
     RETURNING   "orderId",
                 "createdAt",
                 "name",
                 "creditCard",
-                "shippingAddress"
+                "shippingAddress",
+                "city",
+                "state",
+                "zipCode"
   `;
-  const values = [cartId, name, creditCard, shippingAddress];
+  const values = [cartId, name, creditCard, shippingAddress, city, state, zipCode];
   db.query(text, values)
     .then(data => {
       delete req.session.cartId;
