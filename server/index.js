@@ -178,7 +178,7 @@ app.post('/api/orders', (req, res, next) => {
   if (!creditCard || !(/^[\d]{16}$/.test(creditCard))) {
     return res.status(400).json({ error: 'missing or invalid credit card number' });
   }
-  if (!shippingAddress || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{21,156}$/.test(shippingAddress))) {
+  if (!shippingAddress || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{6,42}$/.test(shippingAddress))) {
     return res.status(400).json({ error: 'missing or invalid shipping address' });
   }
   if (!city || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{3,50}$/.test(city))) {
