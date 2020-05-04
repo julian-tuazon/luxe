@@ -149,7 +149,7 @@ export default class CheckoutForm extends React.Component {
             </div>
             <div className="form-group mb-5">
               <label htmlFor="name">Shipping Address</label>
-              <textarea type="textarea" id="address" className={this.setInputClassName('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={21} maxLength={156} required />
+              <textarea type="textarea" id="address" className={this.setInputClassName('address')} value={this.state.address} rows="4" onChange={this.handleChange} onBlur={this.handleBlur} minLength={6} maxLength={42} required />
               <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
             </div>
             <div className="form-row d-flex flex-column flex-lg-row">
