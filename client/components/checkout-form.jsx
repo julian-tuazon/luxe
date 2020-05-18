@@ -3,8 +3,8 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.fields = ['name', 'card', 'address', 'city', 'state', 'zipCode', 'agreement'];
-    this.state = { name: '', card: '', address: '', city: '', state: '--', zipCode: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
+    this.fields = ['name', 'card', 'month', 'year', 'cvv', 'address', 'city', 'state', 'zipCode', 'agreement'];
+    this.state = { name: '', card: '', month: '--', year: '--', cvv: '', address: '', city: '', state: '--', zipCode: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
