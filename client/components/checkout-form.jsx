@@ -9,8 +9,10 @@ export default class CheckoutForm extends React.Component {
     this.handleAgreementChange = this.handleAgreementChange.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAgreementBlur = this.handleAgreementBlur.bind(this);
+    this.handleDropdownBlur = this.handleDropdownBlur.bind(this);
+    this.handleInputBlur = this.handleInputBlur.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +51,7 @@ export default class CheckoutForm extends React.Component {
       city: /^(?!.* {2,})[a-zA-Z.\- ]*$/,
       zipCode: /^[\d]*$/
     };
+
     if (validChars[input.id].test(input.value)) {
       this.setState({
         [input.id]: input.value
@@ -56,13 +59,30 @@ export default class CheckoutForm extends React.Component {
     }
   }
 
-  handleBlur(e) {
+  handleAgreementBlur() {
+    this.setState({ showValidation: this.showValidation('agreement') });
+  }
+
+  handleDropdownBlur(e) {
+    const dropdown = e.currentTarget;
+    this.setState({ showValidation: this.showValidation(dropdown.id) });
+  }
+
+  handleInputBlur(e) {
     const input = e.currentTarget;
-    if (input.id === 'agreement' || input.id === 'state') return this.setState({ showValidation: this.showValidation(input.id) });
     this.setState({
       showValidation: this.showValidation(input.id),
       [input.id]: this.state[input.id].trim()
     }, () => this.validateInput(input));
+  }
+
+  showValidation(id) {
+    if (!this.state.showValidation.includes(id)) return [...this.state.showValidation, id];
+    else return [...this.state.showValidation];
+  }
+
+  hideValidation(id) {
+    this.setState({ showValidation: this.state.showValidation.filter(elem => elem !== id) });
   }
 
   handleSubmit(e) {
@@ -83,11 +103,6 @@ export default class CheckoutForm extends React.Component {
     else this.addToInvalid(dropdown.id);
   }
 
-  validateInput(input) {
-    if (this.isValidInput(input)) this.removeFromInvalid(input.id);
-    else this.addToInvalid(input.id);
-  }
-
   isValidDropdown(dropdown) {
     return this.state[dropdown.id] !== '--';
   }
@@ -96,13 +111,9 @@ export default class CheckoutForm extends React.Component {
     return this.state[input.id].trim().length >= input.minLength;
   }
 
-  showValidation(id) {
-    if (!this.state.showValidation.includes(id)) return [...this.state.showValidation, id];
-    else return [...this.state.showValidation];
-  }
-
-  hideValidation(id) {
-    this.setState({ showValidation: this.state.showValidation.filter(elem => elem !== id) });
+  validateInput(input) {
+    if (this.isValidInput(input)) this.removeFromInvalid(input.id);
+    else this.addToInvalid(input.id);
   }
 
   addToInvalid(id) {
