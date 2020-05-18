@@ -130,15 +130,19 @@ export default class CheckoutForm extends React.Component {
   }
 
   setAgreementClassName() {
-    return this.state.invalid.includes('agreement') && this.state.showValidation.includes('agreement') ? 'form-check-input is-invalid' : 'form-check-input';
+    return this.isInvalid('agreement') ? 'form-check-input is-invalid' : 'form-check-input';
   }
 
   setDropdownClassName(dropdown) {
-    return this.state.invalid.includes(dropdown) && this.state.showValidation.includes(dropdown) ? 'custom-select is-invalid' : 'custom-select';
+    return this.isInvalid(dropdown) ? 'custom-select is-invalid' : 'custom-select';
   }
 
   setInputClassName(input) {
-    return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-control is-invalid' : 'form-control';
+    return this.isInvalid(input) ? 'form-control is-invalid' : 'form-control';
+  }
+
+  isInvalid(formElement) {
+    return this.state.invalid.includes(formElement) && this.state.showValidation.includes(formElement);
   }
 
   setButtonClassName() {
