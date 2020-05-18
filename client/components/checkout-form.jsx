@@ -182,8 +182,8 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-3 mb-5">
                 <label htmlFor="cvv">CVV</label>
-                <input type="text" id="cvv" className={this.setInputClassName('cvv')} value={this.state.cvv} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={5} required />
-                <small className="invalid-feedback position-absolute">Please enter a valid 3 digit CVV.</small>
+                <input type="text" id="cvv" className={this.setInputClassName('cvv')} value={this.state.cvv} onChange={this.handleChange} onBlur={this.handleBlur} minLength={3} maxLength={4} required />
+                <small className="invalid-feedback position-absolute">Please enter a valid 3-4 digit CVV.</small>
               </div>
             </div>
 
