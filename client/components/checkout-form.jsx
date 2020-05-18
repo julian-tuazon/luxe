@@ -93,8 +93,8 @@ export default class CheckoutForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (!this.state.invalid.length) {
-      const { name, card, address, city, state, zipCode } = this.state;
-      this.props.placeOrder({ name, card, address, city, state, zipCode });
+      const { name, card, month, year, cvv, address, city, state, zipCode } = this.state;
+      this.props.placeOrder({ name, card, month, year, cvv, address, city, state, zipCode });
     }
   }
 
