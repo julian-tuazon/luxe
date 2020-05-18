@@ -23,11 +23,11 @@ export default class CheckoutForm extends React.Component {
   }
 
   handleAgreementChange(e) {
-    const agreement = e.target;
+    const isChecked = e.target.id.checked;
     this.hideValidation('agreement');
     return this.setState({
-      agreement: agreement.checked
-    }, () => this.validateAgreement(agreement));
+      agreement: isChecked
+    }, () => this.validateAgreement());
   }
 
   handleDropdownChange(e) {
@@ -98,7 +98,7 @@ export default class CheckoutForm extends React.Component {
 
   showValidation(id) {
     if (!this.state.showValidation.includes(id)) return [...this.state.showValidation, id];
-    return [...this.state.showValidation];
+    else return [...this.state.showValidation];
   }
 
   hideValidation(id) {
@@ -172,7 +172,7 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="month">Month</label>
-                <select id="month" className={this.setInputClassName('month')} name="month" form="checkout" value={this.month.state} onChange={this.handleDropdownChange} onBlur={this.handleBlur} required>
+                <select id="month" className={this.setInputClassName('month')} name="month" form="checkout" value={this.state.month} onChange={this.handleDropdownChange} onBlur={this.handleBlur} required>
                   <option hidden disabled>--</option>
                   {this.getMonths()}
                 </select>
@@ -180,7 +180,7 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-3 mb-5">
                 <label htmlFor="year">Year</label>
-                <select id="year" className={this.setInputClassName('year')} name="year" form="checkout" value={this.year.state} onChange={this.handleDropdownChange} onBlur={this.handleBlur} required>
+                <select id="year" className={this.setInputClassName('year')} name="year" form="checkout" value={this.state.year} onChange={this.handleDropdownChange} onBlur={this.handleBlur} required>
                   <option hidden disabled>--</option>
                   {this.getYears()}
                 </select>
