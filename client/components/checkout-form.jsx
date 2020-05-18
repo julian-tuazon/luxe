@@ -73,27 +73,27 @@ export default class CheckoutForm extends React.Component {
     }
   }
 
+  validateAgreement() {
+    if (this.state.agreement) this.removeFromInvalid('agreement');
+    else this.addToInvalid('agreement');
+  }
+
+  validateDropdown(dropdown) {
+    if (this.isValidDropdown(dropdown)) this.removeFromInvalid(dropdown.id);
+    else this.addToInvalid(dropdown.id);
+  }
+
   validateInput(input) {
-    if (
-      this.isValidAgreement(input) ||
-      this.isValidState(input) ||
-      this.isValidInput(input)
-    ) {
-      return this.removeFromInvalid(input.id);
-    }
-    this.addToInvalid(input.id);
+    if (this.isValidInput(input)) this.removeFromInvalid(input.id);
+    else this.addToInvalid(input.id);
   }
 
-  isValidAgreement(input) {
-    return input.id === 'agreement' && this.state[input.id];
-  }
-
-  isValidState(input) {
-    return input.id === 'state' && this.state[input.id] !== '--';
+  isValidDropdown(dropdown) {
+    return this.state[dropdown.id] !== '--';
   }
 
   isValidInput(input) {
-    return input.id !== 'agreement' && this.state[input.id].trim().length >= input.minLength;
+    return this.state[input.id].trim().length >= input.minLength;
   }
 
   showValidation(id) {
