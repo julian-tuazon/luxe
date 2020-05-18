@@ -142,6 +142,36 @@ export default class CheckoutForm extends React.Component {
               <input type="text" id="name" className={this.setInputClassName('name')} value={this.state.name} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={67} required />
               <small className="invalid-feedback position-absolute">Minimum of 5 characters required.</small>
             </div>
+
+            <div className="form-row d-flex flex-column flex-lg-row">
+              <div className="form-group col-12 col-lg-4 mb-5">
+                <label htmlFor="card">Credit Card</label>
+                <input type="text" id="card" className={this.setInputClassName('card')} value={this.state.card} onChange={this.handleChange} onBlur={this.handleBlur} minLength={16} maxLength={16} required />
+                <small className="invalid-feedback position-absolute">Please enter a valid 16 digit card number.</small>
+              </div>
+              <div className="form-group col-12 col-lg-2 mb-5">
+                <label htmlFor="month">Month</label>
+                <select id="month" className={this.setInputClassName('month')} name="month" form="checkout" value={this.month.state} onChange={this.handleChange} onBlur={this.handleBlur} required>
+                  <option hidden disabled>--</option>
+                  {this.getMonths()}
+                </select>
+                <small className="invalid-feedback position-absolute">Please select a month.</small>
+              </div>
+              <div className="form-group col-12 col-lg-3 mb-5">
+                <label htmlFor="year">Year</label>
+                <select id="year" className={this.setInputClassName('year')} name="year" form="checkout" value={this.year.state} onChange={this.handleChange} onBlur={this.handleBlur} required>
+                  <option hidden disabled>--</option>
+                  {this.getYears()}
+                </select>
+                <small className="invalid-feedback position-absolute">Please select a year.</small>
+              </div>
+              <div className="form-group col-12 col-lg-3 mb-5">
+                <label htmlFor="cvv">CVV</label>
+                <input type="text" id="cvv" className={this.setInputClassName('cvv')} value={this.state.cvv} onChange={this.handleChange} onBlur={this.handleBlur} minLength={5} maxLength={5} required />
+                <small className="invalid-feedback position-absolute">Please enter a valid 3 digit CVV.</small>
+              </div>
+            </div>
+
             <div className="form-group mb-5">
               <label htmlFor="card">Credit Card</label>
               <input type="text" id="card" className={this.setInputClassName('card')} value={this.state.card} onChange={this.handleChange} onBlur={this.handleBlur} minLength={16} maxLength={16} required />
