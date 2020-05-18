@@ -3,8 +3,8 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.fields = ['name', 'card', 'month', 'year', 'cvv', 'address', 'city', 'state', 'zipCode', 'agreement'];
-    this.state = { name: '', card: '', month: '--', year: '--', cvv: '', address: '', city: '', state: '--', zipCode: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
+    this.fields = ['name', 'cardNumber', 'cardMonth', 'cardYear', 'cardCVV', 'address', 'city', 'state', 'zipCode', 'agreement'];
+    this.state = { name: '', cardNumber: '', cardMonth: '--', cardYear: '--', cardCVV: '', address: '', city: '', state: '--', zipCode: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleAgreementChange = this.handleAgreementChange.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
@@ -54,8 +54,8 @@ export default class CheckoutForm extends React.Component {
   isValidCharEntry(input) {
     const validChars = {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
-      card: /^[\d]*$/,
-      cvv: /^[\d]*$/,
+      cardNumber: /^[\d]*$/,
+      cardCVV: /^[\d]*$/,
       address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
       city: /^(?!.* {2,})[a-zA-Z.\- ]*$/,
       zipCode: /^[\d]*$/
@@ -93,8 +93,8 @@ export default class CheckoutForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (!this.state.invalid.length) {
-      const { name, card, month, year, cvv, address, city, state, zipCode } = this.state;
-      this.props.placeOrder({ name, card, month, year, cvv, address, city, state, zipCode });
+      const { name, cardNumber, cardMonth, cardYear, cardCVV, address, city, state, zipCode } = this.state;
+      this.props.placeOrder({ name, cardNumber, cardMonth, cardYear, cardCVV, address, city, state, zipCode });
     }
   }
 
@@ -187,29 +187,29 @@ export default class CheckoutForm extends React.Component {
             </div>
             <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-6 mb-5">
-                <label htmlFor="card">Card Number</label>
-                <input type="text" id="card" className={this.setInputClassName('card')} value={this.state.card} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={16} maxLength={16} required />
+                <label htmlFor="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" className={this.setInputClassName('cardNumber')} value={this.state.cardNumber} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={16} maxLength={16} required />
                 <small className="invalid-feedback position-absolute">Please enter a 16 digit card number.</small>
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
-                <label htmlFor="month">Month</label>
-                <select id="month" className={this.setDropdownClassName('month')} name="month" form="checkout" value={this.state.month} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
+                <label htmlFor="cardMonth">Month</label>
+                <select id="cardMonth" className={this.setDropdownClassName('cardMonth')} name="cardMonth" form="checkout" value={this.state.cardMonth} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
                   <option hidden disabled>--</option>
                   {this.getMonths()}
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a month.</small>
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
-                <label htmlFor="year">Year</label>
-                <select id="year" className={this.setDropdownClassName('year')} name="year" form="checkout" value={this.state.year} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
+                <label htmlFor="cardYear">Year</label>
+                <select id="cardYear" className={this.setDropdownClassName('cardYear')} name="cardYear" form="checkout" value={this.state.cardYear} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
                   <option hidden disabled>--</option>
                   {this.getYears()}
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a year.</small>
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
-                <label htmlFor="cvv">CVV</label>
-                <input type="text" id="cvv" className={this.setInputClassName('cvv')} value={this.state.cvv} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={3} maxLength={4} required />
+                <label htmlFor="cardCVV">CVV</label>
+                <input type="text" id="cardCVV" className={this.setInputClassName('cardCVV')} value={this.state.cardCVV} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={3} maxLength={4} required />
                 <small className="invalid-feedback position-absolute">Please enter a 3-4 digit CVV.</small>
               </div>
             </div>
