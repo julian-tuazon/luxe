@@ -40,7 +40,7 @@ export default class CheckoutForm extends React.Component {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
       card: /^[\d]*$/,
       address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
-      city: /^(?!.* {2,})[a-zA-Z ]*$/,
+      city: /^(?!.* {2,})[a-zA-Z. ]*$/,
       zipCode: /^[\d]*$/
     };
     if (validChars[input.id].test(input.value)) {

@@ -181,7 +181,7 @@ app.post('/api/orders', (req, res, next) => {
   if (!shippingAddress || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{6,42}$/.test(shippingAddress))) {
     return res.status(400).json({ error: 'missing or invalid shipping address' });
   }
-  if (!city || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{3,50}$/.test(city))) {
+  if (!city || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z. ]{3,50}$/.test(city))) {
     return res.status(400).json({ error: 'missing or invalid city' });
   }
   if (!state || !(/^[a-zA-Z]{2}$/.test(state))) {
