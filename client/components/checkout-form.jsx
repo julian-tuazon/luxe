@@ -165,8 +165,8 @@ export default class CheckoutForm extends React.Component {
             </div>
 
             <div className="form-row d-flex flex-column flex-lg-row">
-              <div className="form-group col-12 col-lg-4 mb-5">
-                <label htmlFor="card">Credit Card</label>
+              <div className="form-group col-12 col-lg-6 mb-5">
+                <label htmlFor="card">Card Number</label>
                 <input type="text" id="card" className={this.setInputClassName('card')} value={this.state.card} onChange={this.handleInputChange} onBlur={this.handleBlur} minLength={16} maxLength={16} required />
                 <small className="invalid-feedback position-absolute">Please enter a valid 16 digit card number.</small>
               </div>
@@ -178,7 +178,7 @@ export default class CheckoutForm extends React.Component {
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a month.</small>
               </div>
-              <div className="form-group col-12 col-lg-3 mb-5">
+              <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="year">Year</label>
                 <select id="year" className={this.setInputClassName('year')} name="year" form="checkout" value={this.state.year} onChange={this.handleDropdownChange} onBlur={this.handleBlur} required>
                   <option hidden disabled>--</option>
@@ -186,7 +186,7 @@ export default class CheckoutForm extends React.Component {
                 </select>
                 <small className="invalid-feedback position-absolute">Please select a year.</small>
               </div>
-              <div className="form-group col-12 col-lg-3 mb-5">
+              <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="cvv">CVV</label>
                 <input type="text" id="cvv" className={this.setInputClassName('cvv')} value={this.state.cvv} onChange={this.handleInputChange} onBlur={this.handleBlur} minLength={3} maxLength={4} required />
                 <small className="invalid-feedback position-absolute">Please enter a valid 3-4 digit CVV.</small>
