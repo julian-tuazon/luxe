@@ -126,6 +126,16 @@ export default class CheckoutForm extends React.Component {
     return states.map(state => <option key={state} value={state}>{state}</option>);
   }
 
+  getYears() {
+    const date = new Date();
+    const currentYear = date.getFullYear();
+    const years = [];
+    for (let i = 0; i < 10; i++) {
+      years.push(currentYear + i);
+    }
+    return years.map(year => <option key={year} value={year}>{year}</option>);
+  }
+
   getCartTotal() {
     return this.props.cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
   }
