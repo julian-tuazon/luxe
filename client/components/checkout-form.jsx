@@ -25,7 +25,7 @@ export default class CheckoutForm extends React.Component {
   }
 
   handleAgreementChange(e) {
-    const isChecked = e.target.id.checked;
+    const isChecked = e.target.checked;
     this.hideValidation('agreement');
     this.setState({
       agreement: isChecked
