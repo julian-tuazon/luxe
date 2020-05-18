@@ -27,7 +27,7 @@ export default class CheckoutForm extends React.Component {
   handleAgreementChange(e) {
     const isChecked = e.target.id.checked;
     this.hideValidation('agreement');
-    return this.setState({
+    this.setState({
       agreement: isChecked
     }, () => this.validateAgreement());
   }
@@ -35,7 +35,7 @@ export default class CheckoutForm extends React.Component {
   handleDropdownChange(e) {
     const dropdown = e.target;
     this.hideValidation(dropdown.id);
-    return this.setState({
+    this.setState({
       [dropdown.id]: dropdown.value
     }, () => this.validateDropdown(dropdown));
   }
@@ -129,9 +129,15 @@ export default class CheckoutForm extends React.Component {
     this.setState({ invalid: this.state.invalid.filter(elem => elem !== id) });
   }
 
+  setAgreementClassName() {
+    return this.state.invalid.includes('agreement') && this.state.showValidation.includes('agreement') ? 'form-check-input is-invalid' : 'form-check-input';
+  }
+
+  setDropdownClassName(dropdown) {
+    return this.state.invalid.includes(dropdown) && this.state.showValidation.includes(dropdown) ? 'custom-select is-invalid' : 'custom-select';
+  }
+
   setInputClassName(input) {
-    if (input === 'agreement') return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-check-input is-invalid' : 'form-check-input';
-    if (input === 'state') return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'custom-select is-invalid' : 'custom-select';
     return this.state.invalid.includes(input) && this.state.showValidation.includes(input) ? 'form-control is-invalid' : 'form-control';
   }
 
@@ -179,16 +185,15 @@ export default class CheckoutForm extends React.Component {
               <input type="text" id="name" className={this.setInputClassName('name')} value={this.state.name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={5} maxLength={67} required />
               <small className="invalid-feedback position-absolute">Minimum of 5 characters required.</small>
             </div>
-
             <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-6 mb-5">
                 <label htmlFor="card">Card Number</label>
                 <input type="text" id="card" className={this.setInputClassName('card')} value={this.state.card} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={16} maxLength={16} required />
-                <small className="invalid-feedback position-absolute">Please enter a valid 16 digit card number.</small>
+                <small className="invalid-feedback position-absolute">Please enter a 16 digit card number.</small>
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="month">Month</label>
-                <select id="month" className={this.setInputClassName('month')} name="month" form="checkout" value={this.state.month} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
+                <select id="month" className={this.setDropdownClassName('month')} name="month" form="checkout" value={this.state.month} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
                   <option hidden disabled>--</option>
                   {this.getMonths()}
                 </select>
@@ -196,7 +201,7 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="year">Year</label>
-                <select id="year" className={this.setInputClassName('year')} name="year" form="checkout" value={this.state.year} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
+                <select id="year" className={this.setDropdownClassName('year')} name="year" form="checkout" value={this.state.year} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
                   <option hidden disabled>--</option>
                   {this.getYears()}
                 </select>
@@ -205,10 +210,9 @@ export default class CheckoutForm extends React.Component {
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="cvv">CVV</label>
                 <input type="text" id="cvv" className={this.setInputClassName('cvv')} value={this.state.cvv} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={3} maxLength={4} required />
-                <small className="invalid-feedback position-absolute">Please enter a valid 3-4 digit CVV.</small>
+                <small className="invalid-feedback position-absolute">Please enter a 3-4 digit CVV.</small>
               </div>
             </div>
-
             <div className="form-group mb-5">
               <label htmlFor="name">Shipping Address</label>
               <input type="text" id="address" className={this.setInputClassName('address')} value={this.state.address} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={6} maxLength={42} required />
@@ -222,7 +226,7 @@ export default class CheckoutForm extends React.Component {
               </div>
               <div className="form-group col-12 col-lg-2 mb-5">
                 <label htmlFor="state">State</label>
-                <select id="state" className={this.setInputClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
+                <select id="state" className={this.setDropdownClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
                   <option hidden disabled>--</option>
                   {this.getStates()}
                 </select>
@@ -231,12 +235,12 @@ export default class CheckoutForm extends React.Component {
               <div className="form-group col-12 col-lg-3 mb-5">
                 <label htmlFor="zipCode">ZIP Code</label>
                 <input type="text" id="zipCode" className={this.setInputClassName('zipCode')} value={this.state.zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={5} maxLength={5} required />
-                <small className="invalid-feedback position-absolute">Please enter a valid 5 digit ZIP code.</small>
+                <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
               </div>
             </div>
             <div className="form-group mb-5">
               <div className="form-check">
-                <input type="checkbox" id="agreement" className={this.setInputClassName('agreement')} checked={this.state.agreement} onChange={this.handleAgreementChange} onBlur={this.handleAgreementBlur} required />
+                <input type="checkbox" id="agreement" className={this.setAgreementClassName()} checked={this.state.agreement} onChange={this.handleAgreementChange} onBlur={this.handleAgreementBlur} required />
                 <label htmlFor="agreement" className="form-check-label">I understand that this website is for demonstration purposes only, that no payment processing will occur, and that personal information such as names, addresses, and real credit card numbers should not be used upon submission of this form.</label>
                 <small className="invalid-feedback position-absolute">Please agree to the terms and conditions.</small>
               </div>
