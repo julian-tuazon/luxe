@@ -6,7 +6,9 @@ export default class CheckoutForm extends React.Component {
     this.fields = ['name', 'card', 'month', 'year', 'cvv', 'address', 'city', 'state', 'zipCode', 'agreement'];
     this.state = { name: '', card: '', month: '--', year: '--', cvv: '', address: '', city: '', state: '--', zipCode: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleAgreementChange = this.handleAgreementChange.bind(this);
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
   }
@@ -20,25 +22,30 @@ export default class CheckoutForm extends React.Component {
     if (e.target.id === 'catalog') this.props.setView('catalog', {});
   }
 
-  handleChange(e) {
+  handleAgreementChange(e) {
+    const agreement = e.target;
+    this.hideValidation('agreement');
+    return this.setState({
+      agreement: agreement.checked
+    }, () => this.validateAgreement(agreement));
+  }
+
+  handleDropdownChange(e) {
+    const dropdown = e.target;
+    this.hideValidation(dropdown.id);
+    return this.setState({
+      [dropdown.id]: dropdown.value
+    }, () => this.validateDropdown(dropdown));
+  }
+
+  handleInputChange(e) {
     const input = e.target;
     this.hideValidation(input.id);
-
-    if (input.id === 'agreement') {
-      return this.setState({
-        [input.id]: input.checked
-      }, () => this.validateInput(input));
-    }
-
-    if (input.id === 'state') {
-      return this.setState({
-        state: input.value
-      }, () => this.validateInput(input));
-    }
 
     const validChars = {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
       card: /^[\d]*$/,
+      cvv: /^[\d]*$/,
       address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
       city: /^(?!.* {2,})[a-zA-Z.\- ]*$/,
       zipCode: /^[\d]*$/
