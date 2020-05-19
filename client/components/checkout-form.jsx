@@ -183,8 +183,11 @@ export default class CheckoutForm extends React.Component {
       <div className="container">
         <div className="col-md-11 mx-auto d-flex flex-column">
           <h2 className="mb-4">Checkout</h2>
-          <h4 className="d-flex align-items-center text-muted mb-4">Cart Total: ${this.getCartTotal()}</h4>
+          <h4 className="d-flex align-items-center text-muted mb-5">Cart Total: ${this.getCartTotal()}</h4>
           <form className="d-flex flex-column needs-validation mb-5" noValidate onSubmit={this.handleSubmit}>
+            <div className="mb-3">
+              <h5>Shipping/Billing Address</h5>
+            </div>
             <div className="form-group mb-5">
               <label htmlFor="name">Name</label>
               <input type="text" id="name" className={this.setInputClassName('name')} value={this.state.name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={5} maxLength={67} required />
@@ -221,7 +224,9 @@ export default class CheckoutForm extends React.Component {
                 <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
               </div>
             </div>
-
+            <div className="mb-3">
+              <h5>Payment Info</h5>
+            </div>
             <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-6 mb-5">
                 <label htmlFor="cardNumber">Card Number</label>
@@ -250,7 +255,9 @@ export default class CheckoutForm extends React.Component {
                 <small className="invalid-feedback position-absolute">Please enter a 3-4 digit CVV.</small>
               </div>
             </div>
-
+            <div className="mb-3">
+              <h5>Agreement</h5>
+            </div>
             <div className="form-group mb-5">
               <div className="form-check">
                 <input type="checkbox" id="agreement" className={this.setAgreementClassName()} checked={this.state.agreement} onChange={this.handleAgreementChange} onBlur={this.handleAgreementBlur} required />
