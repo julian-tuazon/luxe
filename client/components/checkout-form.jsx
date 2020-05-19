@@ -3,7 +3,7 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.fields = ['name', 'addressOne', 'addressTwo', 'city', 'state', 'zipCode', 'cardNumber', 'cardMonth', 'cardYear', 'cardCVV', 'agreement'];
+    this.fields = ['name', 'addressOne', 'city', 'state', 'zipCode', 'cardNumber', 'cardMonth', 'cardYear', 'cardCVV', 'agreement'];
     this.state = { name: '', addressOne: '', addressTwo: '', city: '', state: '--', zipCode: '', cardNumber: '', cardMonth: '--', cardYear: '--', cardCVV: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleAgreementChange = this.handleAgreementChange.bind(this);
@@ -190,6 +190,40 @@ export default class CheckoutForm extends React.Component {
               <input type="text" id="name" className={this.setInputClassName('name')} value={this.state.name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={5} maxLength={67} required />
               <small className="invalid-feedback position-absolute">Minimum of 5 characters required.</small>
             </div>
+
+            <div className="form-row d-flex flex-column flex-lg-row">
+              <div className="form-group col-12 col-lg-6 mb-5">
+                <label htmlFor="name">Address 1</label>
+                <input type="text" id="addressOne" className={this.setInputClassName('addressOne')} value={this.state.addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={6} maxLength={42} required />
+                <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
+              </div>
+              <div className="form-group col-12 col-lg-6 mb-5">
+                <label htmlFor="name">Address 2 (optional)</label>
+                <input type="text" id="addressTwo" className='form-control' value={this.state.addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={0} maxLength={42} required />
+              </div>
+            </div>
+
+            <div className="form-row d-flex flex-column flex-lg-row">
+              <div className="form-group col-12 col-lg-7 mb-5">
+                <label htmlFor="city">City</label>
+                <input type="text" id="city" className={this.setInputClassName('city')} value={this.state.city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={3} maxLength={50} required />
+                <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
+              </div>
+              <div className="form-group col-12 col-lg-2 mb-5">
+                <label htmlFor="state">State</label>
+                <select id="state" className={this.setDropdownClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
+                  <option hidden disabled>--</option>
+                  {this.getStates()}
+                </select>
+                <small className="invalid-feedback position-absolute">Please select a state.</small>
+              </div>
+              <div className="form-group col-12 col-lg-3 mb-5">
+                <label htmlFor="zipCode">ZIP Code</label>
+                <input type="text" id="zipCode" className={this.setInputClassName('zipCode')} value={this.state.zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={5} maxLength={5} required />
+                <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
+              </div>
+            </div>
+
             <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-6 mb-5">
                 <label htmlFor="cardNumber">Card Number</label>
@@ -219,38 +253,6 @@ export default class CheckoutForm extends React.Component {
               </div>
             </div>
 
-            <div className="form-row d-flex flex-column flex-lg-row">
-              <div className="form-group col-12 col-lg-6 mb-5">
-                <label htmlFor="name">Address 1</label>
-                <input type="text" id="addressOne" className={this.setInputClassName('addressOne')} value={this.state.addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={6} maxLength={42} required />
-                <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
-              </div>
-              <div className="form-group col-12 col-lg-6 mb-5">
-                <label htmlFor="name">Shipping Address</label>
-                <input type="text" id="addressTwo" className={this.setInputClassName('addressTwo')} value={this.state.addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={0} maxLength={42} required />
-              </div>
-            </div>
-
-            <div className="form-row d-flex flex-column flex-lg-row">
-              <div className="form-group col-12 col-lg-7 mb-5">
-                <label htmlFor="city">City</label>
-                <input type="text" id="city" className={this.setInputClassName('city')} value={this.state.city} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={3} maxLength={50} required />
-                <small className="invalid-feedback position-absolute">Minimum of 3 characters required.</small>
-              </div>
-              <div className="form-group col-12 col-lg-2 mb-5">
-                <label htmlFor="state">State</label>
-                <select id="state" className={this.setDropdownClassName('state')} name="state" form="checkout" value={this.state.state} onChange={this.handleDropdownChange} onBlur={this.handleDropdownBlur} required>
-                  <option hidden disabled>--</option>
-                  {this.getStates()}
-                </select>
-                <small className="invalid-feedback position-absolute">Please select a state.</small>
-              </div>
-              <div className="form-group col-12 col-lg-3 mb-5">
-                <label htmlFor="zipCode">ZIP Code</label>
-                <input type="text" id="zipCode" className={this.setInputClassName('zipCode')} value={this.state.zipCode} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={5} maxLength={5} required />
-                <small className="invalid-feedback position-absolute">Please enter a 5 digit ZIP code.</small>
-              </div>
-            </div>
             <div className="form-group mb-5">
               <div className="form-check">
                 <input type="checkbox" id="agreement" className={this.setAgreementClassName()} checked={this.state.agreement} onChange={this.handleAgreementChange} onBlur={this.handleAgreementBlur} required />
