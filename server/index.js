@@ -5,6 +5,7 @@ const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
 const sessionMiddleware = require('./session-middleware');
+const tests = require('./validation-tests');
 
 const app = express();
 
@@ -35,7 +36,7 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:productId', (req, res, next) => {
   const { productId } = req.params;
-  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
   const text = `
     SELECT *
       FROM "products"
@@ -52,7 +53,7 @@ app.get('/api/products/:productId', (req, res, next) => {
 
 app.get('/api/cart/', (req, res, next) => {
   const { cartId } = req.session;
-  if (!cartId) return res.json([]);
+  if (!tests.isValidNum(cartId)) return res.json([]);
   const text = `
     SELECT "c"."cartItemId",
            "c"."price",
@@ -74,7 +75,7 @@ app.get('/api/cart/', (req, res, next) => {
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   const { cartId } = req.session;
-  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
   const sqlSelect = `
     SELECT "price"
       FROM "products"
@@ -84,7 +85,7 @@ app.post('/api/cart', (req, res, next) => {
   db.query(sqlSelect, values)
     .then(priceData => {
       if (!priceData.rows.length) throw new ClientError(`productId ${productId} does not exist`, 400);
-      if (cartId) return { price: priceData.rows[0].price, cartId };
+      if (tests.isValidNum(cartId)) return { price: priceData.rows[0].price, cartId };
       const sqlInsert = `
         INSERT INTO "carts" ("cartId", "createdAt")
         VALUES      (default, default)
@@ -127,9 +128,9 @@ app.post('/api/cart', (req, res, next) => {
 app.patch('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { quantity, productId } = req.body;
-  if (!cartId) return res.status(400).json({ error: 'missing or invalid cartId' });
-  if (!quantity) return res.status(400).json({ error: 'missing or invalid quantity' });
-  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidNum(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidNum(quantity)) return res.status(400).json({ error: 'missing or invalid quantity' });
+  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
 
   const text = `
     UPDATE    "cartItems"
@@ -150,8 +151,8 @@ app.patch('/api/cart', (req, res, next) => {
 app.delete('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { productId } = req.body;
-  if (!cartId) return res.status(400).json({ error: 'missing or invalid cartId' });
-  if (!(/(?!^0)(^\d+$)/.test(productId))) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidNum(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
   const text = `
     DELETE FROM "cartItems"
     WHERE       "cartId" = $1
@@ -169,39 +170,20 @@ app.delete('/api/cart', (req, res, next) => {
 
 app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
-  if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidNum(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
 
   const { name, addressOne, addressTwo, city, state, zipCode, cardNumber, cardMonth, cardYear, cardCVV } = req.body;
-  if (!name || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{5,67}$/.test(name))) {
-    return res.status(400).json({ error: 'missing or invalid name' });
-  }
-  if (!addressOne || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{6,42}$/.test(addressOne))) {
-    return res.status(400).json({ error: 'missing or invalid addressOne' });
-  }
-  if (addressTwo && !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{0,42}$/.test(addressTwo))) {
-    return res.status(400).json({ error: 'invalid addressTwo' });
-  }
-  if (!city || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z.\- ]{3,50}$/.test(city))) {
-    return res.status(400).json({ error: 'missing or invalid city' });
-  }
-  if (!state || !(/^[a-zA-Z]{2}$/.test(state))) {
-    return res.status(400).json({ error: 'missing or invalid state' });
-  }
-  if (!zipCode || !(/^[\d]{5}$/.test(zipCode))) {
-    return res.status(400).json({ error: 'missing or invalid zip code' });
-  }
-  if (!cardNumber || !(/^[\d]{16}$/.test(cardNumber))) {
-    return res.status(400).json({ error: 'missing or invalid card number' });
-  }
-  if (!cardMonth || !(/^[\d]{2}$/.test(cardMonth))) {
-    return res.status(400).json({ error: 'missing or invalid card month' });
-  }
-  if (!cardYear || !(/^[\d]{4}$/.test(cardYear))) {
-    return res.status(400).json({ error: 'missing or invalid card year' });
-  }
-  if (!cardCVV || !(/^[\d]{3,4}$/.test(cardCVV))) {
-    return res.status(400).json({ error: 'missing or invalid card CVV' });
-  }
+
+  if (!tests.isValidName(name)) return res.status(400).json({ error: 'missing or invalid name' });
+  if (!tests.isValidAddressOne(addressOne)) return res.status(400).json({ error: 'missing or invalid addressOne' });
+  if (!tests.isValidAddressTwo(addressTwo)) return res.status(400).json({ error: 'invalid addressTwo' });
+  if (!tests.isValidCity(city)) return res.status(400).json({ error: 'missing or invalid city' });
+  if (!tests.isValidState(state)) return res.status(400).json({ error: 'missing or invalid state' });
+  if (!tests.isValidZipCode(zipCode)) return res.status(400).json({ error: 'missing or invalid zip code' });
+  if (!tests.isValidCardNumber(cardNumber)) return res.status(400).json({ error: 'missing or invalid card number' });
+  if (!tests.isValidCardMonth(cardMonth)) return res.status(400).json({ error: 'missing or invalid card month' });
+  if (!tests.isValidCardYear(cardYear)) return res.status(400).json({ error: 'missing or invalid card year' });
+  if (!tests.isValidCardCVV(cardCVV)) return res.status(400).json({ error: 'missing or invalid card CVV' });
 
   const text = `
     INSERT INTO "orders" ("cartId", "name", "addressOne", "addressTwo", "city", "state", "zipCode", "cardNumber", "cardMonth", "cardYear", "cardCVV")
