@@ -190,19 +190,17 @@ export default class CheckoutForm extends React.Component {
               <input type="text" id="name" className={this.setInputClassName('name')} value={this.state.name} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={5} maxLength={67} required />
               <small className="invalid-feedback position-absolute">Minimum of 5 characters required.</small>
             </div>
-
             <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-6 mb-5">
-                <label htmlFor="name">Address 1</label>
+                <label htmlFor="name">Address Line 1</label>
                 <input type="text" id="addressOne" className={this.setInputClassName('addressOne')} value={this.state.addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={6} maxLength={42} required />
                 <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
               </div>
               <div className="form-group col-12 col-lg-6 mb-5">
-                <label htmlFor="name">Address 2 (optional)</label>
+                <label htmlFor="name">Address Line 2 (optional)</label>
                 <input type="text" id="addressTwo" className='form-control' value={this.state.addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={0} maxLength={42} required />
               </div>
             </div>
-
             <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-7 mb-5">
                 <label htmlFor="city">City</label>
