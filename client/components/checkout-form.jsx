@@ -3,8 +3,8 @@ import React from 'react';
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.fields = ['name', 'cardNumber', 'cardMonth', 'cardYear', 'cardCVV', 'address', 'city', 'state', 'zipCode', 'agreement'];
-    this.state = { name: '', cardNumber: '', cardMonth: '--', cardYear: '--', cardCVV: '', address: '', city: '', state: '--', zipCode: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
+    this.fields = ['name', 'addressOne', 'addressTwo', 'city', 'state', 'zipCode', 'cardNumber', 'cardMonth', 'cardYear', 'cardCVV', 'agreement'];
+    this.state = { name: '', addressOne: '', addressTwo: '', city: '', state: '--', zipCode: '', cardNumber: '', cardMonth: '--', cardYear: '--', cardCVV: '', agreement: false, invalid: Array.from(this.fields), showValidation: [] };
     this.handleClick = this.handleClick.bind(this);
     this.handleAgreementChange = this.handleAgreementChange.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
@@ -56,7 +56,8 @@ export default class CheckoutForm extends React.Component {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
       cardNumber: /^[\d]*$/,
       cardCVV: /^[\d]*$/,
-      address: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
+      addressOne: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
+      addressTwo: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
       city: /^(?!.* {2,})[a-zA-Z.\- ]*$/,
       zipCode: /^[\d]*$/
     };
@@ -93,8 +94,8 @@ export default class CheckoutForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (!this.state.invalid.length) {
-      const { name, cardNumber, cardMonth, cardYear, cardCVV, address, city, state, zipCode } = this.state;
-      this.props.placeOrder({ name, cardNumber, cardMonth, cardYear, cardCVV, address, city, state, zipCode });
+      const { name, cardNumber, cardMonth, cardYear, cardCVV, addressOne, addressTwo, city, state, zipCode } = this.state;
+      this.props.placeOrder({ name, cardNumber, cardMonth, cardYear, cardCVV, addressOne, addressTwo, city, state, zipCode });
     }
   }
 
@@ -217,11 +218,19 @@ export default class CheckoutForm extends React.Component {
                 <small className="invalid-feedback position-absolute">Please enter a 3-4 digit CVV.</small>
               </div>
             </div>
-            <div className="form-group mb-5">
-              <label htmlFor="name">Shipping Address</label>
-              <input type="text" id="address" className={this.setInputClassName('address')} value={this.state.address} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={6} maxLength={42} required />
-              <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
+
+            <div className="form-row d-flex flex-column flex-lg-row">
+              <div className="form-group col-12 col-lg-6 mb-5">
+                <label htmlFor="name">Address 1</label>
+                <input type="text" id="addressOne" className={this.setInputClassName('addressOne')} value={this.state.addressOne} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={6} maxLength={42} required />
+                <small className="invalid-feedback position-absolute">Minimum of 21 characters required.</small>
+              </div>
+              <div className="form-group col-12 col-lg-6 mb-5">
+                <label htmlFor="name">Shipping Address</label>
+                <input type="text" id="addressTwo" className={this.setInputClassName('addressTwo')} value={this.state.addressTwo} onChange={this.handleInputChange} onBlur={this.handleInputBlur} minLength={0} maxLength={42} required />
+              </div>
             </div>
+
             <div className="form-row d-flex flex-column flex-lg-row">
               <div className="form-group col-12 col-lg-7 mb-5">
                 <label htmlFor="city">City</label>
