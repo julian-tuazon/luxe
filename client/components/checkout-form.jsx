@@ -43,7 +43,6 @@ export default class CheckoutForm extends React.Component {
   handleInputChange(e) {
     const input = e.target;
     this.hideValidation(input.id);
-
     if (this.isValidCharEntry(input)) {
       this.setState({
         [input.id]: input.value
@@ -54,14 +53,13 @@ export default class CheckoutForm extends React.Component {
   isValidCharEntry(input) {
     const validChars = {
       name: /^(?!.* {2,})[a-zA-Z ]*$/,
-      cardNumber: /^[\d]*$/,
-      cardCVV: /^[\d]*$/,
       addressOne: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
       addressTwo: /^(?!.* {2,})[a-zA-Z\d.,# ]*$/,
       city: /^(?!.* {2,})[a-zA-Z.\- ]*$/,
-      zipCode: /^[\d]*$/
+      zipCode: /^[\d]*$/,
+      cardNumber: /^[\d]*$/,
+      cardCVV: /^[\d]*$/
     };
-
     return validChars[input.id].test(input.value);
   }
 
