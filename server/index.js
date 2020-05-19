@@ -171,17 +171,17 @@ app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
   if (!(/(?!^0)(^\d+$)/.test(cartId))) return res.status(400).json({ error: 'missing or invalid cartId' });
 
-  const { name, creditCard, shippingAddress, city, state, zipCode } = req.body;
+  const { name, addressOne, addressTwo, city, state, zipCode, cardNumber, cardMonth, cardYear, cardCVV } = req.body;
   if (!name || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{5,67}$/.test(name))) {
     return res.status(400).json({ error: 'missing or invalid name' });
   }
-  if (!creditCard || !(/^[\d]{16}$/.test(creditCard))) {
-    return res.status(400).json({ error: 'missing or invalid credit card number' });
+  if (!addressOne || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{6,42}$/.test(addressOne))) {
+    return res.status(400).json({ error: 'missing or invalid addressOne' });
   }
-  if (!shippingAddress || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{6,42}$/.test(shippingAddress))) {
-    return res.status(400).json({ error: 'missing or invalid shipping address' });
+  if (addressTwo && !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{0,42}$/.test(addressTwo))) {
+    return res.status(400).json({ error: 'invalid addressTwo' });
   }
-  if (!city || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{3,50}$/.test(city))) {
+  if (!city || !(/^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z.\- ]{3,50}$/.test(city))) {
     return res.status(400).json({ error: 'missing or invalid city' });
   }
   if (!state || !(/^[a-zA-Z]{2}$/.test(state))) {
@@ -190,20 +190,36 @@ app.post('/api/orders', (req, res, next) => {
   if (!zipCode || !(/^[\d]{5}$/.test(zipCode))) {
     return res.status(400).json({ error: 'missing or invalid zip code' });
   }
+  if (!cardNumber || !(/^[\d]{16}$/.test(cardNumber))) {
+    return res.status(400).json({ error: 'missing or invalid card number' });
+  }
+  if (!cardMonth || !(/^[\d]{2}$/.test(cardMonth))) {
+    return res.status(400).json({ error: 'missing or invalid card month' });
+  }
+  if (!cardYear || !(/^[\d]{4}$/.test(cardYear))) {
+    return res.status(400).json({ error: 'missing or invalid card year' });
+  }
+  if (!cardCVV || !(/^[\d]{3,4}$/.test(cardCVV))) {
+    return res.status(400).json({ error: 'missing or invalid card CVV' });
+  }
 
   const text = `
-    INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress", "city", "state", "zipCode")
-    VALUES      ($1, $2, $3, $4, $5, $6, $7)
+    INSERT INTO "orders" ("cartId", "name", "addressOne", "addressTwo", "city", "state", "zipCode", "cardNumber", "cardMonth", "cardYear", "cardCVV")
+    VALUES      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     RETURNING   "orderId",
                 "createdAt",
                 "name",
-                "creditCard",
-                "shippingAddress",
+                "addressOne",
+                "addressTwo",
                 "city",
                 "state",
                 "zipCode"
+                "cardNumber",
+                "cardMonth",
+                "cardYear",
+                "cardCVV"
   `;
-  const values = [cartId, name, creditCard, shippingAddress, city, state, zipCode];
+  const values = [cartId, name, addressOne, addressTwo, city, state, zipCode, cardNumber, cardMonth, cardYear, cardCVV];
   db.query(text, values)
     .then(data => {
       delete req.session.cartId;

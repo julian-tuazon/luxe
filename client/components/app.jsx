@@ -106,11 +106,15 @@ export default class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: order.name,
-        creditCard: order.card,
-        shippingAddress: order.address,
+        addressOne: order.addressOne,
+        addressTwo: order.addressTwo,
         city: order.city,
         state: order.state,
-        zipCode: order.zipCode
+        zipCode: order.zipCode,
+        cardNumber: order.cardNumber,
+        cardMonth: order.cardMonth,
+        cardYear: order.cardYear,
+        cardCVV: order.cardCVV
       })
     })
       .then(res => res.json())
