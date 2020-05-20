@@ -153,3 +153,31 @@ describe('.isValidCity()', () => {
     });
   });
 });
+
+describe('.isValidState()', () => {
+  describe('state is valid', () => {
+    test('should return true if state consists of 2 letters', () => {
+      expect(tests.isValidState('CA')).toBe(true);
+    });
+  });
+  describe('state is invalid', () => {
+    test('should return false if state is less than 2 letters', () => {
+      expect(tests.isValidState('C')).toBe(false);
+    });
+    test('should return false if state is more than 2 letters', () => {
+      expect(tests.isValidState('CAL')).toBe(false);
+    });
+    test('should return false if state includes spaces', () => {
+      expect(tests.isValidState('C A')).toBe(false);
+    });
+    test('should return false if state includes symbols', () => {
+      expect(tests.isValidState('--')).toBe(false);
+    });
+    test('should return false if state is an empty string', () => {
+      expect(tests.isValidState('')).toBe(false);
+    });
+    test('should return false if state is undefined', () => {
+      expect(tests.isValidState(undefined)).toBe(false);
+    });
+  });
+});
