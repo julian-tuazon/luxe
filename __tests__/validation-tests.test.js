@@ -33,6 +33,12 @@ describe('.isValidName()', () => {
   test('Returns false if name includes consecutive spaces', () => {
     expect(tests.isValidName('John  Doe')).toBe(false);
   });
+  test('Returns false if name begins with a space', () => {
+    expect(tests.isValidName(' John Doe')).toBe(false);
+  });
+  test('Returns false if name ends with a space', () => {
+    expect(tests.isValidName('John Doe ')).toBe(false);
+  });
   test('Returns false if name is an empty string', () => {
     expect(tests.isValidName('')).toBe(false);
   });
@@ -56,6 +62,12 @@ describe('.isValidAddressOne()', () => {
   });
   test('Returns false if addressOne includes consecutive spaces', () => {
     expect(tests.isValidAddressOne('123 Front  Street')).toBe(false);
+  });
+  test('Returns false if addressOne begins with a space', () => {
+    expect(tests.isValidAddressOne(' 123 Front Street')).toBe(false);
+  });
+  test('Returns false if addressOne ends with a space', () => {
+    expect(tests.isValidAddressOne('123 Front Street ')).toBe(false);
   });
   test('Returns false if addressOne is an empty string', () => {
     expect(tests.isValidAddressOne('')).toBe(false);
@@ -83,5 +95,11 @@ describe('.isValidAddressTwo()', () => {
   });
   test('Returns false if addressTwo includes consecutive spaces', () => {
     expect(tests.isValidAddressTwo('123 Front  Street')).toBe(false);
+  });
+  test('Returns false if addressTwo begins with a space', () => {
+    expect(tests.isValidAddressTwo(' 123 Front Street')).toBe(false);
+  });
+  test('Returns false if addressTwo ends with a space', () => {
+    expect(tests.isValidAddressTwo('123 Front Street ')).toBe(false);
   });
 });
