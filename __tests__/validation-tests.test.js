@@ -246,3 +246,65 @@ describe('.isValidCardNumber()', () => {
     });
   });
 });
+
+describe('.isValidCardMonth()', () => {
+  describe('cardMonth is valid', () => {
+    test('should return true if cardMonth consists of 2 numbers', () => {
+      expect(tests.isValidCardMonth('11')).toBe(true);
+    });
+  });
+  describe('cardMonth is invalid', () => {
+    test('should return false if cardMonth is less than 2 numbers', () => {
+      expect(tests.isValidCardMonth('1')).toBe(false);
+    });
+    test('should return false if cardMonth is more than 2 numbers', () => {
+      expect(tests.isValidCardMonth('413')).toBe(false);
+    });
+    test('should return false if cardMonth includes letters', () => {
+      expect(tests.isValidCardMonth('a7')).toBe(false);
+    });
+    test('should return false if cardMonth includes symbols', () => {
+      expect(tests.isValidCardMonth('@7')).toBe(false);
+    });
+    test('should return false if cardMonth includes spaces', () => {
+      expect(tests.isValidCardMonth('1 ')).toBe(false);
+    });
+    test('should return false if cardMonth is an empty string', () => {
+      expect(tests.isValidCardMonth('')).toBe(false);
+    });
+    test('should return false if cardMonth is undefined', () => {
+      expect(tests.isValidCardMonth(undefined)).toBe(false);
+    });
+  });
+});
+
+describe('.isValidCardYear()', () => {
+  describe('cardYear is valid', () => {
+    test('should return true if cardYear consists of 4 numbers', () => {
+      expect(tests.isValidCardYear('2021')).toBe(true);
+    });
+  });
+  describe('cardYear is invalid', () => {
+    test('should return false if cardYear is less than 4 numbers', () => {
+      expect(tests.isValidCardYear('202')).toBe(false);
+    });
+    test('should return false if cardYear is more than 4 numbers', () => {
+      expect(tests.isValidCardYear('20222')).toBe(false);
+    });
+    test('should return false if cardYear includes letters', () => {
+      expect(tests.isValidCardYear('a202')).toBe(false);
+    });
+    test('should return false if cardYear includes symbols', () => {
+      expect(tests.isValidCardYear('@202')).toBe(false);
+    });
+    test('should return false if cardYear includes spaces', () => {
+      expect(tests.isValidCardYear('202 ')).toBe(false);
+    });
+    test('should return false if cardYear is an empty string', () => {
+      expect(tests.isValidCardYear('')).toBe(false);
+    });
+    test('should return false if cardYear is undefined', () => {
+      expect(tests.isValidCardYear(undefined)).toBe(false);
+    });
+  });
+});
