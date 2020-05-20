@@ -103,3 +103,33 @@ describe('.isValidAddressTwo()', () => {
     expect(tests.isValidAddressTwo('123 Front Street ')).toBe(false);
   });
 });
+
+describe('.isValidCity()', () => {
+  test('Returns true if city only consists of 3-50 letters/spaces/symbols (.-)', () => {
+    expect(tests.isValidCity('Los Angeles')).toBe(true);
+  });
+  test('Returns false if city is less than 3 characters', () => {
+    expect(tests.isValidCity('Bo')).toBe(false);
+  });
+  test('Returns false if city is more than 50 characters', () => {
+    expect(tests.isValidCity('foo'.repeat(30))).toBe(false);
+  });
+  test('Returns false if city includes symbols (except .-)', () => {
+    expect(tests.isValidCity('Tokyo!')).toBe(false);
+  });
+  test('Returns false if city includes consecutive spaces', () => {
+    expect(tests.isValidCity('Los  Angeles')).toBe(false);
+  });
+  test('Returns false if city begins with a space', () => {
+    expect(tests.isValidCity(' Sacramento')).toBe(false);
+  });
+  test('Returns false if city ends with a space', () => {
+    expect(tests.isValidCity('Stockholm ')).toBe(false);
+  });
+  test('Returns false if city is an empty string', () => {
+    expect(tests.isValidCity('')).toBe(false);
+  });
+  test('Returns false if city is undefined', () => {
+    expect(tests.isValidCity(undefined)).toBe(false);
+  });
+});
