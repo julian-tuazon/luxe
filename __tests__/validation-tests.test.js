@@ -40,3 +40,48 @@ describe('.isValidName()', () => {
     expect(tests.isValidName(undefined)).toBe(false);
   });
 });
+
+describe('.isValidAddressOne()', () => {
+  test('Returns true if addressOne only consists of 6-42 alphanumeric chars/spaces/symbols (.,#)', () => {
+    expect(tests.isValidAddressOne('123 Front Street')).toBe(true);
+  });
+  test('Returns false if addressOne is less than 6 characters', () => {
+    expect(tests.isValidAddressOne('Park')).toBe(false);
+  });
+  test('Returns false if addressOne is more than 42 characters', () => {
+    expect(tests.isValidAddressOne('foo'.repeat(30))).toBe(false);
+  });
+  test('Returns false if addressOne includes symbols (except .,#)', () => {
+    expect(tests.isValidAddressOne('123 Fr@nt Street!')).toBe(false);
+  });
+  test('Returns false if addressOne includes consecutive spaces', () => {
+    expect(tests.isValidAddressOne('123 Front  Street')).toBe(false);
+  });
+  test('Returns false if addressOne is an empty string', () => {
+    expect(tests.isValidAddressOne('')).toBe(false);
+  });
+  test('Returns false if addressOne is undefined', () => {
+    expect(tests.isValidAddressOne(undefined)).toBe(false);
+  });
+});
+
+describe('.isValidAddressTwo()', () => {
+  test('Returns true if addressTwo only consists of 0-42 alphanumeric chars/spaces/symbols (.,#)', () => {
+    expect(tests.isValidAddressTwo('123 Front Street')).toBe(true);
+  });
+  test('Returns true if addressTwo is undefined', () => {
+    expect(tests.isValidAddressTwo(undefined)).toBe(true);
+  });
+  test('Returns true if addressTwo is an empty string', () => {
+    expect(tests.isValidAddressTwo('')).toBe(true);
+  });
+  test('Returns false if addressTwo is more than 42 characters', () => {
+    expect(tests.isValidAddressTwo('foo'.repeat(30))).toBe(false);
+  });
+  test('Returns false if addressTwo includes symbols (except .,#)', () => {
+    expect(tests.isValidAddressTwo('123 Fr@nt Street!')).toBe(false);
+  });
+  test('Returns false if addressTwo includes consecutive spaces', () => {
+    expect(tests.isValidAddressTwo('123 Front  Street')).toBe(false);
+  });
+});
