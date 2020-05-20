@@ -215,3 +215,34 @@ describe('.isValidZipCode()', () => {
     });
   });
 });
+
+describe('.isValidCardNumber()', () => {
+  describe('cardNumber is valid', () => {
+    test('should return true if cardNumber consists of 16 numbers', () => {
+      expect(tests.isValidCardNumber('9723137583647323')).toBe(true);
+    });
+  });
+  describe('cardNumber is invalid', () => {
+    test('should return false if cardNumber is less than 16 numbers', () => {
+      expect(tests.isValidCardNumber('143')).toBe(false);
+    });
+    test('should return false if cardNumber is more than 16 numbers', () => {
+      expect(tests.isValidCardNumber('8'.repeat(20))).toBe(false);
+    });
+    test('should return false if cardNumber includes letters', () => {
+      expect(tests.isValidCardNumber('a723137583647323')).toBe(false);
+    });
+    test('should return false if cardNumber includes symbols', () => {
+      expect(tests.isValidCardNumber('@723137583647323')).toBe(false);
+    });
+    test('should return false if cardNumber includes spaces', () => {
+      expect(tests.isValidCardNumber('7 23137583647323')).toBe(false);
+    });
+    test('should return false if cardNumber is an empty string', () => {
+      expect(tests.isValidCardNumber('')).toBe(false);
+    });
+    test('should return false if cardNumber is undefined', () => {
+      expect(tests.isValidCardNumber(undefined)).toBe(false);
+    });
+  });
+});
