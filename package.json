@@ -40,7 +40,7 @@
     "env": {
       "browser": true,
       "node": true,
-      "jest/globals": true
+      "jest": true
     },
     "parser": "babel-eslint",
     "extends": [
