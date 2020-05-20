@@ -11,7 +11,8 @@ function isValidAddressOne(addressOne) {
 }
 
 function isValidAddressTwo(addressTwo) {
-  return addressTwo && /^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{0,42}$/.test(addressTwo);
+  if (addressTwo) return /^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z\d.,# ]{0,42}$/.test(addressTwo);
+  return true;
 }
 
 function isValidCity(city) {
