@@ -167,17 +167,51 @@ describe('.isValidState()', () => {
     test('should return false if state is more than 2 letters', () => {
       expect(tests.isValidState('CAL')).toBe(false);
     });
-    test('should return false if state includes spaces', () => {
-      expect(tests.isValidState('C A')).toBe(false);
+    test('should return false if state includes numbers', () => {
+      expect(tests.isValidState('99')).toBe(false);
     });
     test('should return false if state includes symbols', () => {
       expect(tests.isValidState('--')).toBe(false);
+    });
+    test('should return false if state includes spaces', () => {
+      expect(tests.isValidState('C ')).toBe(false);
     });
     test('should return false if state is an empty string', () => {
       expect(tests.isValidState('')).toBe(false);
     });
     test('should return false if state is undefined', () => {
       expect(tests.isValidState(undefined)).toBe(false);
+    });
+  });
+});
+
+describe('.isValidZipCode()', () => {
+  describe('zipCode is valid', () => {
+    test('should return true if zipCode consists of 5 numbers', () => {
+      expect(tests.isValidZipCode('97231')).toBe(true);
+    });
+  });
+  describe('zipCode is invalid', () => {
+    test('should return false if zipCode is less than 5 numbers', () => {
+      expect(tests.isValidZipCode('143')).toBe(false);
+    });
+    test('should return false if zipCode is more than 5 numbers', () => {
+      expect(tests.isValidZipCode('821145')).toBe(false);
+    });
+    test('should return false if zipCode includes letters', () => {
+      expect(tests.isValidZipCode('zip12')).toBe(false);
+    });
+    test('should return false if zipCode includes symbols', () => {
+      expect(tests.isValidZipCode('1234$')).toBe(false);
+    });
+    test('should return false if zipCode includes spaces', () => {
+      expect(tests.isValidZipCode('1 234')).toBe(false);
+    });
+    test('should return false if zipCode is an empty string', () => {
+      expect(tests.isValidZipCode('')).toBe(false);
+    });
+    test('should return false if zipCode is undefined', () => {
+      expect(tests.isValidZipCode(undefined)).toBe(false);
     });
   });
 });
