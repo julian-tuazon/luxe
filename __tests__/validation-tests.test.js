@@ -308,3 +308,40 @@ describe('.isValidCardYear()', () => {
     });
   });
 });
+
+describe('.isValidCardCVV()', () => {
+  describe('cardCVV is valid', () => {
+    test('should return true if cardCVV consists of 3 numbers', () => {
+      expect(tests.isValidCardCVV('123')).toBe(true);
+    });
+    test('should return true if cardCVV consists of 4 numbers', () => {
+      expect(tests.isValidCardCVV('1234')).toBe(true);
+    });
+  });
+  describe('cardCVV is invalid', () => {
+    test('should return false if cardCVV is less than 3 numbers', () => {
+      expect(tests.isValidCardCVV('12')).toBe(false);
+    });
+    test('should return false if cardCVV is more than 4 numbers', () => {
+      expect(tests.isValidCardCVV('12345')).toBe(false);
+    });
+    test('should return false if cardCVV includes letters', () => {
+      expect(tests.isValidCardCVV('a12')).toBe(false);
+      expect(tests.isValidCardCVV('a123')).toBe(false);
+    });
+    test('should return false if cardCVV includes symbols', () => {
+      expect(tests.isValidCardCVV('@12')).toBe(false);
+      expect(tests.isValidCardCVV('@123')).toBe(false);
+    });
+    test('should return false if cardCVV includes spaces', () => {
+      expect(tests.isValidCardCVV('12 ')).toBe(false);
+      expect(tests.isValidCardCVV('123 ')).toBe(false);
+    });
+    test('should return false if cardCVV is an empty string', () => {
+      expect(tests.isValidCardCVV('')).toBe(false);
+    });
+    test('should return false if cardCVV is undefined', () => {
+      expect(tests.isValidCardCVV(undefined)).toBe(false);
+    });
+  });
+});
