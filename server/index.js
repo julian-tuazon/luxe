@@ -227,4 +227,4 @@ app.use((err, req, res, next) => {
 
 app.listen(process.env.PORT);
 
-exports.app = app;
+module.exports = app;
