@@ -67,6 +67,13 @@ describe('GET /api/products/:productId', () => {
       expect(response.statusCode).toBe(200);
     });
   });
+  describe('invalid productId', () => {
+    test('should respond with an object indicating an error (missing/invalid productId)', async () => {
+      const response = await request(app).get('/api/products/three');
+      expect(response.body).toEqual({ error: 'missing or invalid productId' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
   describe('non-existent productId', () => {
     test('should respond with an object indicating an error (non-existent productId)', async () => {
       const response = await request(app).get('/api/products/25');
@@ -77,6 +84,24 @@ describe('GET /api/products/:productId', () => {
 });
 
 describe('GET /api/cart', () => {
+  describe('valid cartId', () => {
+    test('should respond with an array of cartItems', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({ productId: 2 });
+      const response = await testSession.get('/api/cart/');
+      const result = response.body[0];
+      expect(result).toHaveProperty('cartItemId');
+      expect(result).toHaveProperty('image');
+      expect(result).toHaveProperty('name');
+      expect(result).toHaveProperty('productId', 2);
+      expect(result).toHaveProperty('price');
+      expect(result).toHaveProperty('quantity');
+      expect(result).toHaveProperty('shortDescription');
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
   describe('missing cartId', () => {
     test('should respond with an empty array of cartItems', async () => {
       const response = await request(app).get('/api/cart/');
