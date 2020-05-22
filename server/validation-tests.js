@@ -1,25 +1,9 @@
-function isValid(input) {
-  const inputType = Object.keys({ input })[0];
-  const validationTests = {
-    cartId: () => isValidNum(input),
-    productId: () => isValidProductId(input),
-    quantity: () => isValidQuantity(input),
-    name: () => isValidName(input),
-    addressOne: () => isValidAddressOne(input),
-    addressTwo: () => isValidAddressTwo(input),
-    city: () => isValidCity(input),
-    state: () => isValidState(input),
-    zipCode: () => isValidZipCode(input),
-    cardNumber: () => isValidCardNumber(input),
-    cardMonth: () => isValidCardMonth(input),
-    cardYear: () => isValidCardYear(input),
-    cardCVV: () => isValidCardCVV(input)
-  };
-  return validationTests[inputType]();
-}
-
 function isValidNum(num) {
   return /(?!^0)(^\d+$)/.test(num);
+}
+
+function isValidCartId(cartId) {
+  return /(?!^0)(^\d+$)/.test(cartId);
 }
 
 function isValidProductId(productId) {
@@ -70,8 +54,8 @@ function isValidCardCVV(cardCVV) {
   return /^[\d]{3,4}$/.test(cardCVV);
 }
 
-exports.isValid = isValid;
 exports.isValidNum = isValidNum;
+exports.isValidCartId = isValidCartId;
 exports.isValidProductId = isValidProductId;
 exports.isValidQuantity = isValidQuantity;
 exports.isValidName = isValidName;
