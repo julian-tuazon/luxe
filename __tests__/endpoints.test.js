@@ -2,7 +2,6 @@ process.env.NODE_ENV = 'test';
 const request = require('supertest');
 const session = require('supertest-session');
 const app = require('../server/index');
-// const db = require('../server/database');
 
 const PRODUCT_LIST = require('../server/product-list');
 
@@ -11,40 +10,6 @@ let testSession = null;
 beforeEach(function () {
   testSession = session(app);
 });
-
-// beforeEach(async () => {
-//   const text = `
-//         INSERT INTO "carts" ("cartId", "createdAt")
-//         VALUES      (default, default)
-//         RETURNING   "cartId"
-//       `;
-//   // const values = [1];
-//   await db.query(text).then(data => testCartId = data.rows[0].cartId);
-// });
-
-// beforeEach(async () => {
-//   const text = `
-//     INSERT INTO "cartItems" ("cartId", "productId", "price", "quantity")
-//     VALUES      (default, $1, $2, $3)
-//   `;
-//   const values = [1, 100, 5];
-//   await db.query(text, values);
-// });
-
-// afterEach(async () => {
-//   const text = `
-//     DELETE FROM "cartItems"
-//   `;
-//   await db.query(text);
-// });
-
-// afterAll(async () => {
-//   const text = `
-//     DELETE FROM "carts"
-//   `;
-//   await db.query(text);
-//   db.end();
-// });
 
 describe('GET /api/products/', () => {
   test('should return an array of products', async () => {
