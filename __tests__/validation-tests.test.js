@@ -93,23 +93,6 @@ describe('isValidQuantity', () => {
   });
 });
 
-describe('.isValidNum()', () => {
-  describe('number is valid', () => {
-    test('should return true if number is a positive integer', () => {
-      expect(tests.isValidNum('2')).toBe(true);
-    });
-  });
-  describe('number is invalid', () => {
-    test('should return false if number is not a positive integer', () => {
-      expect(tests.isValidNum('-1')).toBe(false);
-      expect(tests.isValidNum('two')).toBe(false);
-      expect(tests.isValidNum('0')).toBe(false);
-      expect(tests.isValidNum('')).toBe(false);
-      expect(tests.isValidNum(undefined)).toBe(false);
-    });
-  });
-});
-
 describe('.isValidName()', () => {
   describe('name is valid', () => {
     test('should return true if name consists of 5-67 letters/spaces', () => {

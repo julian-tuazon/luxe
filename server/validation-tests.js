@@ -1,7 +1,3 @@
-function isValidNum(num) {
-  return /(?!^0)(^\d+$)/.test(num);
-}
-
 function isValidCartId(cartId) {
   return /(?!^0)(^\d+$)/.test(cartId);
 }
@@ -54,7 +50,6 @@ function isValidCardCVV(cardCVV) {
   return /^[\d]{3,4}$/.test(cardCVV);
 }
 
-exports.isValidNum = isValidNum;
 exports.isValidCartId = isValidCartId;
 exports.isValidProductId = isValidProductId;
 exports.isValidQuantity = isValidQuantity;
