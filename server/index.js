@@ -36,7 +36,7 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:productId', (req, res, next) => {
   const { productId } = req.params;
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const text = `
     SELECT *
       FROM "products"
@@ -75,7 +75,7 @@ app.get('/api/cart/', (req, res, next) => {
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   const { cartId } = req.session;
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const sqlSelect = `
     SELECT "price"
       FROM "products"
@@ -130,7 +130,7 @@ app.patch('/api/cart', (req, res, next) => {
   const { quantity, productId } = req.body;
   if (!tests.isValidCartId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
   if (!tests.isValidQuantity(quantity)) return res.status(400).json({ error: 'missing or invalid quantity' });
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
 
   const text = `
     UPDATE    "cartItems"
@@ -152,7 +152,7 @@ app.delete('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { productId } = req.body;
   if (!tests.isValidCartId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const text = `
     DELETE FROM "cartItems"
     WHERE       "cartId" = $1
