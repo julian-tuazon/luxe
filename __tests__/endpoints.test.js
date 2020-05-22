@@ -1,42 +1,50 @@
 process.env.NODE_ENV = 'test';
 const request = require('supertest');
+const session = require('supertest-session');
 const app = require('../server/index');
-const db = require('../server/database');
+// const db = require('../server/database');
 
 const PRODUCT_LIST = require('../server/product-list');
 
-beforeAll(async () => {
-  const text = `
-        INSERT INTO "carts" ("cartId", "createdAt")
-        VALUES      ($1, default)
-      `;
-  const values = [1];
-  await db.query(text, values);
+let testSession = null;
+
+beforeEach(function () {
+  testSession = session(app);
 });
 
-beforeEach(async () => {
-  const text = `
-    INSERT INTO "cartItems" ("cartId", "productId", "price", "quantity")
-    VALUES      ($1, $2, $3, $4)
-  `;
-  const values = [2, 1, 100, 5];
-  await db.query(text, values);
-});
+// beforeEach(async () => {
+//   const text = `
+//         INSERT INTO "carts" ("cartId", "createdAt")
+//         VALUES      (default, default)
+//         RETURNING   "cartId"
+//       `;
+//   // const values = [1];
+//   await db.query(text).then(data => testCartId = data.rows[0].cartId);
+// });
 
-afterEach(async () => {
-  const text = `
-    DELETE FROM "cartItems"
-  `;
-  await db.query(text);
-});
+// beforeEach(async () => {
+//   const text = `
+//     INSERT INTO "cartItems" ("cartId", "productId", "price", "quantity")
+//     VALUES      (default, $1, $2, $3)
+//   `;
+//   const values = [1, 100, 5];
+//   await db.query(text, values);
+// });
 
-afterAll(async () => {
-  const text = `
-    DELETE FROM "carts"
-  `;
-  await db.query(text);
-  db.end();
-});
+// afterEach(async () => {
+//   const text = `
+//     DELETE FROM "cartItems"
+//   `;
+//   await db.query(text);
+// });
+
+// afterAll(async () => {
+//   const text = `
+//     DELETE FROM "carts"
+//   `;
+//   await db.query(text);
+//   db.end();
+// });
 
 describe('GET /api/products/', () => {
   test('should return an array of products', async () => {
@@ -107,6 +115,70 @@ describe('POST /api/cart', () => {
         .post('/api/cart/')
         .send({ productId: 25 });
       expect(response.body).toEqual({ error: 'productId 25 does not exist' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+});
+
+describe('PATCH /api/cart', () => {
+  describe('valid cartId, productId, and quantity', () => {
+    test('should return modified product in cart', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({ productId: 2 });
+      const response = await testSession
+        .patch('/api/cart')
+        .send({
+          productId: 2,
+          quantity: 6
+        });
+      expect(response.body).toHaveProperty('cartId');
+      expect(response.body).toHaveProperty('cartItemId');
+      expect(response.body).toHaveProperty('productId', 2);
+      expect(response.body).toHaveProperty('price');
+      expect(response.body).toHaveProperty('quantity', 6);
+      expect(response.statusCode).toBe(200);
+    });
+  });
+  describe('missing cartId', () => {
+    test('should respond with an object indicating an error (missing/invalid cartId)', async () => {
+      const response = await testSession
+        .patch('/api/cart/')
+        .send({
+          productId: 2,
+          quantity: 6
+        });
+      expect(response.body).toEqual({ error: 'missing or invalid cartId' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('invalid productId', () => {
+    test('should respond with an object indicating an error (productId not a positive integer)', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({ productId: 2 });
+      const response = await testSession
+        .patch('/api/cart/')
+        .send({
+          productId: 'alpha',
+          quantity: 3
+        });
+      expect(response.body).toEqual({ error: 'productId must be a positive integer' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('invalid quantity', () => {
+    test('should respond with an object indicating an error (missing/invalid quantity)', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({ productId: 2 });
+      const response = await testSession
+        .patch('/api/cart/')
+        .send({
+          productId: 2,
+          quantity: -5
+        });
+      expect(response.body).toEqual({ error: 'missing or invalid quantity' });
       expect(response.statusCode).toBe(400);
     });
   });
