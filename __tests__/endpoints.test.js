@@ -105,7 +105,7 @@ describe('POST /api/cart', () => {
       const response = await request(app)
         .post('/api/cart/')
         .send({ productId: -1 });
-      expect(response.body).toEqual({ error: 'productId must be a positive integer' });
+      expect(response.body).toEqual({ error: 'missing or invalid productId' });
       expect(response.statusCode).toBe(400);
     });
   });
@@ -115,7 +115,7 @@ describe('POST /api/cart', () => {
         .post('/api/cart/')
         .send({ productId: 25 });
       expect(response.body).toEqual({ error: 'productId 25 does not exist' });
-      expect(response.statusCode).toBe(400);
+      expect(response.statusCode).toBe(404);
     });
   });
 });
@@ -160,11 +160,26 @@ describe('PATCH /api/cart', () => {
       const response = await testSession
         .patch('/api/cart/')
         .send({
-          productId: 'alpha',
+          productId: -1,
           quantity: 3
         });
-      expect(response.body).toEqual({ error: 'productId must be a positive integer' });
+      expect(response.body).toEqual({ error: 'missing or invalid productId' });
       expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('non-existent productId', () => {
+    test('should respond with an object indicating an error (non-existent productId)', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({ productId: 2 });
+      const response = await testSession
+        .patch('/api/cart/')
+        .send({
+          productId: 3,
+          quantity: 3
+        });
+      expect(response.body).toEqual({ error: 'productId 3 does not exist in cart' });
+      expect(response.statusCode).toBe(404);
     });
   });
   describe('invalid quantity', () => {
