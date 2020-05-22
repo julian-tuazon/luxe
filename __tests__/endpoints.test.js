@@ -85,7 +85,7 @@ describe('GET /api/products/:productId', () => {
 
 describe('GET /api/cart', () => {
   describe('valid cartId', () => {
-    test('should respond with an array of cartItems', async () => {
+    test('should respond with an array of cart items', async () => {
       await testSession
         .post('/api/cart/')
         .send({ productId: 2 });
@@ -103,7 +103,7 @@ describe('GET /api/cart', () => {
   });
 
   describe('missing cartId', () => {
-    test('should respond with an empty array of cartItems', async () => {
+    test('should respond with an empty array', async () => {
       const response = await request(app).get('/api/cart/');
       expect(response.body).toEqual([]);
       expect(response.statusCode).toBe(200);
@@ -117,16 +117,18 @@ describe('POST /api/cart', () => {
       const response = await request(app)
         .post('/api/cart/')
         .send({ productId: 2 });
+      expect(response.body).toHaveProperty('cartItemId');
       expect(response.body).toHaveProperty('image');
       expect(response.body).toHaveProperty('name');
       expect(response.body).toHaveProperty('price');
       expect(response.body).toHaveProperty('productId', 2);
+      expect(response.body).toHaveProperty('quantity');
       expect(response.body).toHaveProperty('shortDescription');
       expect(response.statusCode).toBe(201);
     });
   });
   describe('invalid productId', () => {
-    test('should respond with an object indicating an error (productId not a positive integer)', async () => {
+    test('should respond with an object indicating an error (missing/invalid productId)', async () => {
       const response = await request(app)
         .post('/api/cart/')
         .send({ productId: -1 });
@@ -178,7 +180,7 @@ describe('PATCH /api/cart', () => {
     });
   });
   describe('invalid productId', () => {
-    test('should respond with an object indicating an error (productId not a positive integer)', async () => {
+    test('should respond with an object indicating an error (missing/invalid productId)', async () => {
       await testSession
         .post('/api/cart/')
         .send({ productId: 2 });
