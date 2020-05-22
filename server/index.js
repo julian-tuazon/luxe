@@ -162,7 +162,7 @@ app.delete('/api/cart', (req, res, next) => {
   const values = [cartId, productId];
   db.query(text, values)
     .then(result => {
-      if (!result.rows.length) return res.status(404).json({ error: `productId ${productId} does not exist` });
+      if (!result.rows.length) return res.status(404).json({ error: `productId ${productId} does not exist in cart` });
       return res.status(204).json(result.rows[0]);
     })
     .catch(err => next(err));
