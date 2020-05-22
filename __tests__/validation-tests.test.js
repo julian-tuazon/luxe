@@ -2,7 +2,7 @@ const tests = require('../server/validation-tests');
 
 describe('.isValidId()', () => {
   describe('valid id', () => {
-    test('should return true if number is a positive integer', () => {
+    test('should return true if id is a positive integer', () => {
       expect(tests.isValidId('2')).toBe(true);
     });
   });
