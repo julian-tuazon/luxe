@@ -102,6 +102,17 @@ describe('GET /api/cart', () => {
     });
   });
 
+  describe('valid cartId and empty cart', () => {
+    test('should respond with an empty array', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({ productId: 25 });
+      const response = await testSession.get('/api/cart/');
+      expect(response.body).toEqual([]);
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
   describe('missing cartId', () => {
     test('should respond with an empty array', async () => {
       const response = await request(app).get('/api/cart/');
