@@ -2,6 +2,10 @@ function isValidNum(num) {
   return /(?!^0)(^\d+$)/.test(num);
 }
 
+function isValidProductId(productId) {
+  return /(?!^0)(^[1-6]$)/.test(productId);
+}
+
 function isValidName(name) {
   return !!name && /^(?!.* {2,})(?=\S)(?=.*\S$)[a-zA-Z ]{5,67}$/.test(name);
 }
@@ -43,6 +47,7 @@ function isValidCardCVV(cardCVV) {
 }
 
 exports.isValidNum = isValidNum;
+exports.isValidProductId = isValidProductId;
 exports.isValidName = isValidName;
 exports.isValidAddressOne = isValidAddressOne;
 exports.isValidAddressTwo = isValidAddressTwo;
