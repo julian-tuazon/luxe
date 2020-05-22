@@ -13,6 +13,9 @@ describe('.isValidCartId()', () => {
     test('should return false if cartId is 0', () => {
       expect(tests.isValidCartId('0')).toBe(false);
     });
+    test('should return false if cartId is a non-integer decimal', () => {
+      expect(tests.isValidCartId('1.5')).toBe(false);
+    });
     test('should return false if cartId includes letters', () => {
       expect(tests.isValidCartId('two')).toBe(false);
     });
@@ -41,6 +44,9 @@ describe('isValidProductId', () => {
     test('should return false if productId is an integer greater than 6', () => {
       expect(tests.isValidProductId('9')).toBe(false);
     });
+    test('should return false if productId is a non-integer decimal', () => {
+      expect(tests.isValidProductId('1.5')).toBe(false);
+    });
     test('should return false if productId includes letters', () => {
       expect(tests.isValidProductId('two')).toBe(false);
     });
@@ -49,6 +55,40 @@ describe('isValidProductId', () => {
     });
     test('should return false if productId is undefined', () => {
       expect(tests.isValidProductId(undefined)).toBe(false);
+    });
+  });
+});
+
+describe('isValidQuantity', () => {
+  describe('quantity is valid', () => {
+    test('should return true if quantity is a 1 digit, positive integer between 1-99', () => {
+      expect(tests.isValidQuantity('7')).toBe(true);
+    });
+    test('should return true if quantity is a 2 digit, positive integer between 1-99', () => {
+      expect(tests.isValidQuantity('23')).toBe(true);
+    });
+  });
+  describe('invalid quantity', () => {
+    test('should return false if quantity is a negative integer', () => {
+      expect(tests.isValidQuantity('-1')).toBe(false);
+    });
+    test('should return false if quantity is 0', () => {
+      expect(tests.isValidQuantity('0')).toBe(false);
+    });
+    test('should return false if quantity is a non-integer decimal', () => {
+      expect(tests.isValidQuantity('1.5')).toBe(false);
+    });
+    test('should return false if quantity is a 3 digit, positive integer greater than 99', () => {
+      expect(tests.isValidQuantity('120')).toBe(false);
+    });
+    test('should return false if quantity includes letters', () => {
+      expect(tests.isValidQuantity('two')).toBe(false);
+    });
+    test('should return false if quantity is an empty string', () => {
+      expect(tests.isValidQuantity('')).toBe(false);
+    });
+    test('should return false if quantity is undefined', () => {
+      expect(tests.isValidQuantity(undefined)).toBe(false);
     });
   });
 });
