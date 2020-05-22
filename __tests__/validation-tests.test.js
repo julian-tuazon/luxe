@@ -1,5 +1,58 @@
 const tests = require('../server/validation-tests');
 
+describe('.isValidCartId()', () => {
+  describe('cartId is valid', () => {
+    test('should return true if number is a positive integer', () => {
+      expect(tests.isValidCartId('2')).toBe(true);
+    });
+  });
+  describe('cartId is invalid', () => {
+    test('should return false if number is a negative integer', () => {
+      expect(tests.isValidCartId('-1')).toBe(false);
+    });
+    test('should return false if cartId is 0', () => {
+      expect(tests.isValidCartId('0')).toBe(false);
+    });
+    test('should return false if cartId includes letters', () => {
+      expect(tests.isValidCartId('two')).toBe(false);
+    });
+    test('should return false if cartId is an empty string', () => {
+      expect(tests.isValidCartId('')).toBe(false);
+    });
+    test('should return false if cartId is undefined', () => {
+      expect(tests.isValidCartId(undefined)).toBe(false);
+    });
+  });
+});
+
+describe('isValidProductId', () => {
+  describe('productId is valid', () => {
+    test('should return true if productId is a positive integer between 1-6', () => {
+      expect(tests.isValidProductId('3')).toBe(true);
+    });
+  });
+  describe('invalid productId', () => {
+    test('should return false if productId is a negative integer', () => {
+      expect(tests.isValidProductId('-1')).toBe(false);
+    });
+    test('should return false if productId is an integer less than 1', () => {
+      expect(tests.isValidProductId('0')).toBe(false);
+    });
+    test('should return false if productId is an integer greater than 6', () => {
+      expect(tests.isValidProductId('9')).toBe(false);
+    });
+    test('should return false if productId includes letters', () => {
+      expect(tests.isValidProductId('two')).toBe(false);
+    });
+    test('should return false if productId is an empty string', () => {
+      expect(tests.isValidProductId('')).toBe(false);
+    });
+    test('should return false if productId is undefined', () => {
+      expect(tests.isValidProductId(undefined)).toBe(false);
+    });
+  });
+});
+
 describe('.isValidNum()', () => {
   describe('number is valid', () => {
     test('should return true if number is a positive integer', () => {
@@ -12,7 +65,6 @@ describe('.isValidNum()', () => {
       expect(tests.isValidNum('two')).toBe(false);
       expect(tests.isValidNum('0')).toBe(false);
       expect(tests.isValidNum('')).toBe(false);
-      expect(tests.isValidNum(null)).toBe(false);
       expect(tests.isValidNum(undefined)).toBe(false);
     });
   });
