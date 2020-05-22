@@ -106,7 +106,10 @@ describe('GET /api/cart', () => {
     test('should respond with an empty array', async () => {
       await testSession
         .post('/api/cart/')
-        .send({ productId: 25 });
+        .send({ productId: 2 });
+      await testSession
+        .delete('/api/cart/')
+        .send({ productId: 2 });
       const response = await testSession.get('/api/cart/');
       expect(response.body).toEqual([]);
       expect(response.statusCode).toBe(200);
