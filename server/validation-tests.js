@@ -1,5 +1,9 @@
-function isValidNum(num) {
-  return /(?!^0)(^\d+$)/.test(num);
+function isValidId(id) {
+  return /(?!^0)(^\d+$)/.test(id);
+}
+
+function isValidQuantity(quantity) {
+  return /(?!^0)(^\d{1,2}$)/.test(quantity);
 }
 
 function isValidName(name) {
@@ -42,7 +46,8 @@ function isValidCardCVV(cardCVV) {
   return /^[\d]{3,4}$/.test(cardCVV);
 }
 
-exports.isValidNum = isValidNum;
+exports.isValidId = isValidId;
+exports.isValidQuantity = isValidQuantity;
 exports.isValidName = isValidName;
 exports.isValidAddressOne = isValidAddressOne;
 exports.isValidAddressTwo = isValidAddressTwo;

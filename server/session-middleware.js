@@ -1,8 +1,16 @@
 const path = require('path');
 const expressSession = require('express-session');
-const sessonFileStore = require('session-file-store');
+const sessionFileStore = require('session-file-store');
 
-const FileStore = sessonFileStore(expressSession);
+const FileStore = sessionFileStore(expressSession);
+
+let store = new FileStore({
+  retries: 0,
+  ttl: 28800,
+  path: path.join(__dirname, 'sessions/')
+});
+
+if (process.env.NODE_ENV === 'test') store = null;
 
 const sessionMiddleware = expressSession({
   cookie: {
@@ -10,11 +18,7 @@ const sessionMiddleware = expressSession({
   },
   resave: false,
   rolling: true,
-  store: new FileStore({
-    retries: 0,
-    ttl: 28800,
-    path: path.join(__dirname, 'sessions/')
-  }),
+  store,
   saveUninitialized: false,
   secret: process.env.SESSION_SECRET
 });

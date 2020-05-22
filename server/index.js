@@ -36,7 +36,7 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:productId', (req, res, next) => {
   const { productId } = req.params;
-  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const text = `
     SELECT *
       FROM "products"
@@ -53,7 +53,7 @@ app.get('/api/products/:productId', (req, res, next) => {
 
 app.get('/api/cart/', (req, res, next) => {
   const { cartId } = req.session;
-  if (!tests.isValidNum(cartId)) return res.json([]);
+  if (!tests.isValidId(cartId)) return res.json([]);
   const text = `
     SELECT "c"."cartItemId",
            "c"."price",
@@ -75,7 +75,7 @@ app.get('/api/cart/', (req, res, next) => {
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   const { cartId } = req.session;
-  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const sqlSelect = `
     SELECT "price"
       FROM "products"
@@ -84,8 +84,8 @@ app.post('/api/cart', (req, res, next) => {
   const values = [productId];
   db.query(sqlSelect, values)
     .then(priceData => {
-      if (!priceData.rows.length) throw new ClientError(`productId ${productId} does not exist`, 400);
-      if (tests.isValidNum(cartId)) return { price: priceData.rows[0].price, cartId };
+      if (!priceData.rows.length) throw new ClientError(`productId ${productId} does not exist`, 404);
+      if (tests.isValidId(cartId)) return { price: priceData.rows[0].price, cartId };
       const sqlInsert = `
         INSERT INTO "carts" ("cartId", "createdAt")
         VALUES      (default, default)
@@ -128,9 +128,9 @@ app.post('/api/cart', (req, res, next) => {
 app.patch('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { quantity, productId } = req.body;
-  if (!tests.isValidNum(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
-  if (!tests.isValidNum(quantity)) return res.status(400).json({ error: 'missing or invalid quantity' });
-  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidQuantity(quantity)) return res.status(400).json({ error: 'missing or invalid quantity' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
 
   const text = `
     UPDATE    "cartItems"
@@ -142,7 +142,7 @@ app.patch('/api/cart', (req, res, next) => {
   const values = [quantity, cartId, productId];
   db.query(text, values)
     .then(data => {
-      if (!data.rows.length) throw new ClientError(`product ${productId} quantity must be a positive integer`, 400);
+      if (!data.rows.length) throw new ClientError(`productId ${productId} does not exist in cart`, 404);
       return res.json(data.rows[0]);
     })
     .catch(err => next(err));
@@ -151,8 +151,8 @@ app.patch('/api/cart', (req, res, next) => {
 app.delete('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { productId } = req.body;
-  if (!tests.isValidNum(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
-  if (!tests.isValidNum(productId)) return res.status(400).json({ error: 'productId must be a positive integer' });
+  if (!tests.isValidId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const text = `
     DELETE FROM "cartItems"
     WHERE       "cartId" = $1
@@ -162,7 +162,7 @@ app.delete('/api/cart', (req, res, next) => {
   const values = [cartId, productId];
   db.query(text, values)
     .then(result => {
-      if (!result.rows.length) return res.status(404).json({ error: `productId ${productId} does not exist` });
+      if (!result.rows.length) return res.status(404).json({ error: `productId ${productId} does not exist in cart` });
       return res.status(204).json(result.rows[0]);
     })
     .catch(err => next(err));
@@ -170,7 +170,7 @@ app.delete('/api/cart', (req, res, next) => {
 
 app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
-  if (!tests.isValidNum(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
 
   const { name, addressOne, addressTwo, city, state, zipCode, cardNumber, cardMonth, cardYear, cardCVV } = req.body;
 
