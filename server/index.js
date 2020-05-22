@@ -142,7 +142,7 @@ app.patch('/api/cart', (req, res, next) => {
   const values = [quantity, cartId, productId];
   db.query(text, values)
     .then(data => {
-      if (!data.rows.length) throw new ClientError(`productId ${productId} does not exist`, 400);
+      if (!data.rows.length) throw new ClientError(`productId ${productId} does not exist in cart`, 400);
       return res.json(data.rows[0]);
     })
     .catch(err => next(err));
