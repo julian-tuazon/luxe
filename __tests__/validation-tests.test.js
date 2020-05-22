@@ -1,12 +1,12 @@
 const tests = require('../server/validation-tests');
 
 describe('.isValidCartId()', () => {
-  describe('cartId is valid', () => {
+  describe('valid cartId', () => {
     test('should return true if number is a positive integer', () => {
       expect(tests.isValidCartId('2')).toBe(true);
     });
   });
-  describe('cartId is invalid', () => {
+  describe('invalid cartId', () => {
     test('should return false if number is a negative integer', () => {
       expect(tests.isValidCartId('-1')).toBe(false);
     });
@@ -17,7 +17,7 @@ describe('.isValidCartId()', () => {
       expect(tests.isValidCartId('1.5')).toBe(false);
     });
     test('should return false if cartId includes letters', () => {
-      expect(tests.isValidCartId('two')).toBe(false);
+      expect(tests.isValidCartId('2two')).toBe(false);
     });
     test('should return false if cartId is an empty string', () => {
       expect(tests.isValidCartId('')).toBe(false);
@@ -29,7 +29,7 @@ describe('.isValidCartId()', () => {
 });
 
 describe('isValidProductId', () => {
-  describe('productId is valid', () => {
+  describe('valid productId', () => {
     test('should return true if productId is a positive integer between 1-6', () => {
       expect(tests.isValidProductId('3')).toBe(true);
     });
@@ -38,7 +38,7 @@ describe('isValidProductId', () => {
     test('should return false if productId is a negative integer', () => {
       expect(tests.isValidProductId('-1')).toBe(false);
     });
-    test('should return false if productId is an integer less than 1', () => {
+    test('should return false if productId is 0', () => {
       expect(tests.isValidProductId('0')).toBe(false);
     });
     test('should return false if productId is an integer greater than 6', () => {
@@ -48,7 +48,7 @@ describe('isValidProductId', () => {
       expect(tests.isValidProductId('1.5')).toBe(false);
     });
     test('should return false if productId includes letters', () => {
-      expect(tests.isValidProductId('two')).toBe(false);
+      expect(tests.isValidProductId('2two')).toBe(false);
     });
     test('should return false if productId is an empty string', () => {
       expect(tests.isValidProductId('')).toBe(false);
@@ -60,7 +60,7 @@ describe('isValidProductId', () => {
 });
 
 describe('isValidQuantity', () => {
-  describe('quantity is valid', () => {
+  describe('valid quantity', () => {
     test('should return true if quantity is a 1 digit, positive integer between 1-99', () => {
       expect(tests.isValidQuantity('7')).toBe(true);
     });
@@ -82,7 +82,7 @@ describe('isValidQuantity', () => {
       expect(tests.isValidQuantity('120')).toBe(false);
     });
     test('should return false if quantity includes letters', () => {
-      expect(tests.isValidQuantity('two')).toBe(false);
+      expect(tests.isValidQuantity('2o')).toBe(false);
     });
     test('should return false if quantity is an empty string', () => {
       expect(tests.isValidQuantity('')).toBe(false);
@@ -94,12 +94,12 @@ describe('isValidQuantity', () => {
 });
 
 describe('.isValidName()', () => {
-  describe('name is valid', () => {
+  describe('valid name', () => {
     test('should return true if name consists of 5-67 letters/spaces', () => {
       expect(tests.isValidName('John Doe')).toBe(true);
     });
   });
-  describe('name is invalid', () => {
+  describe('invalid name', () => {
     test('should return false if name is less than 5 characters', () => {
       expect(tests.isValidName('John')).toBe(false);
     });
@@ -131,12 +131,12 @@ describe('.isValidName()', () => {
 });
 
 describe('.isValidAddressOne()', () => {
-  describe('addressOne is valid', () => {
+  describe('valid addressOne', () => {
     test('should return true if addressOne consists of 6-42 alphanumeric chars/spaces/symbols (.,#)', () => {
       expect(tests.isValidAddressOne('123 Front Street')).toBe(true);
     });
   });
-  describe('addressOne is invalid', () => {
+  describe('invalid addressOne', () => {
     test('should return false if addressOne is less than 6 characters', () => {
       expect(tests.isValidAddressOne('Park')).toBe(false);
     });
@@ -165,7 +165,7 @@ describe('.isValidAddressOne()', () => {
 });
 
 describe('.isValidAddressTwo()', () => {
-  describe('addressTwo is valid', () => {
+  describe('valid addressTwo', () => {
     test('should return true if addressTwo consists of 0-42 alphanumeric chars/spaces/symbols (.,#)', () => {
       expect(tests.isValidAddressTwo('123 Front Street')).toBe(true);
     });
@@ -176,7 +176,7 @@ describe('.isValidAddressTwo()', () => {
       expect(tests.isValidAddressTwo('')).toBe(true);
     });
   });
-  describe('addressTwo is invalid', () => {
+  describe('invalid addressTwo', () => {
     test('should return false if addressTwo is more than 42 characters', () => {
       expect(tests.isValidAddressTwo('foo'.repeat(30))).toBe(false);
     });
@@ -196,12 +196,12 @@ describe('.isValidAddressTwo()', () => {
 });
 
 describe('.isValidCity()', () => {
-  describe('city is valid', () => {
+  describe('valid city', () => {
     test('should return true if city consists of 3-50 letters/spaces/symbols (.-)', () => {
       expect(tests.isValidCity('St. Louis')).toBe(true);
     });
   });
-  describe('city is invalid', () => {
+  describe('invalid city', () => {
     test('should return false if city is less than 3 characters', () => {
       expect(tests.isValidCity('Bo')).toBe(false);
     });
@@ -230,12 +230,12 @@ describe('.isValidCity()', () => {
 });
 
 describe('.isValidState()', () => {
-  describe('state is valid', () => {
+  describe('valid state', () => {
     test('should return true if state consists of 2 letters', () => {
       expect(tests.isValidState('CA')).toBe(true);
     });
   });
-  describe('state is invalid', () => {
+  describe('invalid state', () => {
     test('should return false if state is less than 2 letters', () => {
       expect(tests.isValidState('C')).toBe(false);
     });
@@ -261,12 +261,12 @@ describe('.isValidState()', () => {
 });
 
 describe('.isValidZipCode()', () => {
-  describe('zipCode is valid', () => {
+  describe('valid zipCode', () => {
     test('should return true if zipCode consists of 5 numbers', () => {
       expect(tests.isValidZipCode('97231')).toBe(true);
     });
   });
-  describe('zipCode is invalid', () => {
+  describe('invalid zipCode', () => {
     test('should return false if zipCode is less than 5 numbers', () => {
       expect(tests.isValidZipCode('143')).toBe(false);
     });
@@ -292,12 +292,12 @@ describe('.isValidZipCode()', () => {
 });
 
 describe('.isValidCardNumber()', () => {
-  describe('cardNumber is valid', () => {
+  describe('valid cardNumber', () => {
     test('should return true if cardNumber consists of 16 numbers', () => {
       expect(tests.isValidCardNumber('9723137583647323')).toBe(true);
     });
   });
-  describe('cardNumber is invalid', () => {
+  describe('invalid cardNumber', () => {
     test('should return false if cardNumber is less than 16 numbers', () => {
       expect(tests.isValidCardNumber('143')).toBe(false);
     });
@@ -323,12 +323,12 @@ describe('.isValidCardNumber()', () => {
 });
 
 describe('.isValidCardMonth()', () => {
-  describe('cardMonth is valid', () => {
+  describe('valid cardMonth', () => {
     test('should return true if cardMonth consists of 2 numbers', () => {
       expect(tests.isValidCardMonth('11')).toBe(true);
     });
   });
-  describe('cardMonth is invalid', () => {
+  describe('invalid cardMonth', () => {
     test('should return false if cardMonth is less than 2 numbers', () => {
       expect(tests.isValidCardMonth('1')).toBe(false);
     });
@@ -354,12 +354,12 @@ describe('.isValidCardMonth()', () => {
 });
 
 describe('.isValidCardYear()', () => {
-  describe('cardYear is valid', () => {
+  describe('valid cardYear', () => {
     test('should return true if cardYear consists of 4 numbers', () => {
       expect(tests.isValidCardYear('2021')).toBe(true);
     });
   });
-  describe('cardYear is invalid', () => {
+  describe('invalid cardYear', () => {
     test('should return false if cardYear is less than 4 numbers', () => {
       expect(tests.isValidCardYear('202')).toBe(false);
     });
@@ -385,7 +385,7 @@ describe('.isValidCardYear()', () => {
 });
 
 describe('.isValidCardCVV()', () => {
-  describe('cardCVV is valid', () => {
+  describe('valid cardCVV', () => {
     test('should return true if cardCVV consists of 3 numbers', () => {
       expect(tests.isValidCardCVV('123')).toBe(true);
     });
@@ -393,7 +393,7 @@ describe('.isValidCardCVV()', () => {
       expect(tests.isValidCardCVV('1234')).toBe(true);
     });
   });
-  describe('cardCVV is invalid', () => {
+  describe('invalid cardCVV', () => {
     test('should return false if cardCVV is less than 3 numbers', () => {
       expect(tests.isValidCardCVV('12')).toBe(false);
     });
