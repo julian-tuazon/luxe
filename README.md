@@ -10,6 +10,8 @@ A full stack content management system and eCommerce website that lets users sho
 - webpack
 - npm
 - Babel
+- Jest
+- SuperTest
 - HTML5
 - CSS3
 - Bootstrap 4
