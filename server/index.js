@@ -36,7 +36,7 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:productId', (req, res, next) => {
   const { productId } = req.params;
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const text = `
     SELECT *
       FROM "products"
@@ -53,7 +53,7 @@ app.get('/api/products/:productId', (req, res, next) => {
 
 app.get('/api/cart/', (req, res, next) => {
   const { cartId } = req.session;
-  if (!tests.isValidCartId(cartId)) return res.json([]);
+  if (!tests.isValidId(cartId)) return res.json([]);
   const text = `
     SELECT "c"."cartItemId",
            "c"."price",
@@ -75,7 +75,7 @@ app.get('/api/cart/', (req, res, next) => {
 app.post('/api/cart', (req, res, next) => {
   const { productId } = req.body;
   const { cartId } = req.session;
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const sqlSelect = `
     SELECT "price"
       FROM "products"
@@ -85,7 +85,7 @@ app.post('/api/cart', (req, res, next) => {
   db.query(sqlSelect, values)
     .then(priceData => {
       if (!priceData.rows.length) throw new ClientError(`productId ${productId} does not exist`, 404);
-      if (tests.isValidCartId(cartId)) return { price: priceData.rows[0].price, cartId };
+      if (tests.isValidId(cartId)) return { price: priceData.rows[0].price, cartId };
       const sqlInsert = `
         INSERT INTO "carts" ("cartId", "createdAt")
         VALUES      (default, default)
@@ -128,9 +128,9 @@ app.post('/api/cart', (req, res, next) => {
 app.patch('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { quantity, productId } = req.body;
-  if (!tests.isValidCartId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
   if (!tests.isValidQuantity(quantity)) return res.status(400).json({ error: 'missing or invalid quantity' });
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
 
   const text = `
     UPDATE    "cartItems"
@@ -151,8 +151,8 @@ app.patch('/api/cart', (req, res, next) => {
 app.delete('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   const { productId } = req.body;
-  if (!tests.isValidCartId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
-  if (!tests.isValidProductId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
+  if (!tests.isValidId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidId(productId)) return res.status(400).json({ error: 'missing or invalid productId' });
   const text = `
     DELETE FROM "cartItems"
     WHERE       "cartId" = $1
@@ -170,7 +170,7 @@ app.delete('/api/cart', (req, res, next) => {
 
 app.post('/api/orders', (req, res, next) => {
   const { cartId } = req.session;
-  if (!tests.isValidCartId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
+  if (!tests.isValidId(cartId)) return res.status(400).json({ error: 'missing or invalid cartId' });
 
   const { name, addressOne, addressTwo, city, state, zipCode, cardNumber, cardMonth, cardYear, cardCVV } = req.body;
 

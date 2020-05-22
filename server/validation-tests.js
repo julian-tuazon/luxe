@@ -1,9 +1,5 @@
-function isValidCartId(cartId) {
-  return /(?!^0)(^\d+$)/.test(cartId);
-}
-
-function isValidProductId(productId) {
-  return /(?!^0)(^[1-6]$)/.test(productId);
+function isValidId(id) {
+  return /(?!^0)(^\d+$)/.test(id);
 }
 
 function isValidQuantity(quantity) {
@@ -50,8 +46,7 @@ function isValidCardCVV(cardCVV) {
   return /^[\d]{3,4}$/.test(cardCVV);
 }
 
-exports.isValidCartId = isValidCartId;
-exports.isValidProductId = isValidProductId;
+exports.isValidId = isValidId;
 exports.isValidQuantity = isValidQuantity;
 exports.isValidName = isValidName;
 exports.isValidAddressOne = isValidAddressOne;
