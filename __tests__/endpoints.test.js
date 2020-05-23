@@ -368,7 +368,7 @@ describe('POST /api/orders', () => {
     });
   });
   describe('missing order info (cardNumber)', () => {
-    test('should respond with an object indicating an error (missing or invalid card number) and status 400', async () => {
+    test('should respond with an object indicating an error (missing or invalid cardNumber) and status 400', async () => {
       await testSession
         .post('/api/cart')
         .send({
@@ -381,7 +381,7 @@ describe('POST /api/orders', () => {
       const response = await testSession
         .post('/api/orders')
         .send(orderInfoWithMissingCardNumber);
-      expect(response.body).toEqual({ error: 'missing or invalid card number' });
+      expect(response.body).toEqual({ error: 'missing or invalid cardNumber' });
       expect(response.statusCode).toBe(400);
     });
   });
