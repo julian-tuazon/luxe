@@ -3,7 +3,7 @@ const request = require('supertest');
 const session = require('supertest-session');
 const app = require('../server/index');
 
-const PRODUCT_LIST = require('../server/product-list');
+const PRODUCT_LIST = require('./product-list.json');
 
 let testSession = null;
 
@@ -282,5 +282,43 @@ describe('DELETE /api/cart/', () => {
       expect(response.body).toEqual({ error: 'productId 25 does not exist in cart' });
       expect(response.statusCode).toBe(404);
     });
+  });
+});
+
+describe('POST /api/orders/', () => {
+  describe('valid cartId and order info', () => {
+    test('should respond with the order info and 201', async () => {
+      await testSession
+        .post('/api/cart')
+        .send({
+          productId: 2
+        });
+      const response = await testSession
+        .post('/api/orders')
+        .send({
+          name: 'John Doe',
+          addressOne: '12345 Front Street',
+          addressTwo: 'Apt. 5',
+          city: 'Los Angeles',
+          state: 'CA',
+          zipCode: '92332',
+          cardNumber: '1234567891234567',
+          cardMonth: '11',
+          cardYear: '2023',
+          cardCVV: '123'
+        });
+      expect(response.body).toHaveProperty('name');
+      expect(response.body).toHaveProperty('addressOne', '12345 Front Street');
+      expect(response.body).toHaveProperty('addressTwo', 'Apt. 5');
+      expect(response.body).toHaveProperty('city', 'Los Angeles');
+      expect(response.body).toHaveProperty('state', 'CA');
+      expect(response.body).toHaveProperty('zipCode', '92332');
+      expect(response.body).toHaveProperty('cardNumber', '1234567891234567');
+      expect(response.body).toHaveProperty('cardMonth', '11');
+      expect(response.body).toHaveProperty('cardYear', '2023');
+      expect(response.body).toHaveProperty('cardCVV', '123');
+      expect(response.statusCode).toBe(201);
+    });
+
   });
 });
