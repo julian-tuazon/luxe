@@ -20,7 +20,7 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/products', (req, res, next) => {
+app.get('/api/products/', (req, res, next) => {
   const text = `
     SELECT "productId",
            "name",
@@ -51,7 +51,7 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/cart/', (req, res, next) => {
+app.get('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   if (!tests.isValidId(cartId)) return res.json([]);
   const text = `
