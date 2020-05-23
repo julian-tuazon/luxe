@@ -1,5 +1,4 @@
 process.env.NODE_ENV = 'test';
-const request = require('supertest');
 const session = require('supertest-session');
 const app = require('../server/index');
 
@@ -14,7 +13,7 @@ beforeEach(function () {
 
 describe('GET /api/products/', () => {
   test('should return an array of products and status 200', async () => {
-    const response = await request(app).get('/api/products/');
+    const response = await testSession.get('/api/products/');
     expect(response.body).toEqual(PRODUCT_LIST);
     expect(response.statusCode).toBe(200);
   });
@@ -23,7 +22,7 @@ describe('GET /api/products/', () => {
 describe('GET /api/products/:productId', () => {
   describe('valid productId', () => {
     test('should respond with the product details and status 200', async () => {
-      const response = await request(app).get('/api/products/1');
+      const response = await testSession.get('/api/products/1');
       expect(response.body).toHaveProperty('image');
       expect(response.body).toHaveProperty('longDescription');
       expect(response.body).toHaveProperty('name');
@@ -35,14 +34,14 @@ describe('GET /api/products/:productId', () => {
   });
   describe('invalid productId', () => {
     test('should respond with an object indicating an error (missing/invalid productId) and status 400', async () => {
-      const response = await request(app).get('/api/products/three');
+      const response = await testSession.get('/api/products/three');
       expect(response.body).toEqual({ error: 'missing or invalid productId' });
       expect(response.statusCode).toBe(400);
     });
   });
   describe('non-existent productId', () => {
     test('should respond with an object indicating an error (non-existent productId) and status 404', async () => {
-      const response = await request(app).get('/api/products/25');
+      const response = await testSession.get('/api/products/25');
       expect(response.body).toEqual({ error: 'productId 25 does not exist' });
       expect(response.statusCode).toBe(404);
     });
@@ -88,7 +87,7 @@ describe('GET /api/cart', () => {
   });
   describe('missing cartId', () => {
     test('should respond with an empty array and status 200', async () => {
-      const response = await request(app).get('/api/cart');
+      const response = await testSession.get('/api/cart');
       expect(response.body).toEqual([]);
       expect(response.statusCode).toBe(200);
     });
@@ -98,7 +97,7 @@ describe('GET /api/cart', () => {
 describe('POST /api/cart', () => {
   describe('valid productId', () => {
     test('should respond with the newly added cart item and status 201', async () => {
-      const response = await request(app)
+      const response = await testSession
         .post('/api/cart')
         .send({
           productId: 2
@@ -115,7 +114,7 @@ describe('POST /api/cart', () => {
   });
   describe('invalid productId', () => {
     test('should respond with an object indicating an error (missing/invalid productId) and status 400', async () => {
-      const response = await request(app)
+      const response = await testSession
         .post('/api/cart')
         .send({
           productId: -1
@@ -126,7 +125,7 @@ describe('POST /api/cart', () => {
   });
   describe('non-existent productId', () => {
     test('should respond with an object indicating an error (non-existent productId) and status 404', async () => {
-      const response = await request(app)
+      const response = await testSession
         .post('/api/cart')
         .send({
           productId: 25
