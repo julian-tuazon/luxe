@@ -53,7 +53,9 @@ describe('GET /api/cart', () => {
     test('should respond with an array of cart items and 200', async () => {
       await testSession
         .post('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       const response = await testSession.get('/api/cart/');
       const result = response.body[0];
       expect(result).toHaveProperty('cartItemId');
@@ -70,10 +72,14 @@ describe('GET /api/cart', () => {
     test('should respond with an empty array and 200', async () => {
       await testSession
         .post('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       await testSession
         .delete('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       const response = await testSession.get('/api/cart/');
       expect(response.body).toEqual([]);
       expect(response.statusCode).toBe(200);
@@ -93,7 +99,9 @@ describe('POST /api/cart', () => {
     test('should respond with the newly added cart item and 201', async () => {
       const response = await request(app)
         .post('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       expect(response.body).toHaveProperty('cartItemId');
       expect(response.body).toHaveProperty('image');
       expect(response.body).toHaveProperty('name');
@@ -108,7 +116,9 @@ describe('POST /api/cart', () => {
     test('should respond with an object indicating an error (missing/invalid productId) and 400', async () => {
       const response = await request(app)
         .post('/api/cart/')
-        .send({ productId: -1 });
+        .send({
+          productId: -1
+        });
       expect(response.body).toEqual({ error: 'missing or invalid productId' });
       expect(response.statusCode).toBe(400);
     });
@@ -117,7 +127,9 @@ describe('POST /api/cart', () => {
     test('should respond with an object indicating an error (non-existent productId) and 404', async () => {
       const response = await request(app)
         .post('/api/cart/')
-        .send({ productId: 25 });
+        .send({
+          productId: 25
+        });
       expect(response.body).toEqual({ error: 'productId 25 does not exist' });
       expect(response.statusCode).toBe(404);
     });
@@ -129,7 +141,9 @@ describe('PATCH /api/cart', () => {
     test('should return modified product in cart and 200', async () => {
       await testSession
         .post('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       const response = await testSession
         .patch('/api/cart')
         .send({
@@ -160,7 +174,9 @@ describe('PATCH /api/cart', () => {
     test('should respond with an object indicating an error (missing/invalid productId) and 400', async () => {
       await testSession
         .post('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       const response = await testSession
         .patch('/api/cart/')
         .send({
@@ -175,7 +191,9 @@ describe('PATCH /api/cart', () => {
     test('should respond with an object indicating an error (non-existent productId) and 404', async () => {
       await testSession
         .post('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       const response = await testSession
         .patch('/api/cart/')
         .send({
@@ -190,7 +208,9 @@ describe('PATCH /api/cart', () => {
     test('should respond with an object indicating an error (missing/invalid quantity) and 400', async () => {
       await testSession
         .post('/api/cart/')
-        .send({ productId: 2 });
+        .send({
+          productId: 2
+        });
       const response = await testSession
         .patch('/api/cart/')
         .send({
@@ -220,7 +240,7 @@ describe('DELETE /api/cart/', () => {
       expect(response.statusCode).toBe(204);
     });
   });
-  describe('invalid cartId', () => {
+  describe('missing cartId', () => {
     test('should respond with an object indicating an error(missing or invalid cartId) and 400', async () => {
       const response = await testSession
         .delete('/api/cart/')
