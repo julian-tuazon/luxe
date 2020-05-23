@@ -204,3 +204,65 @@ describe('PATCH /api/cart', () => {
     });
   });
 });
+
+describe('DELETE /api/cart/', () => {
+  describe('valid cartId and productId', () => {
+    test('should respond with an empty response body and 204', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({
+          productId: 2
+        });
+      const response = await testSession
+        .delete('/api/cart/')
+        .send({
+          productId: 2
+        });
+      expect(response.body).toEqual({});
+      expect(response.statusCode).toBe(204);
+    });
+  });
+  describe('invalid cartId', () => {
+    test('should respond with an object indicating an error(missing or invalid cartId) and 400', async () => {
+      const response = await testSession
+        .delete('/api/cart/')
+        .send({
+          productId: 2
+        });
+      expect(response.body).toEqual({ error: 'missing or invalid cartId' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('invalid productId', () => {
+    test('should respond with an object indicating an error(missing or invalid productId) and 400', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({
+          productId: 2
+        });
+      const response = await testSession
+        .delete('/api/cart/')
+        .send({
+          productId: -5
+        });
+      expect(response.body).toEqual({ error: 'missing or invalid productId' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('non-existent productId', () => {
+    test('should respond with an object indicating an error(non-existent productId) and 404', async () => {
+      await testSession
+        .post('/api/cart/')
+        .send({
+          productId: 2
+        });
+      const response = await testSession
+        .delete('/api/cart/')
+        .send({
+          productId: 25
+        });
+      expect(response.body).toEqual({ error: 'productId 25 does not exist in cart' });
+      expect(response.statusCode).toBe(404);
+    });
+  });
+});
