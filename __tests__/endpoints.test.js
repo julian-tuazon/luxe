@@ -4,6 +4,7 @@ const session = require('supertest-session');
 const app = require('../server/index');
 
 const PRODUCT_LIST = require('./product-list.json');
+const ORDER_INFO = require('./order-info.json');
 
 let testSession = null;
 
@@ -241,7 +242,7 @@ describe('DELETE /api/cart/', () => {
     });
   });
   describe('missing cartId', () => {
-    test('should respond with an object indicating an error(missing or invalid cartId) and 400', async () => {
+    test('should respond with an object indicating an error (missing or invalid cartId) and 400', async () => {
       const response = await testSession
         .delete('/api/cart/')
         .send({
@@ -252,7 +253,7 @@ describe('DELETE /api/cart/', () => {
     });
   });
   describe('invalid productId', () => {
-    test('should respond with an object indicating an error(missing or invalid productId) and 400', async () => {
+    test('should respond with an object indicating an error (missing or invalid productId) and 400', async () => {
       await testSession
         .post('/api/cart/')
         .send({
@@ -268,7 +269,7 @@ describe('DELETE /api/cart/', () => {
     });
   });
   describe('non-existent productId', () => {
-    test('should respond with an object indicating an error(non-existent productId) and 404', async () => {
+    test('should respond with an object indicating an error (non-existent productId) and 404', async () => {
       await testSession
         .post('/api/cart/')
         .send({
@@ -285,9 +286,9 @@ describe('DELETE /api/cart/', () => {
   });
 });
 
-describe('POST /api/orders/', () => {
-  describe('valid cartId and order info', () => {
-    test('should respond with the order info and 201', async () => {
+describe('POST /api/orders', () => {
+  describe('valid cartId and complete order info', () => {
+    test('should respond with the order info and status 201', async () => {
       await testSession
         .post('/api/cart')
         .send({
@@ -295,19 +296,8 @@ describe('POST /api/orders/', () => {
         });
       const response = await testSession
         .post('/api/orders')
-        .send({
-          name: 'John Doe',
-          addressOne: '12345 Front Street',
-          addressTwo: 'Apt. 5',
-          city: 'Los Angeles',
-          state: 'CA',
-          zipCode: '92332',
-          cardNumber: '1234567891234567',
-          cardMonth: '11',
-          cardYear: '2023',
-          cardCVV: '123'
-        });
-      expect(response.body).toHaveProperty('name');
+        .send(ORDER_INFO);
+      expect(response.body).toHaveProperty('name', 'John Doe');
       expect(response.body).toHaveProperty('addressOne', '12345 Front Street');
       expect(response.body).toHaveProperty('addressTwo', 'Apt. 5');
       expect(response.body).toHaveProperty('city', 'Los Angeles');
@@ -317,8 +307,100 @@ describe('POST /api/orders/', () => {
       expect(response.body).toHaveProperty('cardMonth', '11');
       expect(response.body).toHaveProperty('cardYear', '2023');
       expect(response.body).toHaveProperty('cardCVV', '123');
+      expect(response.body).toHaveProperty('createdAt');
+      expect(response.body).toHaveProperty('orderId');
       expect(response.statusCode).toBe(201);
     });
+  });
+  describe('valid cartId and complete order info (without optional addressTwo)', () => {
+    test('should respond with the order info (null addressTwo) and status 201', async () => {
+      await testSession
+        .post('/api/cart')
+        .send({
+          productId: 2
+        });
 
+      const orderInfoWithoutAddressTwo = Object.assign({}, ORDER_INFO);
+      delete orderInfoWithoutAddressTwo.addressTwo;
+
+      const response = await testSession
+        .post('/api/orders')
+        .send(orderInfoWithoutAddressTwo);
+      expect(response.body).toHaveProperty('name', 'John Doe');
+      expect(response.body).toHaveProperty('addressOne', '12345 Front Street');
+      expect(response.body).toHaveProperty('addressTwo', null);
+      expect(response.body).toHaveProperty('city', 'Los Angeles');
+      expect(response.body).toHaveProperty('state', 'CA');
+      expect(response.body).toHaveProperty('zipCode', '92332');
+      expect(response.body).toHaveProperty('cardNumber', '1234567891234567');
+      expect(response.body).toHaveProperty('cardMonth', '11');
+      expect(response.body).toHaveProperty('cardYear', '2023');
+      expect(response.body).toHaveProperty('cardCVV', '123');
+      expect(response.body).toHaveProperty('createdAt');
+      expect(response.body).toHaveProperty('orderId');
+      expect(response.statusCode).toBe(201);
+    });
+  });
+  describe('cartId is deleted after order is placed', () => {
+    test('should respond with an object indicating an error (missing or invalid cartId) and status 400', async () => {
+      await testSession
+        .post('/api/cart')
+        .send({
+          productId: 2
+        });
+      await testSession
+        .post('/api/orders')
+        .send(ORDER_INFO);
+      const response = await testSession
+        .post('/api/orders')
+        .send(ORDER_INFO);
+      expect(response.body).toEqual({ error: 'missing or invalid cartId' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('missing cartId', () => {
+    test('should respond with an object indicating an error (missing or invalid cartId) and status 400', async () => {
+      const response = await testSession
+        .post('/api/orders')
+        .send(ORDER_INFO);
+      expect(response.body).toEqual({ error: 'missing or invalid cartId' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('missing order info (cardNumber)', () => {
+    test('should respond with an object indicating an error (missing or invalid card number) and status 400', async () => {
+      await testSession
+        .post('/api/cart')
+        .send({
+          productId: 2
+        });
+
+      const orderInfoWithMissingCardNumber = Object.assign({}, ORDER_INFO);
+      delete orderInfoWithMissingCardNumber.cardNumber;
+
+      const response = await testSession
+        .post('/api/orders')
+        .send(orderInfoWithMissingCardNumber);
+      expect(response.body).toEqual({ error: 'missing or invalid card number' });
+      expect(response.statusCode).toBe(400);
+    });
+  });
+  describe('invalid order info (name)', () => {
+    test('should respond with an object indicating an error (missing or invalid name) and status 400', async () => {
+      await testSession
+        .post('/api/cart')
+        .send({
+          productId: 2
+        });
+
+      const orderInfoWithInvalidName = Object.assign({}, ORDER_INFO);
+      orderInfoWithInvalidName.name = 'invalid Nam3   !';
+
+      const response = await testSession
+        .post('/api/orders')
+        .send(orderInfoWithInvalidName);
+      expect(response.body).toEqual({ error: 'missing or invalid name' });
+      expect(response.statusCode).toBe(400);
+    });
   });
 });
