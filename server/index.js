@@ -195,7 +195,7 @@ app.post('/api/orders', (req, res, next) => {
                 "addressTwo",
                 "city",
                 "state",
-                "zipCode"
+                "zipCode",
                 "cardNumber",
                 "cardMonth",
                 "cardYear",
