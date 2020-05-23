@@ -20,7 +20,7 @@ app.get('/api/health-check', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/products', (req, res, next) => {
+app.get('/api/products/', (req, res, next) => {
   const text = `
     SELECT "productId",
            "name",
@@ -51,7 +51,7 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/cart/', (req, res, next) => {
+app.get('/api/cart', (req, res, next) => {
   const { cartId } = req.session;
   if (!tests.isValidId(cartId)) return res.json([]);
   const text = `
@@ -179,11 +179,11 @@ app.post('/api/orders', (req, res, next) => {
   if (!tests.isValidAddressTwo(addressTwo)) return res.status(400).json({ error: 'invalid addressTwo' });
   if (!tests.isValidCity(city)) return res.status(400).json({ error: 'missing or invalid city' });
   if (!tests.isValidState(state)) return res.status(400).json({ error: 'missing or invalid state' });
-  if (!tests.isValidZipCode(zipCode)) return res.status(400).json({ error: 'missing or invalid zip code' });
-  if (!tests.isValidCardNumber(cardNumber)) return res.status(400).json({ error: 'missing or invalid card number' });
-  if (!tests.isValidCardMonth(cardMonth)) return res.status(400).json({ error: 'missing or invalid card month' });
-  if (!tests.isValidCardYear(cardYear)) return res.status(400).json({ error: 'missing or invalid card year' });
-  if (!tests.isValidCardCVV(cardCVV)) return res.status(400).json({ error: 'missing or invalid card CVV' });
+  if (!tests.isValidZipCode(zipCode)) return res.status(400).json({ error: 'missing or invalid zipCode' });
+  if (!tests.isValidCardNumber(cardNumber)) return res.status(400).json({ error: 'missing or invalid cardNumber' });
+  if (!tests.isValidCardMonth(cardMonth)) return res.status(400).json({ error: 'missing or invalid cardMonth' });
+  if (!tests.isValidCardYear(cardYear)) return res.status(400).json({ error: 'missing or invalid cardYear' });
+  if (!tests.isValidCardCVV(cardCVV)) return res.status(400).json({ error: 'missing or invalid cardCVV' });
 
   const text = `
     INSERT INTO "orders" ("cartId", "name", "addressOne", "addressTwo", "city", "state", "zipCode", "cardNumber", "cardMonth", "cardYear", "cardCVV")
@@ -195,7 +195,7 @@ app.post('/api/orders', (req, res, next) => {
                 "addressTwo",
                 "city",
                 "state",
-                "zipCode"
+                "zipCode",
                 "cardNumber",
                 "cardMonth",
                 "cardYear",

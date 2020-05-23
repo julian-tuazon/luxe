@@ -1,0 +1,12 @@
+{
+  "name": "John Doe",
+  "addressOne": "12345 Front Street",
+  "addressTwo": "Apt. 5",
+  "city": "Los Angeles",
+  "state": "CA",
+  "zipCode": "92332",
+  "cardNumber": "1234567891234567",
+  "cardMonth": "11",
+  "cardYear": "2023",
+  "cardCVV": "123"
+}
