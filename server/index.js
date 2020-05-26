@@ -180,7 +180,7 @@ app.post('/api/orders', (req, res, next) => {
   if (!tests.isValidCity(city)) return res.status(400).json({ error: 'missing or invalid city' });
   if (!tests.isValidState(state)) return res.status(400).json({ error: 'missing or invalid state' });
   if (!tests.isValidZipCode(zipCode)) return res.status(400).json({ error: 'missing or invalid zipCode' });
-
+  if (!tests.isValidCardNumber(cardNumber)) return res.status(400).json({ error: 'missing or invalid cardNumber' });
   if (!tests.isValidCardMonth(cardMonth)) return res.status(400).json({ error: 'missing or invalid cardMonth' });
   if (!tests.isValidCardYear(cardYear)) return res.status(400).json({ error: 'missing or invalid cardYear' });
   if (!tests.isValidCardCVV(cardCVV)) return res.status(400).json({ error: 'missing or invalid cardCVV' });
