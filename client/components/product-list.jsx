@@ -39,6 +39,7 @@ export default class ProductList extends React.Component {
             <h4 className="mr-3">R E D E F I N E D</h4>
           </div>
         </div>
+        <h2 className="text-center mb-5">Featured Products</h2>
         <div className="row row-cols-1 row-cols-md-3">
           {products}
         </div>
