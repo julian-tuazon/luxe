@@ -1,9 +1,4 @@
-* {
-  animation: fade-in 0.3s ease-out;
-}
-
 html, body {
-  scroll-behavior: smooth;
   height: 100%;
 }
 
@@ -45,7 +40,15 @@ img {
   background: rgba(0, 0, 0, 0.6);
 }
 
+.fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
 @keyframes fade-in {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
