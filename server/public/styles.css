@@ -40,8 +40,8 @@ img {
   background: rgba(0, 0, 0, 0.6);
 }
 
-.slide-in {
-  animation: slide-in 0.3s ease-out;
+.fade-in {
+  animation: fade-in 0.3s ease-out;
 }
 
 @keyframes fade-in {
