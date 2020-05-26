@@ -56,7 +56,7 @@ export default class ProductDetails extends React.Component {
 
     return (
       <div className={modalClassName} tabIndex="-1" role="dialog">
-        <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-dialog modal-dialog-centered fade-in" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">{statusTitle}</h5>
