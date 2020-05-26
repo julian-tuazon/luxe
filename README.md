@@ -1,5 +1,5 @@
 # LUXE
-A full stack content management system and eCommerce website that lets users shop online.
+A full stack CRUD application and eCommerce website that lets users shop online.
 
 ## Technologies Used
 - React
