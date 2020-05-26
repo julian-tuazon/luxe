@@ -6,10 +6,15 @@ export default class CartSummaryItem extends React.Component {
     super(props);
     this.state = { showModal: false };
     this.removeCartItem = this.removeCartItem.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   removeCartItem() {
     this.setState({ showModal: true });
+  }
+
+  handleClick() {
+    this.props.setView('details', { productId: this.props.item.productId });
   }
 
   renderModal() {
@@ -51,8 +56,9 @@ export default class CartSummaryItem extends React.Component {
         {this.renderModal()}
         <img
           src={this.props.item.image}
-          className="col-md-4 mb-4 mb-md-0 px-0 py-2"
-          alt={this.props.item.name} />
+          className="btn col-md-4 mb-4 mb-md-0 px-0 py-2"
+          alt={this.props.item.name}
+          onClick={this.handleClick}/>
         <div className="d-flex flex-column justify-content-center col-md-7 px-0">
           <h4 className="card-title">{this.props.item.name}</h4>
           <div>
