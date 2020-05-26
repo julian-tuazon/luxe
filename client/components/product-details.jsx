@@ -94,7 +94,7 @@ export default class ProductDetails extends React.Component {
           <div className="d-flex flex-column flex-md-row justify-content-between mb-4">
             <img
               src={this.state.product.image}
-              className="col-md-4 mb-4 mb-md-0 px-0 py-2"
+              className="col-md-4 mb-4 mb-md-0 px-0 py-2 fade-in"
               alt={this.state.product.name} />
             <div className="d-flex flex-column justify-content-center col-md-7 px-0">
               <h4 className="card-title">{this.state.product.name}</h4>
